@@ -1,0 +1,19 @@
+{
+    "name": "joren/acf-builder",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Joren Rothman",
+            "email": "rothmanjoren@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "ACFBuilder\\": "",
+            "ACFBuilder\\Fields\\": "fields",
+            "ACFBuilder\\Builders\\": "builders",
+            "ACFBuilder\\Decorators\\": "decorators"
+        }
+    }
+}
