@@ -161,7 +161,6 @@ abstract class Field implements IsBuildable
             }
         }
 
-        var_dump($newArray);
 
         return $newArray;
     }
