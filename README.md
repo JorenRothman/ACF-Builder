@@ -67,3 +67,28 @@ $location->add('post_type', '==', 'my_post_type');
 
 $myFieldGroup->addLocation($otherLocation);
 ```
+
+### Adding Conditional Logic To Your Field
+To add conditional logic to your field you can use the following code
+
+```php
+$trueFalseField = new TrueFalseField('Title');
+$textField = new TextField('Text');
+
+$conditionalLogic = new FieldRuleGroup();
+
+$conditionalLogic->>add($trueFalseField, '!=', 'true');
+
+$textField->setConditionalLogic($conditionalLogic);
+```
+
+The code above will only show the text field when the true false field is false.
+
+To do AND OR operators this works the same as with the group location.
+
+### Register Your Field Group
+When you're all done adding fields, locations and other settings it's time to register your field group. Registering is done in the following manor
+
+```php
+$myFieldGroup->register();
+```
