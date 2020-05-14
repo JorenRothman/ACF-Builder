@@ -21,6 +21,11 @@ Table of Contents
 - Email
 - URL
 - Password
+- WYSIWYG
+- OEMBED
+- Image
+- File
+- Gallery
 - True False
 
 # Usage
