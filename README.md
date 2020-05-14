@@ -16,6 +16,11 @@ Table of Contents
 
 # Supported Fields
 - Text
+- Textarea
+- Number
+- Email
+- URL
+- Password
 - True False
 
 # Usage
