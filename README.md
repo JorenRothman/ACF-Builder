@@ -1,3 +1,18 @@
+Table of Contents
+=================
+
+- [Table of Contents](#table-of-contents)
+  - [Supported Fields](#supported-fields)
+  - [Usage](#usage)
+    - [Creating A Field](#creating-a-field)
+    - [Creating A Field Group](#creating-a-field-group)
+    - [Adding A Field To Your Field Group](#adding-a-field-to-your-field-group)
+    - [Creating A Group Location](#creating-a-group-location)
+      - [AND Statement](#and-statement)
+      - [OR Statement](#or-statement)
+    - [Adding Conditional Logic To Your Field](#adding-conditional-logic-to-your-field)
+    - [Register Your Field Group](#register-your-field-group)
+
 ## Supported Fields
 - Text
 - True False
