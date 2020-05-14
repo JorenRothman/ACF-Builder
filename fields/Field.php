@@ -122,7 +122,7 @@ abstract class Field implements IsBuildable
 
     public function setMaxlength($maxlength)
     {
-        $this->$maxlength = $maxlength;
+        $this->maxlength = (string) $maxlength;
     }
 
     public function setReadonly($readonly)
