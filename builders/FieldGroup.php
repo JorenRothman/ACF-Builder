@@ -41,6 +41,14 @@ class FieldGroup
             $key = static::GROUP_NAMESPACE . '_' . $key;
         }
 
+        $key = strtolower($key);
+
+        $key = str_replace('-', '', $key);
+        $key = str_replace(' ', '_', $key);
+        $key = str_replace('__', '_', $key);
+
+        var_dump($key);
+
         $this->key = $key;
     }
 
@@ -79,7 +87,7 @@ class FieldGroup
         array_push($this->location, $location);
     }
 
-    private function buildBuildeable($buildables)
+    private function buildBuildable($buildables)
     {
         $data = [];
 
@@ -88,7 +96,7 @@ class FieldGroup
         }
 
         foreach ($buildables as $buildable) {
-            array_push($data, $buildable->build());
+            array_push($data, $buildable->build($this->key));
         }
 
         return $data;
@@ -96,12 +104,12 @@ class FieldGroup
 
     private function buildFields()
     {
-        return $this->buildBuildeable($this->fields);
+        return $this->buildBuildable($this->fields);
     }
 
     private function buildLocations()
     {
-        return $this->buildBuildeable($this->location);
+        return $this->buildBuildable($this->location);
     }
 
     public function build()

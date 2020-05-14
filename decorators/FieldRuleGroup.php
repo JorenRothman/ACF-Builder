@@ -23,7 +23,7 @@ class FieldRuleGroup implements IsBuildable
         array_push($this->rules, $rule);
     }
 
-    public function build()
+    public function build($suffix)
     {
         return $this->rules;
     }

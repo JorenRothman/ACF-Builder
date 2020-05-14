@@ -92,9 +92,7 @@ abstract class Field implements IsBuildable
 
     public function setConditionalLogic($fieldRuleGroup)
     {
-        array_push($this->conditionalLogic, $fieldRuleGroup->build());
-
-        var_dump($this->conditionalLogic);
+        array_push($this->conditionalLogic, $fieldRuleGroup->build(''));
     }
 
     public function setWrapper($width = 100, $class = '', $id = '')
@@ -141,7 +139,7 @@ abstract class Field implements IsBuildable
         $this->disabled = $disabled;
     }
 
-    public function build()
+    public function build($suffix)
     {
         $array = json_decode(json_encode($this), true);
         $newArray = [];
@@ -150,6 +148,17 @@ abstract class Field implements IsBuildable
             $newKey = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $key));
 
             $newArray[$newKey] = $value;
+
+            if ($key === 'name' || $key === 'key') {
+
+                $value = $suffix . ' ' . $value;
+
+                $value = explode(' ', strtolower($value));
+
+                $value = join('_', $value);
+
+                $newArray[$newKey] = $value;
+            }
 
             if (is_bool($value)) {
                 $newArray[$newKey] = intval($value);

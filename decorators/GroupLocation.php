@@ -23,7 +23,7 @@ class GroupLocation implements IsBuildable
         array_push($this->locations, $location);
     }
 
-    public function build()
+    public function build($suffix)
     {
         return $this->locations;
     }

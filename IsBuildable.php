@@ -4,5 +4,5 @@ namespace ACFBuilder;
 
 interface IsBuildable
 {
-    public function build();
+    public function build($suffix);
 }
