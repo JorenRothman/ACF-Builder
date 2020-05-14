@@ -26,6 +26,9 @@ Table of Contents
 - Image
 - File
 - Gallery
+- Select
+- Checkbox
+- Radio
 - True False
 
 # Usage
