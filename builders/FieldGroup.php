@@ -4,8 +4,6 @@ namespace ACFBuilder\Builders;
 
 class FieldGroup
 {
-    const GROUP_NAMESPACE = 'group';
-
     private $key;
 
     private $title;
@@ -37,17 +35,12 @@ class FieldGroup
 
     private function setKey($key)
     {
-        if (!preg_match('/^' . static::GROUP_NAMESPACE . '/', $key)) {
-            $key = static::GROUP_NAMESPACE . '_' . $key;
-        }
-
         $key = strtolower($key);
 
         $key = str_replace('-', '', $key);
         $key = str_replace(' ', '_', $key);
         $key = str_replace('__', '_', $key);
 
-        var_dump($key);
 
         $this->key = $key;
     }

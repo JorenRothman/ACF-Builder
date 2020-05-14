@@ -12,6 +12,7 @@ Table of Contents
     - [OR Statement](#or-statement)
   - [Adding Conditional Logic To Your Field](#adding-conditional-logic-to-your-field)
   - [Register Your Field Group](#register-your-field-group)
+  - [Getting Data In Templates](#getting-data-in-templates)
 
 # Supported Fields
 - Text
@@ -106,4 +107,22 @@ When you're all done adding fields, locations and other settings it's time to re
 
 ```php
 $myFieldGroup->register();
+```
+
+## Getting Data In Templates
+To get the value of your newly created field(s). You simply take your field group and field name and combine them and replace all spaces and dashes with underscore.
+
+An Example
+
+```php
+$myFieldGroup = new FieldGroup('My Field Group name');
+$myField = new TextField('My Field Name');
+
+$myFieldGroup->addField($myField);
+
+$myFieldGroup->register();
+
+// The Field Name will be my_field_group_name_my_field_name
+
+get_field('my_field_group_name_my_field_name');
 ```

@@ -6,8 +6,6 @@ use ACFBuilder\IsBuildable;
 
 abstract class Field implements IsBuildable
 {
-    const FIELD_NAMESPACE = 'field';
-
     public $key;
 
     public $label;
@@ -53,12 +51,10 @@ abstract class Field implements IsBuildable
 
     private function setKey($key)
     {
-        if (!preg_match('/^' . static::FIELD_NAMESPACE . '/', $key)) {
-            $key = static::FIELD_NAMESPACE . '_' . $key;
-            $key = explode(' ', strtolower($key));
 
-            $key = join('_', $key);
-        }
+        $key = explode(' ', strtolower($key));
+
+        $key = join('_', $key);
 
         $this->key = $key;
     }
@@ -164,6 +160,8 @@ abstract class Field implements IsBuildable
                 $newArray[$newKey] = intval($value);
             }
         }
+
+        var_dump($newArray);
 
         return $newArray;
     }
