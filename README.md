@@ -31,6 +31,11 @@ Table of Contents
 - Checkbox
 - Radio
 - True False
+- Post Object
+- Page Link
+- Relationship
+- Taxonomy
+- User
 
 # Installation
 To use this package in your theme firstly check if your theme has composer installed. If this is true you can use the following command to install the package
