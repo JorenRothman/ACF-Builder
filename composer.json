@@ -14,7 +14,8 @@
             "ACFBuilder\\": "",
             "ACFBuilder\\Fields\\": "fields",
             "ACFBuilder\\Builders\\": "builders",
-            "ACFBuilder\\Decorators\\": "decorators"
+            "ACFBuilder\\Decorators\\": "decorators",
+            "ACFBuilder\\Util\\": "util"
         }
     }
 }

@@ -3,6 +3,7 @@
 namespace ACFBuilder\Fields;
 
 use ACFBuilder\IsBuildable;
+use ACFBuilder\Util\Key;
 
 abstract class Field implements IsBuildable
 {
@@ -51,18 +52,14 @@ abstract class Field implements IsBuildable
 
     private function setKey($key)
     {
+        $keyClass = new Key();
 
-        $key = explode(' ', strtolower($key));
-
-        $key = join('_', $key);
-
-        $this->key = $key;
+        $this->key = $keyClass->create('field', $key);
     }
 
     private function setName($name)
     {
         $name = explode(' ', strtolower($name));
-
 
         $name = join('_', $name);
 
@@ -137,6 +134,8 @@ abstract class Field implements IsBuildable
 
     public function build($suffix)
     {
+        $keyClass = new Key();
+
         $array = json_decode(json_encode($this), true);
         $newArray = [];
 
@@ -145,8 +144,9 @@ abstract class Field implements IsBuildable
 
             $newArray[$newKey] = $value;
 
-            if ($key === 'name' || $key === 'key') {
 
+
+            if ($key === 'key') {
                 $value = $suffix . ' ' . $value;
 
                 $value = explode(' ', strtolower($value));
@@ -156,11 +156,16 @@ abstract class Field implements IsBuildable
                 $newArray[$newKey] = $value;
             }
 
+            if ($key === 'name') {
+                $name = $keyClass->create($suffix, $value);
+
+                $newArray['name'] = $name;
+            }
+
             if (is_bool($value)) {
                 $newArray[$newKey] = intval($value);
             }
         }
-
 
         return $newArray;
     }

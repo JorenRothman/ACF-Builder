@@ -2,6 +2,8 @@
 
 namespace ACFBuilder\Builders;
 
+use ACFBuilder\Util\Key;
+
 class FieldGroup
 {
     private $key;
@@ -35,14 +37,9 @@ class FieldGroup
 
     private function setKey($key)
     {
-        $key = strtolower($key);
+        $keyClass = new Key();
 
-        $key = str_replace('-', '', $key);
-        $key = str_replace(' ', '_', $key);
-        $key = str_replace('__', '_', $key);
-
-
-        $this->key = $key;
+        $this->key = $keyClass->create('group', $key);
     }
 
     public function setPosition($position)
@@ -89,7 +86,7 @@ class FieldGroup
         }
 
         foreach ($buildables as $buildable) {
-            array_push($data, $buildable->build($this->key));
+            array_push($data, $buildable->build($this->title));
         }
 
         return $data;
