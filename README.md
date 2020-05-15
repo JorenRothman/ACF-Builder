@@ -3,6 +3,7 @@ Table of Contents
 
 - [Table of Contents](#table-of-contents)
 - [Supported Fields](#supported-fields)
+- [Installation](#installation)
 - [Usage](#usage)
   - [Creating A Field](#creating-a-field)
   - [Creating A Field Group](#creating-a-field-group)
@@ -30,6 +31,13 @@ Table of Contents
 - Checkbox
 - Radio
 - True False
+
+# Installation
+To use this package in your theme firstly check if your theme has composer installed. If this is true you can use the following command to install the package
+
+```
+$ composer require nuck-fuggets/acf-builder
+```
 
 # Usage
 This small introduction will get you up and running with the ACF Builder
