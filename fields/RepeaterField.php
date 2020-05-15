@@ -25,4 +25,24 @@ class RepeaterField extends Field
     {
         array_push($this->subFields, $field);
     }
+
+    public function setMin($min)
+    {
+        $this->min = intval($min);
+    }
+
+    public function setMax($max)
+    {
+        $this->max = intval($max);
+    }
+
+    public function setLayout($layout)
+    {
+        $this->layout = $layout;
+    }
+
+    public function setButtonLabel($buttonLabel)
+    {
+        $this->buttonLabel = $buttonLabel;
+    }
 }
