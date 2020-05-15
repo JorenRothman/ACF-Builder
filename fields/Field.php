@@ -144,8 +144,6 @@ abstract class Field implements IsBuildable
 
             $newArray[$newKey] = $value;
 
-
-
             if ($key === 'key') {
                 $value = $suffix . ' ' . $value;
 
