@@ -126,7 +126,12 @@ class FieldGroup
         if (function_exists('acf_add_local_field_group')) {
             $fieldGroup = $this->build();
 
-            acf_add_local_field_group($fieldGroup);
+?>
+            <pre>
+                <?= print_r($fieldGroup); ?>
+            </pre><?php
+
+                    acf_add_local_field_group($fieldGroup);
+                }
+            }
         }
-    }
-}

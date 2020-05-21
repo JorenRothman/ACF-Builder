@@ -160,6 +160,18 @@ abstract class Field implements IsBuildable
                 $newArray['name'] = $name;
             }
 
+            if ($key === 'layouts') {
+                foreach ($value as $key2 => $value2) {
+                    foreach ($value2 as $key3 => $value3) {
+                        $newKey3 = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $key3));
+
+                        unset($newArray[$key][$key2][$key3]);
+
+                        $newArray[$key][$key2][$newKey3] = $value3;
+                    }
+                }
+            }
+
             if (is_bool($value)) {
                 $newArray[$newKey] = intval($value);
             }
