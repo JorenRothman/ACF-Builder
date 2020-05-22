@@ -50,18 +50,22 @@ abstract class Field implements IsBuildable
         $this->setType();
     }
 
-    private function setKey($key)
+    public function setKey($key)
     {
         $keyClass = new Key();
 
         $this->key = $keyClass->create('field', $key);
     }
 
-    private function setName($name)
+    public function setName($name)
     {
+        $name = str_replace('-', '', $name);
+
         $name = explode(' ', strtolower($name));
 
         $name = join('_', $name);
+
+        $name = str_replace('__', '_', $name);
 
         $this->name = $name;
     }
@@ -85,7 +89,7 @@ abstract class Field implements IsBuildable
 
     public function setConditionalLogic($fieldRuleGroup)
     {
-        array_push($this->conditionalLogic, $fieldRuleGroup->build(''));
+        array_push($this->conditionalLogic, $fieldRuleGroup);
     }
 
     public function setWrapper($width = 100, $class = '', $id = '')
@@ -132,51 +136,36 @@ abstract class Field implements IsBuildable
         $this->disabled = $disabled;
     }
 
-    public function build($suffix)
+    public function build()
     {
-        $keyClass = new Key();
-
         $array = json_decode(json_encode($this), true);
-        $newArray = [];
 
-        foreach ($array as $key => $value) {
-            $newKey = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $key));
+        $array['conditionalLogic'] = [];
 
-            $newArray[$newKey] = $value;
-
-            if ($key === 'key') {
-                $value = $suffix . ' ' . $value;
-
-                $value = explode(' ', strtolower($value));
-
-                $value = join('_', $value);
-
-                $newArray[$newKey] = $value;
-            }
-
-            if ($key === 'name') {
-                $name = $keyClass->create($suffix, $value);
-
-                $newArray['name'] = $name;
-            }
-
-            if ($key === 'layouts') {
-                foreach ($value as $key2 => $value2) {
-                    foreach ($value2 as $key3 => $value3) {
-                        $newKey3 = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $key3));
-
-                        unset($newArray[$key][$key2][$key3]);
-
-                        $newArray[$key][$key2][$newKey3] = $value3;
-                    }
-                }
-            }
-
-            if (is_bool($value)) {
-                $newArray[$newKey] = intval($value);
-            }
+        foreach ($this->conditionalLogic as $conditionalLogic) {
+            array_push($array['conditionalLogic'], $conditionalLogic->build());
         }
 
-        return $newArray;
+        $convertedArray = [];
+
+        foreach ($array as $key => $value) {
+            $key = $this->from_camel_case($key);
+
+            $convertedArray[$key] = $value;
+        }
+
+        // var_dump($convertedArray['conditional_logic']);
+
+        return $convertedArray;
+    }
+
+    public function from_camel_case($input)
+    {
+        preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $input, $matches);
+        $ret = $matches[0];
+        foreach ($ret as &$match) {
+            $match = $match == strtoupper($match) ? strtolower($match) : lcfirst($match);
+        }
+        return implode('_', $ret);
     }
 }

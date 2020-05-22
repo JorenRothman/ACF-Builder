@@ -15,7 +15,7 @@ class FieldRuleGroup implements IsBuildable
         }
 
         $rule = [
-            'field' => $field->key,
+            'field' => $field,
             'operator' => $operator,
             'value' => $value
         ];
@@ -23,8 +23,20 @@ class FieldRuleGroup implements IsBuildable
         array_push($this->rules, $rule);
     }
 
-    public function build($suffix)
+    public function build()
     {
-        return $this->rules;
+        $array = json_decode(json_encode($this), true);
+        $returnArray = [];
+
+        $rulesLength = count($array['rules']);
+
+        for ($i = 0; $i < $rulesLength; $i++) {
+            $fieldKey = $array['rules'][$i]['field']['key'];
+
+            $returnArray[$i] = $array['rules'][$i];
+            $returnArray[$i]['field'] = $fieldKey;
+        }
+
+        return $returnArray;
     }
 }

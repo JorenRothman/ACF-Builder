@@ -2,6 +2,7 @@
 
 namespace ACFBuilder\Builders;
 
+use ACFBuilder\Fields\Field;
 use ACFBuilder\Util\Key;
 
 class FieldGroup
@@ -67,8 +68,14 @@ class FieldGroup
         $this->hideOnScreen = $hideOnScreen;
     }
 
-    public function addField($field)
+    public function addField(Field $field)
     {
+        $fieldName = $field->name;
+        $fieldKey = $field->key;
+
+        $field->setKey($this->key . '_' . $fieldKey);
+        $field->setName($this->title . ' ' . $fieldName);
+
         array_push($this->fields, $field);
     }
 
@@ -77,29 +84,26 @@ class FieldGroup
         array_push($this->location, $location);
     }
 
-    private function buildBuildable($buildables)
-    {
-        $data = [];
-
-        if (!is_array($buildables)) {
-            return [];
-        }
-
-        foreach ($buildables as $buildable) {
-            array_push($data, $buildable->build($this->title));
-        }
-
-        return $data;
-    }
-
     private function buildFields()
     {
-        return $this->buildBuildable($this->fields);
+        $fields = [];
+
+        foreach ($this->fields as $field) {
+            $fields[] = $field->build();
+        }
+
+        return $fields;
     }
 
     private function buildLocations()
     {
-        return $this->buildBuildable($this->location);
+        $locations = [];
+
+        foreach ($this->location as $location) {
+            $locations[] = $location->build();
+        }
+
+        return $locations;
     }
 
     public function build()
@@ -126,12 +130,7 @@ class FieldGroup
         if (function_exists('acf_add_local_field_group')) {
             $fieldGroup = $this->build();
 
-?>
-            <pre>
-                <?= print_r($fieldGroup); ?>
-            </pre><?php
-
-                    acf_add_local_field_group($fieldGroup);
-                }
-            }
+            acf_add_local_field_group($fieldGroup);
         }
+    }
+}
