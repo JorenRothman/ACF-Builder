@@ -149,17 +149,15 @@ abstract class Field implements IsBuildable
         $convertedArray = [];
 
         foreach ($array as $key => $value) {
-            $key = $this->from_camel_case($key);
+            $key = $this->fromCamelCase($key);
 
             $convertedArray[$key] = $value;
         }
 
-        // var_dump($convertedArray['conditional_logic']);
-
         return $convertedArray;
     }
 
-    public function from_camel_case($input)
+    public function fromCamelCase($input)
     {
         preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $input, $matches);
         $ret = $matches[0];

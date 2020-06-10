@@ -40,4 +40,15 @@ class FlexibleContentField extends Field
     {
         $this->buttonLabel = $buttonLabel;
     }
+
+    public function build()
+    {
+        $field = parent::build();
+
+        foreach ($this->layouts as $key => $value) {
+            $field['layouts'][$key] = $value->build();
+        }
+
+        return $field;
+    }
 }
