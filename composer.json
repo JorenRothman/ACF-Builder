@@ -1,6 +1,7 @@
 {
     "name": "nuck-fuggets/acf-builder",
     "type": "library",
+    "license": "GPL-2.0-only",
     "authors": [
         {
             "name": "Joren Rothman",
