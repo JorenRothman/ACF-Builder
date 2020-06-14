@@ -3,6 +3,9 @@
 namespace ACFBuilder\FieldGroup;
 
 use ACFBuilder\IsBuildable;
+use ACFBuilder\Util\ArrayUtil;
+use ACFBuilder\Util\ObjectUtil;
+use ACFBuilder\Util\StringUtil;
 
 class FieldGroup implements IsBuildable
 {
@@ -25,70 +28,76 @@ class FieldGroup implements IsBuildable
      *
      * @var Field[]
      */
-    public $fields;
+    public $fields = [];
 
     /**
      * Array of FieldGroupLocation's
      *
      * @var FieldGroupLocation[]
      */
-    public $location;
+    public $location = [array(
+        array(
+            'param' => 'post_type',
+            'operator' => '==',
+            'value' => 'post',
+        ),
+    ),];
 
     /**
      * Menu order
      *
      * @var int;
      */
-    public $menuOrder;
+    public $menuOrder = 0;
 
     /**
      * position of group
      *
      * @var string
      */
-    public $position;
+    public $position = 'normal';
 
     /**
      * Display style
      *
      * @var string
      */
-    public $style;
+    public $style = 'default';
 
     /**
      * Field label placement
      *
      * @var string
      */
-    public $labelPlacement;
+    public $labelPlacement = 'top';
 
     /**
      * Instruction placement
      *
      * @var string
      */
-    public $instructionPlacement;
+    public $instructionPlacement = 'label';
 
     /**
      * Items to hide on screen
      *
      * @var FieldGroupHideOnScreen
      */
-    public $hideOnScreen;
+    public $hideOnScreen = [];
 
     /**
      * is active
      *
      * @var boolean
      */
-    public $active;
+    public $active = true;
 
     /**
      * The description
      *
      * @var string
      */
-    public $description;
+    public $description = '';
 
     /**
      * Create a new field group
@@ -104,7 +113,7 @@ class FieldGroup implements IsBuildable
 
     private function setKey()
     {
-        $this->key = 'group_' . str_replace(' ', '_', $this->title);
+        $this->key = StringUtil::snake($this->title);
     }
 
     /**
@@ -129,6 +138,17 @@ class FieldGroup implements IsBuildable
         $this->location[] = $location;
     }
 
+    public function buildFields()
+    {
+        $fields = [];
+
+        foreach ($this->fields as $field) {
+            $fields[] = $field->build($this->title);
+        }
+
+        return $fields;
+    }
+
     /**
      * Build the field group
      *
@@ -136,6 +156,21 @@ class FieldGroup implements IsBuildable
      */
     public function build()
     {
-        return [];
+        $array = ObjectUtil::toArray($this);
+
+        $array['fields'] = $this->buildFields();
+
+        return ArrayUtil::snakeCase($array);
+    }
+
+    public function register()
+    {
+        $fieldGroup = $this->build();
+
+        var_dump($fieldGroup);
+
+        if (function_exists('acf_add_local_field_group')) {
+            acf_add_local_field_group($fieldGroup);
+        }
     }
 }

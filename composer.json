@@ -14,7 +14,8 @@
         "psr-4": {
             "ACFBuilder\\": "",
             "ACFBuilder\\FieldGroup\\": "field-group",
-            "ACFBuilder\\Fields\\": "fields",
+            "ACFBuilder\\Field\\Basic\\": "field/basic",
+            "ACFBuilder\\Field\\": "field",
             "ACFBuilder\\Builders\\": "builders",
             "ACFBuilder\\Decorators\\": "decorators",
             "ACFBuilder\\Util\\": "util"
