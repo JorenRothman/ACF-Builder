@@ -35,13 +35,7 @@ class FieldGroup implements IsBuildable
      *
      * @var FieldGroupLocation[]
      */
-    public $location = [array(
-        array(
-            'param' => 'post_type',
-            'operator' => '==',
-            'value' => 'post',
-        ),
-    ),];
+    public $location = [];
 
     /**
      * Menu order
@@ -149,6 +143,19 @@ class FieldGroup implements IsBuildable
         return $fields;
     }
 
+    public function buildLocations()
+    {
+        $locations = [];
+
+        foreach ($this->location as $location) {
+            $locations[] = $location->build();
+        }
+
+        var_dump($locations);
+
+        return $locations;
+    }
+
     /**
      * Build the field group
      *
@@ -159,6 +166,9 @@ class FieldGroup implements IsBuildable
         $array = ObjectUtil::toArray($this);
 
         $array['fields'] = $this->buildFields();
+        $array['location'] = $this->buildLocations();
+
+        // var_dump($array);
 
         return ArrayUtil::snakeCase($array);
     }
@@ -167,7 +177,7 @@ class FieldGroup implements IsBuildable
     {
         $fieldGroup = $this->build();
 
-        var_dump($fieldGroup);
+        // var_dump($fieldGroup);
 
         if (function_exists('acf_add_local_field_group')) {
             acf_add_local_field_group($fieldGroup);
