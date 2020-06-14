@@ -144,6 +144,17 @@ class FieldGroup implements IsBuildable
     }
 
     /**
+     * Set field group style
+     *
+     * @param string $style
+     * @return void
+     */
+    public function setStyle($style)
+    {
+        $this->style = $style;
+    }
+
+    /**
      * Add field group location to location array
      *
      * @param FieldGroupLocations $location
