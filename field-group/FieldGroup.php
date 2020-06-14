@@ -77,7 +77,7 @@ class FieldGroup implements IsBuildable
      *
      * @var FieldGroupHideOnScreen
      */
-    public $hideOnScreen = [];
+    public $hideOnScreen;
 
     /**
      * is active
@@ -176,6 +176,11 @@ class FieldGroup implements IsBuildable
         $this->location[] = $location;
     }
 
+    public function setHideOnScreen($hideOnScreen)
+    {
+        $this->hideOnScreen = $hideOnScreen;
+    }
+
     public function buildFields()
     {
         $fields = [];
@@ -198,6 +203,15 @@ class FieldGroup implements IsBuildable
         return $locations;
     }
 
+    public function buildHideOnScreen()
+    {
+        if (is_null($this->hideOnScreen)) {
+            return [];
+        }
+
+        return $this->hideOnScreen->build();
+    }
+
     /**
      * Build the field group
      *
@@ -209,6 +223,7 @@ class FieldGroup implements IsBuildable
 
         $array['fields'] = $this->buildFields();
         $array['location'] = $this->buildLocations();
+        $array['hideOnScreen'] = $this->buildHideOnScreen();
 
         return ArrayUtil::snakeCase($array);
     }
