@@ -49,7 +49,7 @@ class FieldGroup implements IsBuildable
      *
      * @var string
      */
-    public $position = 'normal';
+    public $position = FieldGroupPosition::NORMAL;
 
     /**
      * Display style
@@ -122,6 +122,17 @@ class FieldGroup implements IsBuildable
     }
 
     /**
+     * Set field group position
+     *
+     * @param string $position
+     * @return void
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+    }
+
+    /**
      * Add field group location to location array
      *
      * @param FieldGroupLocations $location
@@ -151,8 +162,6 @@ class FieldGroup implements IsBuildable
             $locations[] = $location->build();
         }
 
-        var_dump($locations);
-
         return $locations;
     }
 
@@ -168,16 +177,12 @@ class FieldGroup implements IsBuildable
         $array['fields'] = $this->buildFields();
         $array['location'] = $this->buildLocations();
 
-        // var_dump($array);
-
         return ArrayUtil::snakeCase($array);
     }
 
     public function register()
     {
         $fieldGroup = $this->build();
-
-        // var_dump($fieldGroup);
 
         if (function_exists('acf_add_local_field_group')) {
             acf_add_local_field_group($fieldGroup);
