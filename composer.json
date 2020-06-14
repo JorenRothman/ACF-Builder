@@ -13,6 +13,7 @@
     "autoload": {
         "psr-4": {
             "ACFBuilder\\": "",
+            "ACFBuilder\\FieldGroup\\": "field-group",
             "ACFBuilder\\Fields\\": "fields",
             "ACFBuilder\\Builders\\": "builders",
             "ACFBuilder\\Decorators\\": "decorators",
