@@ -133,6 +133,17 @@ class FieldGroup implements IsBuildable
     }
 
     /**
+     * Set field group label placement
+     *
+     * @param string $labelPlacement
+     * @return void
+     */
+    public function setLabelPlacement($labelPlacement)
+    {
+        $this->labelPlacement = $labelPlacement;
+    }
+
+    /**
      * Add field group location to location array
      *
      * @param FieldGroupLocations $location
