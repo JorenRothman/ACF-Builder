@@ -42,7 +42,7 @@ abstract class Field
      *
      * @var string
      */
-    public $instructions;
+    public $instructions = '';
 
     /**
      * Is field required

@@ -56,21 +56,21 @@ class FieldGroup implements IsBuildable
      *
      * @var string
      */
-    public $style = 'default';
+    public $style = FieldGroupStyle::STANDARD;
 
     /**
      * Field label placement
      *
      * @var string
      */
-    public $labelPlacement = 'top';
+    public $labelPlacement = FieldGroupLabelPlacement::TOP;
 
     /**
      * Instruction placement
      *
      * @var string
      */
-    public $instructionPlacement = 'label';
+    public $instructionPlacement = FieldGroupInstructionPlacement::LABEL;
 
     /**
      * Items to hide on screen
@@ -152,6 +152,17 @@ class FieldGroup implements IsBuildable
     public function setStyle($style)
     {
         $this->style = $style;
+    }
+
+    /**
+     * Set field group instruction placement
+     *
+     * @param string $instructionPlacement
+     * @return void
+     */
+    public function setInstructionPlacement($instructionPlacement)
+    {
+        $this->instructionPlacement = $instructionPlacement;
     }
 
     /**

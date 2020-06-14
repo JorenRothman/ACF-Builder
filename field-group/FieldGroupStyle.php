@@ -2,9 +2,9 @@
 
 namespace ACFBuilder\FieldGroup;
 
-class FieldGroupStyle
+abstract class FieldGroupStyle
 {
-    const STANDARD = 'standard';
+    const STANDARD = 'default';
 
     const SEAMLESS = 'seamless';
 }

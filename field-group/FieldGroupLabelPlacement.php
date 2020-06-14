@@ -2,7 +2,7 @@
 
 namespace ACFBuilder\FieldGroup;
 
-class FieldGroupLabelPlacement
+abstract class FieldGroupLabelPlacement
 {
     const TOP = 'top';
 
