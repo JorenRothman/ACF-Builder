@@ -118,6 +118,8 @@ class FieldGroup implements IsBuildable
      */
     public function addField($field)
     {
+        $field->fieldOnAdd($this->title);
+
         $this->fields[] = $field;
     }
 
@@ -186,7 +188,7 @@ class FieldGroup implements IsBuildable
         $fields = [];
 
         foreach ($this->fields as $field) {
-            $fields[] = $field->build($this->title);
+            $fields[] = $field->build();
         }
 
         return $fields;

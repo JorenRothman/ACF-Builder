@@ -7,7 +7,7 @@ use ACFBuilder\Util\ArrayUtil;
 use ACFBuilder\Util\ObjectUtil;
 use ACFBuilder\Util\StringUtil;
 
-abstract class Field
+abstract class Field implements IsBuildable
 {
     /**
      * The field key
@@ -56,7 +56,7 @@ abstract class Field
      *
      * @var FieldConditionalLogic[]
      */
-    public $conditionalLogic;
+    public $conditionalLogic = [];
 
     /**
      * The field wrapper
@@ -81,22 +81,60 @@ abstract class Field
     }
 
     /**
-     * Build the field
+     * Add conditional Logic 
      *
-     * @param string $fieldGroupName The field group name
+     * @param FieldConditionalLogic $fieldConditionalLogic
+     * @return void
+     */
+    public function addConditionalLogic($fieldConditionalLogic)
+    {
+        $this->conditionalLogic[] = $fieldConditionalLogic;
+    }
+
+    /**
+     * Build conditional logic
+     *
      * @return array
      */
-    public function build($fieldGroupName)
+    private function buildConditionalLogic()
+    {
+        $conditionalLogics = [];
+
+        foreach ($this->conditionalLogic as $conditionalLogic) {
+            $conditionalLogics[] = $conditionalLogic->build();
+        }
+
+        return $conditionalLogics;
+    }
+
+    /**
+     * Method when field is added to field group
+     *
+     * @param string $fieldGroupName
+     * @return void
+     */
+    public function fieldOnAdd($fieldGroupName)
     {
         if ($this->name === null) {
             $this->name = StringUtil::snake($fieldGroupName . $this->label);
         }
 
         $this->key = StringUtil::snake($this->name);
+    }
 
+    /**
+     * Build the field
+     *
+     * @param string $fieldGroupName The field group name
+     * @return array
+     */
+    public function build()
+    {
         $array = ObjectUtil::toArray($this);
 
-        return $array;
+        $array['conditionalLogic'] = $this->buildConditionalLogic();
+
+        return ArrayUtil::snakeCase($array);
     }
 
     abstract protected function setType();
