@@ -123,6 +123,17 @@ abstract class Field implements IsBuildable
     }
 
     /**
+     * Add instructions to field
+     *
+     * @param string $instructions
+     * @return void
+     */
+    public function setInstructions($instructions)
+    {
+        $this->instructions = $instructions;
+    }
+
+    /**
      * Build the field
      *
      * @param string $fieldGroupName The field group name
