@@ -19,7 +19,8 @@
             "ACFBuilder\\Field\\": "field",
             "ACFBuilder\\Builders\\": "builders",
             "ACFBuilder\\Decorators\\": "decorators",
-            "ACFBuilder\\Util\\": "util"
+            "ACFBuilder\\Util\\": "util",
+            "ACFBuilder\\Enum\\": "enum"
         }
     }
 }

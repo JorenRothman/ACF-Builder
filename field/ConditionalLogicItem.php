@@ -49,6 +49,10 @@ class ConditionalLogicItem implements IsBuildable
      */
     public function build()
     {
+        if (is_bool($this->value)) {
+            $this->value = (string) intval($this->value);
+        }
+
         return [
             'field' => $this->fieldKey,
             'operator' => $this->operator,
