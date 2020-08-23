@@ -2,11 +2,11 @@
 
 namespace ACFBuilder\Field\Helpers;
 
-trait Widht
+trait Width
 {
     public $width;
 
-    public function setWidht($width)
+    public function setWidth($width)
     {
         $this->width = $width;
     }
