@@ -5,6 +5,7 @@ require(__DIR__ . '/vendor/autoload.php');
 use ACFBuilder\Enum\Operator;
 use ACFBuilder\Field\Basic\Email;
 use ACFBuilder\Field\Basic\Number;
+use ACFBuilder\Field\Basic\Password;
 use ACFBuilder\Field\Basic\Text;
 use ACFBuilder\Field\Choice\ButtonGroup;
 use ACFBuilder\Field\Choice\Checkbox;
@@ -35,6 +36,10 @@ $fieldGroup->addField($textField);
 $numberField = new Number('Number field');
 
 $fieldGroup->addField($numberField);
+
+$passwordField = new Password('Password');
+
+$fieldGroup->addField($passwordField);
 
 $trueFalseField = new TrueFalse('True False Field');
 
