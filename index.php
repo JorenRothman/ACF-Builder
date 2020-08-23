@@ -9,6 +9,7 @@ use ACFBuilder\Field\Basic\Password;
 use ACFBuilder\Field\Basic\Range;
 use ACFBuilder\Field\Basic\Text;
 use ACFBuilder\Field\Basic\TextArea;
+use ACFBuilder\Field\Basic\URL;
 use ACFBuilder\Field\Choice\ButtonGroup;
 use ACFBuilder\Field\Choice\Checkbox;
 use ACFBuilder\Field\Choice\RadioButton;
@@ -36,6 +37,10 @@ $fieldGroup->addField($emailField);
 $fieldGroup->addField($textField);
 
 $numberField = new Number('Number field');
+
+$url = new URL('url');
+
+$fieldGroup->addField($url);
 
 $fieldGroup->addField($numberField);
 
