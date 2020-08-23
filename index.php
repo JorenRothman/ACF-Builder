@@ -3,6 +3,7 @@
 require(__DIR__ . '/vendor/autoload.php');
 
 use ACFBuilder\Enum\Operator;
+use ACFBuilder\Field\Basic\Email;
 use ACFBuilder\Field\Basic\Text;
 use ACFBuilder\Field\Choice\ButtonGroup;
 use ACFBuilder\Field\Choice\Checkbox;
@@ -26,7 +27,15 @@ $textField = new Text('Text Field');
 
 $textField->setInstructions('Hello');
 
+$emailField = new Email('Email Field');
+$fieldGroup->addField($emailField);
 $fieldGroup->addField($textField);
+
+$newText = new Text('lol');
+
+$fieldGroup->addField($newText);
+
+
 
 $trueFalseField = new TrueFalse('True False Field');
 
@@ -106,5 +115,3 @@ $conditionalItems->addItem($conditionalItem);
 $textField->addConditionalLogic($conditionalItems);
 
 $fieldGroup->register();
-
-// var_dump(get_field('test_is_fine_text_field', 1));
