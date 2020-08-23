@@ -17,6 +17,7 @@ use ACFBuilder\Field\Choice\Select;
 use ACFBuilder\Field\Choice\TrueFalse;
 use ACFBuilder\Field\ConditionalLogicItem;
 use ACFBuilder\Field\Content\File;
+use ACFBuilder\Field\Content\Gallery;
 use ACFBuilder\Field\FieldConditionalLogic;
 use ACFBuilder\FieldGroup\FieldGroup;
 use ACFBuilder\FieldGroup\FieldGroupHideOnScreen;
@@ -48,6 +49,10 @@ $fieldGroup->addField($numberField);
 $file = new File('File');
 
 $fieldGroup->addField($file);
+
+$gallery = new Gallery('Gallery');
+
+$fieldGroup->addField($gallery);
 
 $passwordField = new Password('Password');
 
