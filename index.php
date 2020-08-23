@@ -4,6 +4,7 @@ require(__DIR__ . '/vendor/autoload.php');
 
 use ACFBuilder\Enum\Operator;
 use ACFBuilder\Field\Basic\Email;
+use ACFBuilder\Field\Basic\Number;
 use ACFBuilder\Field\Basic\Text;
 use ACFBuilder\Field\Choice\ButtonGroup;
 use ACFBuilder\Field\Choice\Checkbox;
@@ -31,11 +32,9 @@ $emailField = new Email('Email Field');
 $fieldGroup->addField($emailField);
 $fieldGroup->addField($textField);
 
-$newText = new Text('lol');
+$numberField = new Number('Number field');
 
-$fieldGroup->addField($newText);
-
-
+$fieldGroup->addField($numberField);
 
 $trueFalseField = new TrueFalse('True False Field');
 
