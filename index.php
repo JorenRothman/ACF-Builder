@@ -6,7 +6,9 @@ use ACFBuilder\Enum\Operator;
 use ACFBuilder\Field\Basic\Email;
 use ACFBuilder\Field\Basic\Number;
 use ACFBuilder\Field\Basic\Password;
+use ACFBuilder\Field\Basic\Range;
 use ACFBuilder\Field\Basic\Text;
+use ACFBuilder\Field\Basic\TextArea;
 use ACFBuilder\Field\Choice\ButtonGroup;
 use ACFBuilder\Field\Choice\Checkbox;
 use ACFBuilder\Field\Choice\RadioButton;
@@ -40,6 +42,16 @@ $fieldGroup->addField($numberField);
 $passwordField = new Password('Password');
 
 $fieldGroup->addField($passwordField);
+
+$range = new Range('range');
+
+$range->setStep(10);
+
+$fieldGroup->addField($range);
+
+$textArea = new TextArea('text area');
+
+$fieldGroup->addField($textArea);
 
 $trueFalseField = new TrueFalse('True False Field');
 
