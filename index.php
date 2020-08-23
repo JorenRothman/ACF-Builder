@@ -20,6 +20,8 @@ use ACFBuilder\Field\Content\File;
 use ACFBuilder\Field\Content\Gallery;
 use ACFBuilder\Field\Content\Image;
 use ACFBuilder\Field\FieldConditionalLogic;
+use ACFBuilder\Field\Layout\FlexibleContent;
+use ACFBuilder\Field\Layout\FlexibleLayout;
 use ACFBuilder\Field\Layout\Repeater;
 use ACFBuilder\FieldGroup\FieldGroup;
 use ACFBuilder\FieldGroup\FieldGroupHideOnScreen;
@@ -36,15 +38,25 @@ $repeater = new Repeater('repeat');
 
 $text = new Text('text');
 
-$text2 = new Text('text twee');
-
 $repeater->addSubField($text);
 
 $repeater->setLayout('block');
 
 $fieldGroup->addField($repeater);
 
-$fieldGroup->addField($text2);
+
+$flexibleContent = new FlexibleContent('Flex content');
+
+$flexibleLayout = new FlexibleLayout('Layout 1');
+
+$text2 = new Text('text 2');
+
+$flexibleLayout->addSubField($text2);
+
+$flexibleContent->addLayout($flexibleLayout);
+
+$fieldGroup->addField($flexibleContent);
+
 
 $fieldGroupLocations = new FieldGroupLocations;
 

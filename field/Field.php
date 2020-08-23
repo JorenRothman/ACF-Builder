@@ -71,7 +71,7 @@ abstract class Field implements IsBuildable
 
     public function __construct($label, $name = null)
     {
-        $this->label = $label;
+        $this->label = ucwords($label);
 
         if ($name !== null) {
             $this->name = StringUtil::snake($name);
@@ -119,7 +119,7 @@ abstract class Field implements IsBuildable
             if (empty($fieldGroupName)) {
                 $this->name = StringUtil::snake($this->label);
             } else {
-                $this->name = StringUtil::snake($fieldGroupName . '_' . $this->label);
+                $this->name = StringUtil::snake($fieldGroupName . $this->label);
             }
         }
 
