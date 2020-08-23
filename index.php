@@ -16,6 +16,7 @@ use ACFBuilder\Field\Choice\RadioButton;
 use ACFBuilder\Field\Choice\Select;
 use ACFBuilder\Field\Choice\TrueFalse;
 use ACFBuilder\Field\ConditionalLogicItem;
+use ACFBuilder\Field\Content\File;
 use ACFBuilder\Field\FieldConditionalLogic;
 use ACFBuilder\FieldGroup\FieldGroup;
 use ACFBuilder\FieldGroup\FieldGroupHideOnScreen;
@@ -43,6 +44,10 @@ $url = new URL('url');
 $fieldGroup->addField($url);
 
 $fieldGroup->addField($numberField);
+
+$file = new File('File');
+
+$fieldGroup->addField($file);
 
 $passwordField = new Password('Password');
 
