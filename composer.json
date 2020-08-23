@@ -16,6 +16,7 @@
             "ACFBuilder\\FieldGroup\\": "field-group",
             "ACFBuilder\\Field\\Basic\\": "field/basic",
             "ACFBuilder\\Field\\Choice\\": "field/choice",
+            "ACFBuilder\\Field\\Layout\\": "field/layout",
             "ACFBuilder\\Field\\Content\\": "field/Content",
             "ACFBuilder\\Field\\Helpers\\": "field/helpers",
             "ACFBuilder\\Field\\": "field",

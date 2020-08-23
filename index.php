@@ -20,6 +20,7 @@ use ACFBuilder\Field\Content\File;
 use ACFBuilder\Field\Content\Gallery;
 use ACFBuilder\Field\Content\Image;
 use ACFBuilder\Field\FieldConditionalLogic;
+use ACFBuilder\Field\Layout\Repeater;
 use ACFBuilder\FieldGroup\FieldGroup;
 use ACFBuilder\FieldGroup\FieldGroupHideOnScreen;
 use ACFBuilder\FieldGroup\FieldGroupInstructionPlacement;
@@ -31,94 +32,19 @@ use ACFBuilder\FieldGroup\FieldGroupStyle;
 
 $fieldGroup = new FieldGroup('test Is Fine');
 
-$textField = new Text('Text Field');
+$repeater = new Repeater('repeat');
 
-$textField->setInstructions('Hello');
+$text = new Text('text');
 
-$emailField = new Email('Email Field');
-$fieldGroup->addField($emailField);
-$fieldGroup->addField($textField);
+$text2 = new Text('text twee');
 
-$numberField = new Number('Number field');
+$repeater->addSubField($text);
 
-$url = new URL('url');
+$repeater->setLayout('block');
 
-$fieldGroup->addField($url);
+$fieldGroup->addField($repeater);
 
-$fieldGroup->addField($numberField);
-
-$file = new File('File');
-
-$fieldGroup->addField($file);
-
-$image = new Image('image');
-
-$fieldGroup->addField($image);
-
-$gallery = new Gallery('Gallery');
-
-$fieldGroup->addField($gallery);
-
-$passwordField = new Password('Password');
-
-$fieldGroup->addField($passwordField);
-
-$range = new Range('range');
-
-$range->setStep(10);
-
-$fieldGroup->addField($range);
-
-$textArea = new TextArea('text area');
-
-$fieldGroup->addField($textArea);
-
-$trueFalseField = new TrueFalse('True False Field');
-
-$trueFalseField2 = new TrueFalse('Boolean');
-
-$trueFalseField2->setDefaultValue(true);
-$trueFalseField->setUI(true);
-$trueFalseField->setUIOnText('Hello');
-
-$fieldGroup->addField($trueFalseField);
-$fieldGroup->addField($trueFalseField2);
-
-$select = new Select('Select field');
-
-$select->setChoices([
-    'test' => 'test message'
-]);
-
-$fieldGroup->addField($select);
-
-$radioButton = new RadioButton('Radio Button');
-
-$radioButton->setLayout('vertical');
-
-$radioButton->setChoices([
-    'test' => 'test button',
-    'test' => 'test button',
-]);
-
-$fieldGroup->addField($radioButton);
-
-$checkbox = new Checkbox('checkbox');
-
-$checkbox->setChoices([
-    'test' => 'test box'
-]);
-
-$fieldGroup->addField($checkbox);
-
-$buttonGroup = new ButtonGroup('Button Group');
-
-$buttonGroup->setChoices([
-    'test' => 'test button',
-    'test2' => 'test button'
-]);
-
-$fieldGroup->addField($buttonGroup);
+$fieldGroup->addField($text2);
 
 $fieldGroupLocations = new FieldGroupLocations;
 
@@ -142,12 +68,5 @@ $hideOnScreen->setTheContent();
 
 $fieldGroup->setHideOnScreen($hideOnScreen);
 
-$conditionalItem = new ConditionalLogicItem($trueFalseField, Operator::EQUALS, true);
-
-$conditionalItems = new FieldConditionalLogic();
-
-$conditionalItems->addItem($conditionalItem);
-
-$textField->addConditionalLogic($conditionalItems);
 
 $fieldGroup->register();
