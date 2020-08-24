@@ -18,6 +18,8 @@
             "ACFBuilder\\Field\\Choice\\": "field/choice",
             "ACFBuilder\\Field\\Layout\\": "field/layout",
             "ACFBuilder\\Field\\Content\\": "field/content",
+            "ACFBuilder\\Field\\Jquery\\": "field/jquery",
+            "ACFBuilder\\Field\\Relational\\": "field/relational",
             "ACFBuilder\\Field\\Helpers\\": "field/helpers",
             "ACFBuilder\\Field\\": "field",
             "ACFBuilder\\Builders\\": "builders",
