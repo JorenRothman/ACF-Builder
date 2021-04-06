@@ -17,4 +17,9 @@ class StringUtil
 
         return $value;
     }
+
+    public static function hash($value)
+    {
+        return hash('md5', $value);
+    }
 }

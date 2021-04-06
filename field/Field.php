@@ -123,7 +123,7 @@ abstract class Field implements IsBuildable
             }
         }
 
-        $this->key = StringUtil::snake($this->name);
+        $this->key = StringUtil::hash($this->name);
     }
 
     /**
