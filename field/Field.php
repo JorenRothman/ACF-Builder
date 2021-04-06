@@ -111,19 +111,24 @@ abstract class Field implements IsBuildable
      * Method when field is added to field group
      *
      * @param string $fieldGroupName
+     * @param boolean $prefixFieldName
      * @return void
      */
-    public function fieldOnAdd($fieldGroupName)
+    public function fieldOnAdd($fieldGroupName, $prefixFieldName = true)
     {
         if ($this->name === null) {
-            if (empty($fieldGroupName)) {
-                $this->name = StringUtil::snake($this->label);
-            } else {
+            if ($prefixFieldName) {
                 $this->name = StringUtil::snake($fieldGroupName . $this->label);
+            } else {
+                $this->name = StringUtil::snake($this->label);
             }
         }
 
-        $this->key = StringUtil::hash($this->name);
+        if ($prefixFieldName) {
+            $this->key = StringUtil::hash($this->name);
+        } else {
+            $this->key = StringUtil::hash(StringUtil::snake($fieldGroupName . $this->label));
+        }
     }
 
     /**

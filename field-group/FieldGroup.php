@@ -24,11 +24,11 @@ class FieldGroup implements IsBuildable
     public $title;
 
     /**
-     * Prefix fields with field group name
+     * Prefix field name with field group name
      *
      * @var boolean
      */
-    public $prefixFields = true;
+    public $prefixFieldName = true;
 
     /**
      * Array of Field's
@@ -106,10 +106,10 @@ class FieldGroup implements IsBuildable
      * @param string $title field group title
      * @param boolean $prefixFields prefix field with field group name
      */
-    public function __construct($title, $prefixFields = true)
+    public function __construct($title, $prefixFieldName = true)
     {
         $this->title = $title;
-        $this->prefixFields = $prefixFields;
+        $this->prefixFieldName = $prefixFieldName;
 
         $this->setKey();
     }
@@ -127,7 +127,7 @@ class FieldGroup implements IsBuildable
      */
     public function addField($field)
     {
-        $field->fieldOnAdd($this->prefixFields ? $this->title : null);
+        $field->fieldOnAdd($this->title, $this->prefixFieldName);
 
         $this->fields[] = $field;
     }
