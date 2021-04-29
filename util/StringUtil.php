@@ -15,6 +15,8 @@ class StringUtil
             ));
         }
 
+        $value = str_replace('-', '', $value);
+
         return $value;
     }
 

@@ -1,7 +1,7 @@
 {
-    "name": "nuck-fuggets/acf-builder",
+    "name": "jorenrothman/acf-builder",
     "type": "library",
-    "license": "GPL-2.0-only",
+    "license": "MIT",
     "authors": [
         {
             "name": "Joren Rothman",
@@ -9,7 +9,7 @@
         }
     ],
     "require": {},
-    "version": "2.0.2",
+    "version": "2.0.3",
     "autoload": {
         "psr-4": {
             "ACFBuilder\\": "",
