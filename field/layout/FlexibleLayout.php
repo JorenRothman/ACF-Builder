@@ -23,21 +23,27 @@ class FlexibleLayout
 
     public $max;
 
-    public function __construct($label)
+    public function __construct($label, $name = null)
     {
         $this->label = $label;
+        $this->name = $name;
     }
 
     public function onLayoutAdd($flexibleFieldName)
     {
-        $this->name = StringUtil::snake($flexibleFieldName . ' ' . $this->label);
+        if (is_null($this->name)) {
+            $this->name = StringUtil::snake($flexibleFieldName . ' ' . $this->label);
+        } else {
+            $this->name = StringUtil::snake($flexibleFieldName . ' ' . $this->name);
+        }
 
-        $this->key = $this->name;
+
+        $this->key = StringUtil::hash($this->name);
     }
 
     public function addSubField($subField)
     {
-        $subField->fieldOnAdd($subField->name);
+        $subField->fieldOnAdd($this->label, false);
 
         $this->subFields[] = $subField;
     }
@@ -45,8 +51,6 @@ class FlexibleLayout
     public function build()
     {
         $this->subFields = array_map(function ($subField) {
-
-
             return $subField->build();
         }, $this->subFields);
 

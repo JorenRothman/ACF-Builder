@@ -23,4 +23,19 @@ class Repeater extends Field
     {
         $this->type = 'repeater';
     }
+
+    public function build()
+    {
+        $this->subFields = array_map(function ($subField) {
+            $subField->fieldOnAdd($subField->name);
+
+            return $subField->build();
+        }, $this->subFields);
+
+        if ($this->collapsed) {
+            $this->collapsed = $this->collapsed->key;
+        }
+
+        return parent::build();
+    }
 }
