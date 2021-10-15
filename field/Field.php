@@ -124,7 +124,11 @@ abstract class Field implements IsBuildable
             }
         }
 
-        $this->key = StringUtil::hash($this->name);
+        if ($prefixFieldName) {
+            $this->key = StringUtil::hash($this->name);
+        } else {
+            $this->key = StringUtil::hash(StringUtil::snake($fieldGroupName . $this->label));
+        }
     }
 
     /**
