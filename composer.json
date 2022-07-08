@@ -1,31 +1,19 @@
 {
-    "name": "jorenrothman/acf-builder",
+    "name": "joren/acf-builder",
+    "description": "A simple PHP api for creating ACF Custom Field Groups",
     "type": "library",
     "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Joren\\AcfBuilder\\": "src/"
+        }
+    },
     "authors": [
         {
             "name": "Joren Rothman",
             "email": "rothmanjoren@gmail.com"
         }
     ],
-    "require": {},
-    "version": "2.1.3",
-    "autoload": {
-        "psr-4": {
-            "ACFBuilder\\": "",
-            "ACFBuilder\\FieldGroup\\": "field-group",
-            "ACFBuilder\\Field\\Basic\\": "field/basic",
-            "ACFBuilder\\Field\\Choice\\": "field/choice",
-            "ACFBuilder\\Field\\Layout\\": "field/layout",
-            "ACFBuilder\\Field\\Content\\": "field/content",
-            "ACFBuilder\\Field\\Jquery\\": "field/jquery",
-            "ACFBuilder\\Field\\Relational\\": "field/relational",
-            "ACFBuilder\\Field\\Helpers\\": "field/helpers",
-            "ACFBuilder\\Field\\": "field",
-            "ACFBuilder\\Builders\\": "builders",
-            "ACFBuilder\\Decorators\\": "decorators",
-            "ACFBuilder\\Util\\": "util",
-            "ACFBuilder\\Enum\\": "enum"
-        }
-    }
+    "minimum-stability": "alpha",
+    "require": {}
 }
