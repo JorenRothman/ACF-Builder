@@ -4,8 +4,14 @@ namespace Joren\ACFBuilder;
 
 use Joren\ACFBuilder\Util\StringUtil;
 
+/**
+ * Class FieldGroupLocations
+ * 
+ * @package Joren\ACFBuilder
+ */
 class FieldGroup
 {
+
     public string $title;
 
     public string $name;
@@ -34,6 +40,14 @@ class FieldGroup
 
     public array $location;
 
+    /**
+     * FieldGroup constructor.
+     * 
+     * @param string $title 
+     * @param null|string $name 
+     * @param null|string $key 
+     * @return void 
+     */
     public function __construct(string $title, ?string $name = null, ?string $key = null)
     {
         $this->title = $title;
@@ -180,6 +194,12 @@ class FieldGroup
         return $this;
     }
 
+    /**
+     * Set the location of the field group.
+     * 
+     * @param FieldGroupLocations $locations 
+     * @return FieldGroup 
+     */
     public function setLocations(FieldGroupLocations $locations): self
     {
         $this->location = $locations->build();
@@ -187,6 +207,11 @@ class FieldGroup
         return $this;
     }
 
+    /**
+     * build the field group.
+     * 
+     * @return array 
+     */
     public function build(): array
     {
         return json_decode(json_encode($this), true);
