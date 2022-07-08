@@ -5,7 +5,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Joren\\AcfBuilder\\": "src/"
+            "Joren\\ACFBuilder\\": "src/"
         }
     },
     "authors": [
@@ -14,6 +14,14 @@
             "email": "rothmanjoren@gmail.com"
         }
     ],
+    "scripts": {
+        "test": "vendor/bin/phpunit tests"
+    },
     "minimum-stability": "alpha",
-    "require": {}
+    "require": {
+        "php": ">=7.2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
 }
