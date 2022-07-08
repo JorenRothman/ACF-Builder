@@ -1,9 +1,8 @@
 <?php
 
-use Joren\ACFBuilder\FieldGroup;
-
 require_once __DIR__ . '/vendor/autoload.php';
 
+var_dump($fieldGroupLocations->build());
 
 // if (function_exists('acf_add_local_field_group')) :
 
