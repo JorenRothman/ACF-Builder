@@ -9,6 +9,8 @@ class FieldConditionalLogic
     public function __construct()
     {
         $this->conditionalLogic = [[]];
+
+        return $this;
     }
 
     private function getCurrentConditionalLogicIndex(): int
@@ -16,25 +18,38 @@ class FieldConditionalLogic
         return count($this->conditionalLogic) - 1;
     }
 
-    public function and(Field $field, string $operator, string $value): self
+    public function and(Field $field, string $operator, mixed $value): self
     {
         $currentConditionalLogicIndex = $this->getCurrentConditionalLogicIndex();
 
-        $this->conditionalLogic[$currentConditionalLogicIndex][] = ['param' => $field->key, 'operator' => $operator, 'value' => $value];
+        if (is_bool($value)) {
+            $value = $value ? '1' : '0';
+        }
+
+        $this->conditionalLogic[$currentConditionalLogicIndex][] = ['field' => $field->key, 'operator' => $operator, 'value' => $value];
 
         return $this;
     }
 
-    public function or(Field $field, string $operator, string $value): self
+    public function or(Field $field, string $operator, mixed $value): self
     {
-        if (!empty($this->locations[$this->getCurrentConditionalLogicIndex()])) {
+        if (!empty($this->conditionalLogic[$this->getCurrentConditionalLogicIndex()])) {
             $this->conditionalLogic[] = [];
         }
 
         $currentConditionalLogicIndex = $this->getCurrentConditionalLogicIndex();
 
-        $this->conditionalLogic[$currentConditionalLogicIndex][] = ['param' => $field->key, 'operator' => $operator, 'value' => $value];
+        if (is_bool($value)) {
+            $value = $value ? '1' : '0';
+        }
+
+        $this->conditionalLogic[$currentConditionalLogicIndex][] = ['field' => $field->key, 'operator' => $operator, 'value' => $value];
 
         return $this;
+    }
+
+    public function build()
+    {
+        return $this->conditionalLogic;
     }
 }

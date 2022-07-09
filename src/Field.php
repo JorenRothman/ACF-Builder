@@ -60,7 +60,7 @@ abstract class Field
         return $this;
     }
 
-    public function setConditionalLogic(mixed $value): self
+    public function setConditionalLogic(FieldConditionalLogic $value): self
     {
         $this->conditional_logic = $value;
 
