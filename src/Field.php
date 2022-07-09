@@ -4,23 +4,23 @@ namespace Joren\ACFBuilder;
 
 use Joren\ACFBuilder\Util\StringUtil;
 
-class Field
+abstract class Field
 {
-    public $key;
+    public string $key;
 
-    public $label;
+    public string $label;
 
-    public $name;
+    public string $name;
 
-    public $type;
+    public string $type;
 
-    public $instructions;
+    public string $instructions;
 
-    public $required;
+    public bool $required = false;
 
-    public $conditional_logic;
+    public mixed $conditional_logic = false;
 
-    public $wrapper;
+    public array $wrapper = ['width' => '', 'class' => '', 'id' => ''];
 
     public function __construct(string $label, ?string $name = null, ?string $key = null)
     {
@@ -28,6 +28,7 @@ class Field
         $this->name = StringUtil::nameFormat($name ?? $label);
 
         $this->setKey($key ?? $this->name);
+        $this->setType();
     }
 
     /**
@@ -39,6 +40,36 @@ class Field
     public function setKey(string $value): self
     {
         $this->key = md5($value);
+
+        return $this;
+    }
+
+    abstract protected function setType(): void;
+
+    public function setInstructions(string $value): self
+    {
+        $this->instructions = $value;
+
+        return $this;
+    }
+
+    public function setRequired(bool $value): self
+    {
+        $this->required = $value;
+
+        return $this;
+    }
+
+    public function setConditionalLogic(mixed $value): self
+    {
+        $this->conditional_logic = $value;
+
+        return $this;
+    }
+
+    public function setWrapper(array $value): self
+    {
+        $this->wrapper = $value;
 
         return $this;
     }
