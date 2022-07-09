@@ -1,8 +1,6 @@
 <?php
 
-namespace Joren\ACFBuilder;
-
-use Joren\ACFBuilder\Fields\Text;
+use Joren\ACFBuilder\FieldConditionalLogic;
 use Joren\ACFBuilder\Fields\TrueFalse;
 use PHPUnit\Framework\TestCase;
 
