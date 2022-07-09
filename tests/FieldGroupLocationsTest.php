@@ -1,6 +1,5 @@
 <?php
 
-use Joren\ACFBuilder\FieldGroup;
 use Joren\ACFBuilder\FieldGroupLocations;
 use PHPUnit\Framework\TestCase;
 
