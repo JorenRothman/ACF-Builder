@@ -84,11 +84,11 @@ final class FieldGroupTest extends TestCase
             'show_in_rest' => false,
             'location' => [
                 [
-                    ['post_type', '==', 'page'],
-                    ['post_status', '!=', 'trash'],
+                    ['param' => 'post_type', 'operator' => '==', 'value' => 'page'],
+                    ['param' => 'post_status', 'operator' => '!=', 'value' => 'trash'],
                 ],
                 [
-                    ['post_type', '==', 'post'],
+                    ['param' => 'post_type', 'operator' => '==', 'value' => 'post'],
                 ]
             ]
         ];

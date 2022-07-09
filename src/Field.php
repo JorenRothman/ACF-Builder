@@ -37,7 +37,7 @@ abstract class Field
      * @param string $value
      * @return Field
      */
-    public function setKey(string $value): self
+    protected function setKey(string $value): self
     {
         $this->key = md5($value);
 

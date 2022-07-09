@@ -15,8 +15,8 @@ final class FieldGroupLocationsTest extends TestCase
 
         $this->assertEquals([
             [
-                ['post_type', '==', 'page'],
-                ['post_type', '==', 'post']
+                ['param' => 'post_type', 'operator' => '==', 'value' => 'page'],
+                ['param' => 'post_type',  'operator' => '==',  'value' => 'post']
             ]
         ], $fieldGroupLocations->build());
     }
@@ -29,10 +29,10 @@ final class FieldGroupLocationsTest extends TestCase
 
         $expected = [
             [
-                ['post_type', '==', 'page']
+                ['param' => 'post_type',  'operator' => '==',  'value' => 'page']
             ],
             [
-                ['post_type', '==', 'post'],
+                ['param' => 'post_type',  'operator' => '==',  'value' => 'post'],
             ]
         ];
 
@@ -48,11 +48,11 @@ final class FieldGroupLocationsTest extends TestCase
 
         $this->assertEquals([
             [
-                ['post_type', '==', 'page'],
+                ['param' => 'post_type',  'operator' => '==',  'value' => 'page'],
             ],
             [
-                ['post_type', '==', 'post'],
-                ['post_status', '==', 'publish'],
+                ['param' => 'post_type', 'operator' =>  '==',  'value' => 'post'],
+                ['param' => 'post_status',  'operator' => '==',  'value' => 'publish'],
             ],
         ], $fieldGroupLocations->build());
     }

@@ -43,7 +43,7 @@ class FieldGroupLocations
     {
         $currentLocationIndex = $this->getCurrentLocationIndex();
 
-        $this->locations[$currentLocationIndex][] = [$parameter, $operator, $value];
+        $this->locations[$currentLocationIndex][] = ['param' => $parameter, 'operator' => $operator, 'value' => $value];
 
         return $this;
     }
@@ -64,7 +64,7 @@ class FieldGroupLocations
 
         $currentLocationIndex = $this->getCurrentLocationIndex();
 
-        $this->locations[$currentLocationIndex][] = [$parameter, $operator, $value];
+        $this->locations[$currentLocationIndex][] = ['param' => $parameter, 'operator' => $operator, 'value' => $value];
 
         return $this;
     }
