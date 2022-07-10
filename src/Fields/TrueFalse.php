@@ -6,7 +6,7 @@ use Joren\ACFBuilder\Field;
 
 class TrueFalse extends Field
 {
-    public bool $default_value = false;
+    public mixed $default_value = false;
 
     public string $message = '';
 
@@ -24,13 +24,6 @@ class TrueFalse extends Field
     public function setType(): void
     {
         $this->type = 'true_false';
-    }
-
-    public function setDefaultValue(bool $value): self
-    {
-        $this->default_value = $value;
-
-        return $this;
     }
 
     public function setMessage(string $value): self

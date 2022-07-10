@@ -46,7 +46,7 @@ final class FieldGroupTest extends TestCase
         $this->assertEquals([
             'title' => 'My Field Group - Test',
             'name' => 'my_field_group_test',
-            'key' => '40c17d408c7dff2f69957d263562188e',
+            'key' => 'group_40c17d408c7dff2f69957d263562188e',
             'menu_order' => 0,
             'position' => 'normal',
             'style' => 'default',
@@ -73,7 +73,7 @@ final class FieldGroupTest extends TestCase
         $expected = [
             'title' => 'My Field Group - Test',
             'name' => 'my_field_group_test',
-            'key' => '40c17d408c7dff2f69957d263562188e',
+            'key' => 'group_40c17d408c7dff2f69957d263562188e',
             'menu_order' => 0,
             'position' => 'normal',
             'style' => 'default',

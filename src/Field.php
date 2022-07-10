@@ -22,6 +22,8 @@ abstract class Field
 
     public array $wrapper = ['width' => '', 'class' => '', 'id' => ''];
 
+    public mixed $default_value = '';
+
     public function __construct(string $label, ?string $name = null, ?string $key = null)
     {
         $this->label = $label;
@@ -39,7 +41,7 @@ abstract class Field
      */
     protected function setKey(string $value): self
     {
-        $this->key = md5($value);
+        $this->key = 'field_' . md5($value);
 
         return $this;
     }
@@ -53,6 +55,12 @@ abstract class Field
         return $this;
     }
 
+    /**
+     * Whether or not the field value is required.
+     * 
+     * @param bool $value 
+     * @return Field 
+     */
     public function setRequired(bool $value): self
     {
         $this->required = $value;
@@ -60,6 +68,13 @@ abstract class Field
         return $this;
     }
 
+    /**
+     * Conditionally hide or show this field based on other field's values. 
+     * Best to use the ACF UI and export to understand the array structure.
+     * 
+     * @param FieldConditionalLogic $value 
+     * @return Field 
+     */
     public function setConditionalLogic(FieldConditionalLogic $value): self
     {
         $this->conditional_logic = $value;
@@ -67,9 +82,28 @@ abstract class Field
         return $this;
     }
 
-    public function setWrapper(array $value): self
+    /**
+     * An array of attributes given to the field element
+     * 
+     * @param array $value 
+     * @return Field 
+     */
+    public function setWrapper(string $width, string $class = '', string $id = ''): self
     {
-        $this->wrapper = $value;
+        $this->wrapper = ['width' => $width, 'class' => $class, 'id' => $id];
+
+        return $this;
+    }
+
+    /**
+     * A default value used by ACF if no value has yet been saved
+     * 
+     * @param mixed $value 
+     * @return Field 
+     */
+    public function setDefaultValue(mixed $value): self
+    {
+        $this->default_value = $value;
 
         return $this;
     }

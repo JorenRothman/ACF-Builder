@@ -28,7 +28,7 @@ class FieldGroup
 
     public string $instruction_placement = 'label';
 
-    public string $hide_on_screen = '';
+    public mixed $hide_on_screen = '';
 
     public bool $active = true;
 
@@ -64,7 +64,7 @@ class FieldGroup
      */
     protected function setKey(string $value): self
     {
-        $this->key = md5($value);
+        $this->key = 'group_' . md5($value);
 
         return $this;
     }
@@ -85,7 +85,7 @@ class FieldGroup
     /**
      * Set the meta box position of the field group.
      * 
-     * options: normal, side
+     * options: normal, side, acf_after_title
      *
      * @param string $value
      * @return FieldGroup
@@ -145,10 +145,15 @@ class FieldGroup
     /**
      * Set the hide on screen option.
      * 
-     * @param string $value 
+     * options: permalink, the_content, excerpt, 
+     * discussion, comments, revisions, slug, author, 
+     * format, page_attributes, featured_image, 
+     * categories, tags, send-trackbacks
+     * 
+     * @param array $value 
      * @return FieldGroup 
      */
-    public function setHideOnScreen(string $value): self
+    public function setHideOnScreen(array $value): self
     {
         $this->hide_on_screen = $value;
 
