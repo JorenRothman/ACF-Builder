@@ -46,6 +46,19 @@ abstract class Field
         return $this;
     }
 
+    public function onAddToFieldGroup(FieldGroup $parent): void
+    {
+        $fieldGroupName = $parent->name;
+
+        $this->name = $fieldGroupName . '_' . $this->name;
+        $this->setKey($fieldGroupName . '_' . $this->key);
+    }
+
+    public function onBuild($name)
+    {
+        $this->setKey($name . '_' . $this->key);
+    }
+
     abstract protected function setType(): void;
 
     public function setInstructions(string $value): self
@@ -106,5 +119,10 @@ abstract class Field
         $this->default_value = $value;
 
         return $this;
+    }
+
+    public function build()
+    {
+        return json_decode(json_encode($this), true);
     }
 }

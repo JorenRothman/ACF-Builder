@@ -213,12 +213,31 @@ class FieldGroup
     }
 
     /**
+     * Add a field to the field group.
+     * 
+     * @param Field $field 
+     * @return FieldGroup 
+     */
+    public function addField(Field $field): self
+    {
+        $field->onAddToFieldGroup($this);
+
+        $this->fields[] = $field;
+
+        return $this;
+    }
+
+    /**
      * build the field group.
      * 
      * @return array 
      */
     public function build(): array
     {
+        foreach ($this->fields as $field) {
+            $field->build();
+        }
+
         return json_decode(json_encode($this), true);
     }
 }
