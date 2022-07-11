@@ -14,7 +14,7 @@ class Repeater extends Field
 
     public string $layout = 'block';
 
-    public string $button_label;
+    public string $button_label = 'Add Row';
 
     public array $sub_fields;
 

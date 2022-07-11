@@ -14,7 +14,7 @@ abstract class Field
 
     public string $type;
 
-    public string $instructions;
+    public string $instructions = '';
 
     public bool $required = false;
 
