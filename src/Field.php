@@ -53,6 +53,11 @@ abstract class Field
         $this->setKey($name . '_' . $this->key);
     }
 
+    /**
+     * Set the type of the field.
+     *
+     * @return void
+     */
     abstract protected function setType(): void;
 
     public function setInstructions(string $value): self

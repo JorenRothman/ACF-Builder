@@ -31,11 +31,6 @@ class Repeater extends Field
         return $this;
     }
 
-    /**
-     * Set type to  repeater
-     * 
-     * @return void 
-     */
     protected function setType(): void
     {
         $this->type = 'repeater';
