@@ -32,13 +32,13 @@ class FieldGroup
 
     public bool $active = true;
 
-    public string $description;
+    public string $description = '';
 
     public bool $show_in_rest = false;
 
-    public array $fields;
+    public array $fields = [];
 
-    public array $location;
+    public array $location = [];
 
     /**
      * FieldGroup constructor.
@@ -64,7 +64,7 @@ class FieldGroup
      */
     protected function setKey(string $value): self
     {
-        $this->key = 'group_' . md5($value);
+        $this->key = 'group_' . $value;
 
         return $this;
     }

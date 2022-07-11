@@ -18,8 +18,8 @@ class FieldConditionalLogicTest extends TestCase
 
         $this->assertEquals([
             [
-                ['field' => 'field_151c33bae13714896d7b8b06d0addc93', 'operator' => '==', 'value' => '1'],
-                ['field' => 'field_d466702699b4afa6dc4ee732758cfc80', 'operator' => '==', 'value' => '0']
+                ['field' => 'field_true_false', 'operator' => '==', 'value' => '1'],
+                ['field' => 'field_true_false_2', 'operator' => '==', 'value' => '0']
             ]
         ], $conditionalLogic->build());
     }
@@ -36,11 +36,11 @@ class FieldConditionalLogicTest extends TestCase
 
         $this->assertEquals([
             [
-                ['field' => 'field_151c33bae13714896d7b8b06d0addc93', 'operator' => '==', 'value' => '1'],
+                ['field' => 'field_true_false', 'operator' => '==', 'value' => '1'],
 
             ],
             [
-                ['field' => 'field_d466702699b4afa6dc4ee732758cfc80', 'operator' => '==', 'value' => '0']
+                ['field' => 'field_true_false_2', 'operator' => '==', 'value' => '0']
             ]
         ], $conditionalLogic->build());
     }
@@ -59,12 +59,12 @@ class FieldConditionalLogicTest extends TestCase
 
         $this->assertEquals([
             [
-                ['field' => 'field_151c33bae13714896d7b8b06d0addc93', 'operator' => '==', 'value' => '1'],
+                ['field' => 'field_true_false', 'operator' => '==', 'value' => '1'],
 
             ],
             [
-                ['field' => 'field_d466702699b4afa6dc4ee732758cfc80', 'operator' => '==', 'value' => '0'],
-                ['field' => 'field_06854dff27bcdb0b292c7b40db1942c9', 'operator' => '==', 'value' => '1']
+                ['field' => 'field_true_false_2', 'operator' => '==', 'value' => '0'],
+                ['field' => 'field_true_false_3', 'operator' => '==', 'value' => '1']
             ]
         ], $conditionalLogic->build());
     }

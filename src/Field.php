@@ -41,7 +41,7 @@ abstract class Field
      */
     protected function setKey(string $value): self
     {
-        $this->key = 'field_' . md5($value);
+        $this->key = 'field_' . $value;
 
         return $this;
     }

@@ -33,8 +33,7 @@ final class FieldGroupTest extends TestCase
 
         $this->assertEquals('My Field Group - Test', $fieldGroup->title);
         $this->assertEquals('my_custom_name_field', $fieldGroup->name);
-
-        $this->assertNotEmpty($fieldGroup->key);
+        $this->assertEquals('group_randodkfhashgohrijaipaf', $fieldGroup->key);
     }
 
     public function testBuild()
@@ -46,7 +45,7 @@ final class FieldGroupTest extends TestCase
         $this->assertEquals([
             'title' => 'My Field Group - Test',
             'name' => 'my_field_group_test',
-            'key' => 'group_40c17d408c7dff2f69957d263562188e',
+            'key' => 'group_my_field_group_test',
             'menu_order' => 0,
             'position' => 'normal',
             'style' => 'default',
@@ -55,44 +54,9 @@ final class FieldGroupTest extends TestCase
             'hide_on_screen' => '',
             'active' => true,
             'show_in_rest' => false,
+            'description' => '',
+            'location' => [],
+            'fields' => [],
         ], $fieldGroup->build());
-    }
-
-    public function testLocation()
-    {
-        $fieldGroup = new FieldGroup('My Field Group - Test');
-
-        $fieldGroupLocations = new FieldGroupLocations;
-
-        $fieldGroupLocations->or('post_type', '==', 'page');
-        $fieldGroupLocations->and('post_status', '!=', 'trash');
-        $fieldGroupLocations->or('post_type', '==', 'post');
-
-        $fieldGroup->setLocations($fieldGroupLocations);
-
-        $expected = [
-            'title' => 'My Field Group - Test',
-            'name' => 'my_field_group_test',
-            'key' => 'group_40c17d408c7dff2f69957d263562188e',
-            'menu_order' => 0,
-            'position' => 'normal',
-            'style' => 'default',
-            'label_placement' => 'top',
-            'instruction_placement' => 'label',
-            'hide_on_screen' => '',
-            'active' => true,
-            'show_in_rest' => false,
-            'location' => [
-                [
-                    ['param' => 'post_type', 'operator' => '==', 'value' => 'page'],
-                    ['param' => 'post_status', 'operator' => '!=', 'value' => 'trash'],
-                ],
-                [
-                    ['param' => 'post_type', 'operator' => '==', 'value' => 'post'],
-                ]
-            ]
-        ];
-
-        $this->assertEquals($expected, $fieldGroup->build());
     }
 }

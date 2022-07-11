@@ -20,8 +20,6 @@ class Repeater extends Field
 
     public function  addSubField(Field $field): self
     {
-        echo $this->key;
-        echo $this->name;
         $this->sub_fields[] = $field;
 
         return $this;
@@ -35,7 +33,7 @@ class Repeater extends Field
     public function build()
     {
         foreach ($this->sub_fields as $field) {
-            $field->onBuild($this->name);
+            $field->onBuild($this->key);
         }
 
         return json_decode(json_encode($this), true);
