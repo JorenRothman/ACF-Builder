@@ -62,4 +62,24 @@ final class RepeaterTest extends TestCase
 
         $this->assertEquals($expected, $result);
     }
+
+    public function testCollapsed()
+    {
+        $repeater = new Repeater('Repeater');
+
+        $text = new Text('Text');
+
+        $repeater->setCollapsed($text);
+
+        $repeater->addSubField($text);
+
+        $build = $repeater->build();
+
+        $result = $build['collapsed'];
+
+
+        $expected = $text->key;
+
+        $this->assertEquals($expected, $result);
+    }
 }
