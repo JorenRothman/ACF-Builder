@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class FieldConditionalLogicTest extends TestCase
 {
+
     public function testAnd()
     {
         $trueFalse = new TrueFalse('True false');
