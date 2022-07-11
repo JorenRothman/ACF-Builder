@@ -4,7 +4,7 @@ namespace Joren\ACFBuilder\Fields\Content;
 
 use Joren\ACFBuilder\Field;
 
-class Image extends Field
+class Image extends FieldContent
 {
     public string $return_format = 'array';
 

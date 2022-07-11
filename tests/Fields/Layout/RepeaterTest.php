@@ -58,7 +58,6 @@ final class RepeaterTest extends TestCase
                     'disabled' => false,
                 ),
             ),
-            'default_value' => '',
         ];
 
         $this->assertEquals($expected, $result);

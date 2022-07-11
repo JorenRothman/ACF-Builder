@@ -4,7 +4,7 @@ namespace Joren\ACFBuilder\Fields\Content;
 
 use Joren\ACFBuilder\Field;
 
-class Wysiwyg extends Field
+class Wysiwyg extends FieldContent
 {
     public string $tabs = 'all';
 

@@ -2,10 +2,13 @@
 
 namespace Joren\ACFBuilder;
 
+use Joren\ACFBuilder\Helpers\FieldHelper;
 use Joren\ACFBuilder\Util\StringUtil;
 
 abstract class Field
 {
+    use FieldHelper;
+
     public string $key;
 
     public string $label;
@@ -21,8 +24,6 @@ abstract class Field
     public mixed $conditional_logic = false;
 
     public array $wrapper = ['width' => '', 'class' => '', 'id' => ''];
-
-    public mixed $default_value = '';
 
     public function __construct(string $label, ?string $name = null, ?string $key = null)
     {
@@ -46,13 +47,6 @@ abstract class Field
         return $this;
     }
 
-    public function onAddToFieldGroup(FieldGroup $parent): void
-    {
-        $fieldGroupName = $parent->name;
-
-        $this->name = $fieldGroupName . '_' . $this->name;
-        $this->setKey($fieldGroupName . '_' . $this->key);
-    }
 
     public function onBuild($name)
     {
@@ -108,18 +102,7 @@ abstract class Field
         return $this;
     }
 
-    /**
-     * A default value used by ACF if no value has yet been saved
-     * 
-     * @param mixed $value 
-     * @return Field 
-     */
-    public function setDefaultValue(mixed $value): self
-    {
-        $this->default_value = $value;
 
-        return $this;
-    }
 
     public function build()
     {

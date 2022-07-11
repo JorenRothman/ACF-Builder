@@ -4,7 +4,7 @@ namespace Joren\ACFBuilder\Fields\Content;
 
 use Joren\ACFBuilder\Field;
 
-class Gallery extends Field
+class Gallery extends FieldContent
 {
     public int $min = 0;
 

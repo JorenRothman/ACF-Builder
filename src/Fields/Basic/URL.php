@@ -4,7 +4,7 @@ namespace Joren\ACFBuilder\Fields\Basic;
 
 use Joren\ACFBuilder\Field;
 
-class URL extends Field
+class URL extends FieldBasic
 {
     public string $placeholder = '';
 

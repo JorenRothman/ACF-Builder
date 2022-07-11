@@ -45,7 +45,6 @@ final class FlexibleContentTest extends TestCase
             'button_label' => 'Add Row',
             'min' => 0,
             'max' => 0,
-            'default_value' => '',
         ];
 
         $this->assertEquals($expected, $result);

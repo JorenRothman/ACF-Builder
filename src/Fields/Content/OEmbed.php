@@ -4,7 +4,7 @@ namespace Joren\ACFBuilder\Fields\Content;
 
 use Joren\ACFBuilder\Field;
 
-class OEmbed extends Field
+class OEmbed extends FieldContent
 {
     public string $width = '';
 

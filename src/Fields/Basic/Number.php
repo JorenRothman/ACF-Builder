@@ -4,7 +4,7 @@ namespace Joren\ACFBuilder\Fields\Basic;
 
 use Joren\ACFBuilder\Field;
 
-class Number extends Field
+class Number extends FieldBasic
 {
     public string $placeholder = '';
 
