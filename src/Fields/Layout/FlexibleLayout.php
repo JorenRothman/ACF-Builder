@@ -71,7 +71,7 @@ class FlexibleLayout
     public function build()
     {
         foreach ($this->sub_fields as $field) {
-            $field->onBuild($this->key);
+            $field->build($this->key);
         }
 
         return json_decode(json_encode($this), true);

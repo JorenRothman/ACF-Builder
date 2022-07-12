@@ -2,13 +2,10 @@
 
 namespace Joren\ACFBuilder;
 
-use Joren\ACFBuilder\Helpers\FieldHelper;
 use Joren\ACFBuilder\Util\StringUtil;
 
 abstract class Field
 {
-    use FieldHelper;
-
     public string $key;
 
     public string $label;
@@ -47,11 +44,6 @@ abstract class Field
         return $this;
     }
 
-
-    public function onBuild($name): void
-    {
-        $this->setKey($name . '_' . $this->key);
-    }
 
     /**
      * Set the type of the field.
@@ -107,13 +99,23 @@ abstract class Field
         return $this;
     }
 
+    public function onAddToFieldGroup(FieldGroup $parent): void
+    {
+        $fieldGroupName = $parent->name;
+
+        $this->name = $fieldGroupName . '_' . $this->name;
+        $this->setKey($fieldGroupName . '_' . $this->key);
+    }
+
     /**
      * Build the field
      *
      * @return array
      */
-    public function build(): array
+    public function build(string $name = '')
     {
-        return json_decode(json_encode($this), true);
+        if ($name) {
+            $this->setKey($name . '_' . $this->key);
+        }
     }
 }

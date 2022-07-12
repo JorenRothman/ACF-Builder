@@ -101,12 +101,12 @@ class Repeater extends Field
      * 
      * @return array
      */
-    public function build(): array
+    public function build(string $name = ''): array
     {
         foreach ($this->sub_fields as $field) {
             $isCollapsed = $field->key === $this->collapsed;
 
-            $field->onBuild($this->key);
+            $field->build($this->key);
 
             if ($isCollapsed) {
                 $this->collapsed = $field->key;
