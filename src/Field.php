@@ -48,7 +48,7 @@ abstract class Field
     }
 
 
-    public function onBuild($name)
+    public function onBuild($name): void
     {
         $this->setKey($name . '_' . $this->key);
     }
@@ -107,9 +107,12 @@ abstract class Field
         return $this;
     }
 
-
-
-    public function build()
+    /**
+     * Build the field
+     *
+     * @return array
+     */
+    public function build(): array
     {
         return json_decode(json_encode($this), true);
     }

@@ -47,7 +47,7 @@ class Group extends Field
      *
      * @return array
      */
-    public function build()
+    public function build(): array
     {
         foreach ($this->sub_fields as $field) {
             $field->onBuild($this->key);
