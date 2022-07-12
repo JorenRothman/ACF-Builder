@@ -47,7 +47,7 @@ class FlexibleContent extends Field
         return $this;
     }
 
-    public function build()
+    public function build(): array
     {
         foreach ($this->layouts as $layout) {
             $layout = $layout->build();
