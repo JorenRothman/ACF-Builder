@@ -1,7 +1,7 @@
 <?php
 
 use Joren\ACFBuilder\FieldConditionalLogic;
-use Joren\ACFBuilder\Fields\TrueFalse;
+use Joren\ACFBuilder\Fields\Choice\TrueFalse;
 use PHPUnit\Framework\TestCase;
 
 class FieldConditionalLogicTest extends TestCase

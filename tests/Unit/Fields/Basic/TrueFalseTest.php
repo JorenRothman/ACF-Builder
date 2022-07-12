@@ -1,6 +1,6 @@
 <?php
 
-use Joren\ACFBuilder\Fields\TrueFalse;
+use Joren\ACFBuilder\Fields\Choice\TrueFalse;
 use PHPUnit\Framework\TestCase;
 
 

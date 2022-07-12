@@ -15,7 +15,7 @@
         }
     ],
     "scripts": {
-        "test": "vendor/bin/phpunit --colors --testdox"
+        "test": "vendor/bin/phpunit --colors"
     },
     "minimum-stability": "alpha",
     "require": {
