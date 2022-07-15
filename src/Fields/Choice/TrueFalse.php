@@ -8,7 +8,7 @@ class TrueFalse extends ChoiceField
 {
     public string $message = '';
 
-    public bool $ui = false;
+    public int $ui = 0;
 
     public string $ui_on_text = '';
 
@@ -33,7 +33,7 @@ class TrueFalse extends ChoiceField
 
     public function setUI(bool $value): self
     {
-        $this->ui = $value;
+        $this->ui = (int) $value;
 
         return $this;
     }

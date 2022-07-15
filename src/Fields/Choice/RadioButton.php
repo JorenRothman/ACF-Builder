@@ -6,15 +6,15 @@ class RadioButton extends ChoiceField
 {
     public array $choices = [];
 
-    public bool $allow_null = false;
+    public int $allow_null = 0;
 
-    public bool $other_choice = false;
+    public int $other_choice = 0;
 
     public string $layout = 'vertical';
 
     public string $return_format = 'value';
 
-    public bool $save_other_choice = false;
+    public int $save_other_choice = 0;
 
     public function setType(): void
     {
@@ -42,7 +42,7 @@ class RadioButton extends ChoiceField
      */
     public function setAllowNull(bool $allow_null): self
     {
-        $this->allow_null = $allow_null;
+        $this->allow_null = (int) $allow_null;
 
         return $this;
     }
@@ -55,7 +55,7 @@ class RadioButton extends ChoiceField
      */
     public function setOtherChoice(bool $other_choice): self
     {
-        $this->other_choice = $other_choice;
+        $this->other_choice = (int) $other_choice;
 
         return $this;
     }
@@ -96,7 +96,7 @@ class RadioButton extends ChoiceField
      */
     public function setSaveOtherChoice(bool $save_other_choice): self
     {
-        $this->save_other_choice = $save_other_choice;
+        $this->save_other_choice = (int) $save_other_choice;
 
         return $this;
     }

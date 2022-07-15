@@ -6,15 +6,15 @@ class Select extends ChoiceField
 {
     public array $choices = [];
 
-    public bool $allow_null = false;
+    public int $allow_null = 0;
 
-    public bool $multiple = false;
+    public int $multiple = 0;
 
-    public bool $ui = false;
+    public int $ui = 0;
 
     public string $return_format = 'value';
 
-    public bool $ajax = false;
+    public int $ajax = 0;
 
     public string $placeholder = '';
 
@@ -44,7 +44,7 @@ class Select extends ChoiceField
      */
     public function setAllowNull(bool $allow_null): self
     {
-        $this->allow_null = $allow_null;
+        $this->allow_null = (int) $allow_null;
 
         return $this;
     }
@@ -57,7 +57,7 @@ class Select extends ChoiceField
      */
     public function setMultiple(bool $multiple): self
     {
-        $this->multiple = $multiple;
+        $this->multiple = (int) $multiple;
 
         return $this;
     }
@@ -70,7 +70,7 @@ class Select extends ChoiceField
      */
     public function setUi(bool $ui): self
     {
-        $this->ui = $ui;
+        $this->ui = (int) $ui;
 
         return $this;
     }
@@ -96,7 +96,7 @@ class Select extends ChoiceField
      */
     public function setAjax(bool $ajax): self
     {
-        $this->ajax = $ajax;
+        $this->ajax = (int) $ajax;
 
         return $this;
     }

@@ -6,7 +6,7 @@ class ButtonGroup extends ChoiceField
 {
     public array $choices = [];
 
-    public bool $allow_null = false;
+    public int $allow_null = 0;
 
     public string $layout = 'horizontal';
 
@@ -38,7 +38,7 @@ class ButtonGroup extends ChoiceField
      */
     public function setAllowNull(bool $allow_null): self
     {
-        $this->allow_null = $allow_null;
+        $this->allow_null = (int) $allow_null;
 
         return $this;
     }
