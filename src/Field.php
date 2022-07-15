@@ -16,15 +16,15 @@ abstract class Field
 
     public string $instructions = '';
 
-    public bool $required = false;
+    public int $required = 0;
 
-    public mixed $conditional_logic = false;
+    public mixed $conditional_logic = 0;
 
     public array $wrapper = ['width' => '', 'class' => '', 'id' => ''];
 
     public function __construct(string $label, ?string $name = null, ?string $key = null)
     {
-        $this->label = $label;
+        $this->label = ucwords($label);
         $this->name = StringUtil::nameFormat($name ?? $label);
 
         $this->setKey($key ?? $this->name);
@@ -39,7 +39,7 @@ abstract class Field
      */
     protected function setKey(string $value): self
     {
-        $this->key = 'field_' . $value;
+        $this->key = 'field_' . StringUtil::nameFormat($value);
 
         return $this;
     }
@@ -67,7 +67,7 @@ abstract class Field
      */
     public function setRequired(bool $value): self
     {
-        $this->required = $value;
+        $this->required = (int) $value;
 
         return $this;
     }
@@ -117,5 +117,7 @@ abstract class Field
         if ($name) {
             $this->setKey($name . '_' . $this->key);
         }
+
+        return json_decode(json_encode($this), true);
     }
 }

@@ -6,15 +6,17 @@ class Checkbox extends ChoiceField
 {
     public array $choices = [];
 
-    public bool $allow_custom = false;
+    public int $allow_custom = 0;
 
     public string $layout = 'vertical';
 
-    public bool $toggle = false;
+    public int $toggle = 0;
 
-    public bool $return_format = 'value';
+    public string $return_format = 'value';
 
-    public bool $save_custom = false;
+    public int $save_custom = 0;
+
+    public mixed $default_value = [];
 
     public function setType(): void
     {
@@ -42,7 +44,7 @@ class Checkbox extends ChoiceField
      */
     public function setAllowCustom(bool $allow_custom): self
     {
-        $this->allow_custom = $allow_custom;
+        $this->allow_custom = (int) $allow_custom;
 
         return $this;
     }
@@ -69,7 +71,7 @@ class Checkbox extends ChoiceField
      */
     public function setToggle(bool $toggle): self
     {
-        $this->toggle = $toggle;
+        $this->toggle = (int) $toggle;
 
         return $this;
     }
@@ -95,7 +97,7 @@ class Checkbox extends ChoiceField
      */
     public function setSaveCustom(bool $save_custom): self
     {
-        $this->save_custom = $save_custom;
+        $this->save_custom = (int) $save_custom;
 
         return $this;
     }
