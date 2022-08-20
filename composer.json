@@ -3,6 +3,7 @@
     "description": "A simple PHP api for creating ACF Custom Field Groups",
     "type": "library",
     "license": "MIT",
+    "version": "3.0.0",
     "autoload": {
         "psr-4": {
             "Joren\\ACFBuilder\\": "src/"
