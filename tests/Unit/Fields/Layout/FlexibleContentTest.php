@@ -38,13 +38,13 @@ final class FlexibleContentTest extends TestCase
                     'label' => 'Flexible Layout',
                     'display' => 'block',
                     'sub_fields' => array(),
-                    'min' => 0,
-                    'max' => 0,
+                    'min' => '',
+                    'max' => '',
                 ),
             ),
             'button_label' => 'Add Row',
-            'min' => 0,
-            'max' => 0,
+            'min' => '',
+            'max' => '',
         ];
 
         $this->assertEquals($expected, $result);

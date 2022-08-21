@@ -10,9 +10,9 @@ class FlexibleContent extends Field
 
     public array $layouts = [];
 
-    public int $min = 0;
+    public string $min = '';
 
-    public int $max = 0;
+    public string $max = '';
 
     protected function setType(): void
     {
@@ -28,14 +28,14 @@ class FlexibleContent extends Field
 
     public function setMin(int $min): self
     {
-        $this->min = $min;
+        $this->min = (string) $min;
 
         return $this;
     }
 
     public function setMax(int $max): self
     {
-        $this->max = $max;
+        $this->max = (string) $max;
 
         return $this;
     }

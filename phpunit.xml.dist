@@ -4,6 +4,9 @@
         <testsuite name="Unit">
             <directory suffix="Test.php">tests/Unit</directory>
         </testsuite>
+        <testsuite name="Intergration">
+            <directory suffix="Test.php">tests/Intergration</directory>
+        </testsuite>
     </testsuites>
 
     <coverage cacheDirectory=".phpunit.cache/code-coverage" processUncoveredFiles="true">

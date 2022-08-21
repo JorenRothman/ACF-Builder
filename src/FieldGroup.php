@@ -34,7 +34,7 @@ class FieldGroup
 
     public string $description = '';
 
-    public bool $show_in_rest = false;
+    public int $show_in_rest = 0;
 
     public array $fields = [];
 
@@ -194,7 +194,7 @@ class FieldGroup
      */
     public function setShowInRest(bool $value): self
     {
-        $this->show_in_rest = $value;
+        $this->show_in_rest = (int) $value;
 
         return $this;
     }

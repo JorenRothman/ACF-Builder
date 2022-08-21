@@ -14,10 +14,6 @@ class Text extends FieldBasic
 
     public string $maxlength = '';
 
-    public bool $readonly = false;
-
-    public bool $disabled = false;
-
     public function setType(): void
     {
         $this->type = 'text';
@@ -71,32 +67,6 @@ class Text extends FieldBasic
     public function setMaxLength(string $value): self
     {
         $this->maxlength = $value;
-
-        return $this;
-    }
-
-    /**
-     * Set readonly for a field.
-     *
-     * @param bool $value
-     * @return Field
-     */
-    public function setReadOnly(bool $value): self
-    {
-        $this->readonly = $value;
-
-        return $this;
-    }
-
-    /**
-     * Set disabled for a field.
-     *
-     * @param bool $value
-     * @return Field
-     */
-    public function setDisabled(bool $value): self
-    {
-        $this->disabled = $value;
 
         return $this;
     }

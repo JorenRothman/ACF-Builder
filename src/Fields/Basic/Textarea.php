@@ -14,10 +14,6 @@ class Textarea extends FieldBasic
 
     public string $new_lines = '';
 
-    public bool $readonly = false;
-
-    public bool $disabled = false;
-
     public function setType(): void
     {
         $this->type = 'textarea';
@@ -72,32 +68,6 @@ class Textarea extends FieldBasic
     public function setNewLines(string $value): self
     {
         $this->new_lines = $value;
-
-        return $this;
-    }
-
-    /**
-     * Whether or not the field value is readonly.
-     *
-     * @param bool $value
-     * @return Field
-     */
-    public function setReadOnly(bool $value): self
-    {
-        $this->readonly = $value;
-
-        return $this;
-    }
-
-    /**
-     * Whether or not the field value is disabled.
-     *
-     * @param bool $value
-     * @return Field
-     */
-    public function setDisabled(bool $value): self
-    {
-        $this->disabled = $value;
 
         return $this;
     }

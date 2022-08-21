@@ -51,8 +51,6 @@ final class GroupTest extends TestCase
                     'prepend' => '',
                     'append' => '',
                     'maxlength' => '',
-                    'readonly' => false,
-                    'disabled' => false,
                 ),
             ),
         ];

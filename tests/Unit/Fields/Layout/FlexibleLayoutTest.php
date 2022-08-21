@@ -39,12 +39,10 @@ final class FlexibleLayoutTest extends TestCase
                     'prepend' => '',
                     'append' => '',
                     'maxlength' => '',
-                    'readonly' => false,
-                    'disabled' => false,
                 ],
             ],
-            'min' => 0,
-            'max' => 0,
+            'min' => '',
+            'max' => '',
         ];
 
         $this->assertEquals($expected, $result);

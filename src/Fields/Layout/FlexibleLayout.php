@@ -7,19 +7,19 @@ use Joren\ACFBuilder\Util\StringUtil;
 
 class FlexibleLayout
 {
-    public $key = '';
+    public string $key = '';
 
-    public $name = '';
+    public string $name = '';
 
-    public $label = '';
+    public string $label = '';
 
-    public $display = 'block';
+    public string $display = 'block';
 
-    public $sub_fields = [];
+    public array $sub_fields = [];
 
-    public $min = 0;
+    public string $min = '';
 
-    public $max = 0;
+    public string $max = '';
 
     public function __construct(string $label, ?string $name = null, ?string $key = null)
     {
@@ -49,14 +49,14 @@ class FlexibleLayout
 
     public function setMin(int $min): self
     {
-        $this->min = $min;
+        $this->min = (string) $min;
 
         return $this;
     }
 
     public function setMax(int $max): self
     {
-        $this->max = $max;
+        $this->max = (string) $max;
 
         return $this;
     }

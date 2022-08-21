@@ -54,8 +54,6 @@ final class RepeaterTest extends TestCase
                     'prepend' => '',
                     'append' => '',
                     'maxlength' => '',
-                    'readonly' => false,
-                    'disabled' => false,
                 ),
             ),
         ];
