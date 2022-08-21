@@ -240,4 +240,15 @@ class FieldGroup
 
         return json_decode(json_encode($this), true);
     }
+
+    public function register(): void
+    {
+        if (!function_exists('acf_add_local_field_group') || !function_exists('add_action')) {
+            return;
+        }
+
+        add_action('acf/init', function () {
+            acf_add_local_field_group($this->build());
+        });
+    }
 }
