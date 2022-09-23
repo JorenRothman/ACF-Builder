@@ -26,7 +26,7 @@ class FieldConditionalLogic
             $value = $value ? '1' : '0';
         }
 
-        $this->conditionalLogic[$currentConditionalLogicIndex][] = ['field' => $field->key, 'operator' => $operator, 'value' => $value];
+        $this->conditionalLogic[$currentConditionalLogicIndex][] = ['field' => $field, 'operator' => $operator, 'value' => $value];
 
         return $this;
     }
@@ -43,13 +43,23 @@ class FieldConditionalLogic
             $value = $value ? '1' : '0';
         }
 
-        $this->conditionalLogic[$currentConditionalLogicIndex][] = ['field' => $field->key, 'operator' => $operator, 'value' => $value];
+        $this->conditionalLogic[$currentConditionalLogicIndex][] = ['field' => $field, 'operator' => $operator, 'value' => $value];
 
         return $this;
     }
 
     public function build()
     {
+        $this->conditionalLogic = array_map(function ($conditionalLogic) {
+            return array_map(function ($conditionalLogicItem) {
+                return [
+                    'field' => $conditionalLogicItem['field']->key,
+                    'operator' => $conditionalLogicItem['operator'],
+                    'value' => $conditionalLogicItem['value'],
+                ];
+            }, $conditionalLogic);
+        }, $this->conditionalLogic);
+
         return $this->conditionalLogic;
     }
 }

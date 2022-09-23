@@ -118,6 +118,10 @@ abstract class Field
             $this->setKey($name . '_' . $this->key);
         }
 
+        if ($this->conditional_logic) {
+            $this->conditional_logic = $this->conditional_logic->build();
+        }
+
         return json_decode(json_encode($this), true);
     }
 }
