@@ -16,7 +16,8 @@
         }
     ],
     "scripts": {
-        "test": "vendor/bin/phpunit --colors"
+        "test": "vendor/bin/phpunit --colors",
+        "publish": "vendor/bin/phabel publish && git push origin main && git push origin --tags"
     },
     "minimum-stability": "alpha",
     "require": {
