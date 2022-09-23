@@ -49,7 +49,7 @@ abstract class StringUtil
                 return true;
             }
 
-            if ($stringBit === $lastLetter) {
+            if ($stringBit === $lastLetter && $stringBit === '_') {
                 return false;
             }
 
