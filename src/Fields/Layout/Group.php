@@ -49,6 +49,8 @@ class Group extends Field
      */
     public function build($name = ''): array
     {
+        $this->setKey($name . '_' . $this->key);
+
         foreach ($this->sub_fields as $field) {
             $field->build($this->key);
         }

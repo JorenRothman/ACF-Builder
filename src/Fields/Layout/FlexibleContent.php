@@ -49,6 +49,8 @@ class FlexibleContent extends Field
 
     public function build(string $name = ''): array
     {
+        $this->setKey($name . '_' . $this->key);
+
         foreach ($this->layouts as $layout) {
             $layout = $layout->build();
         }
