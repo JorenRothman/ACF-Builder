@@ -55,6 +55,6 @@ class Group extends Field
             $field->build($this->key);
         }
 
-        return json_decode(json_encode($this), true);
+        return parent::build();
     }
 }

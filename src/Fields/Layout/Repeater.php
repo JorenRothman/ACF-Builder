@@ -115,6 +115,6 @@ class Repeater extends Field
             }
         }
 
-        return json_decode(json_encode($this), true);
+        return parent::build();
     }
 }

@@ -55,6 +55,6 @@ class FlexibleContent extends Field
             $layout = $layout->build();
         }
 
-        return json_decode(json_encode($this), true);
+        return parent::build();
     }
 }

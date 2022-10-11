@@ -53,7 +53,7 @@ class FieldConditionalLogic
         $this->conditionalLogic = array_map(function ($conditionalLogic) {
             return array_map(function ($conditionalLogicItem) {
                 return [
-                    'field' => $conditionalLogicItem['field']->key,
+                    'field' => is_object($conditionalLogicItem['field']) ? $conditionalLogicItem['field']->key : '',
                     'operator' => $conditionalLogicItem['operator'],
                     'value' => $conditionalLogicItem['value'],
                 ];
