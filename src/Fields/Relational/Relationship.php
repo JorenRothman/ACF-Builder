@@ -76,7 +76,7 @@ class Relationship extends RelationalField
      */
     public function addElement(string ...$element): self
     {
-        $this->elements[] = $element;
+        $this->elements = $element;
 
         return $this;
     }
