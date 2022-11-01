@@ -6,7 +6,10 @@
     "autoload": {
         "psr-4": {
             "Joren\\ACFBuilder\\": "src/"
-        }
+        },
+        "files": [
+            "___transpiledWithPhabel.php"
+        ]
     },
     "authors": [
         {
@@ -20,7 +23,8 @@
     },
     "minimum-stability": "alpha",
     "require": {
-        "php": "^8.0"
+        "phabel/phabel": "^1.0",
+        "php": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",
@@ -33,7 +37,8 @@
     },
     "extra": {
         "phabel": {
-            "revision": 0
+            "revision": 0,
+            "require": []
         }
     }
 }
