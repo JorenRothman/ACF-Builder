@@ -50,7 +50,7 @@ class FieldConditionalLogic
 
     public function build()
     {
-        $this->conditionalLogic = array_map(function ($conditionalLogic) {
+        return array_map(function ($conditionalLogic) {
             return array_map(function ($conditionalLogicItem) {
                 return [
                     'field' => is_object($conditionalLogicItem['field']) ? $conditionalLogicItem['field']->key : '',
@@ -59,7 +59,5 @@ class FieldConditionalLogic
                 ];
             }, $conditionalLogic);
         }, $this->conditionalLogic);
-
-        return $this->conditionalLogic;
     }
 }
