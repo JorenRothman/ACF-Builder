@@ -18,6 +18,10 @@ class Relationship extends RelationalField
 
     public string $return_format = 'object';
 
+    public int $bidirectional = 0;
+
+    public string|array $bidirectional_target = '';
+
     public function setType(): void
     {
         $this->type = 'relationship';
@@ -26,8 +30,8 @@ class Relationship extends RelationalField
     /**
      * Add a post type.
      * 
-     * @param string $post_type,... 
-     * @return self 
+     * @param string $post_type,...
+     * @return self
      */
     public function addPostType(string ...$post_type): self
     {
@@ -117,6 +121,31 @@ class Relationship extends RelationalField
     public function setReturnFormat(string $return_format): self
     {
         $this->return_format = $return_format;
+
+        return $this;
+    }
+
+    public function setBidirectional(bool $bidirectional): self
+    {
+        $this->bidirectional = (int) $bidirectional;
+
+        return $this;
+    }
+
+    /**
+     * Set the bidirectional target.
+     * 
+     *
+     * @param string $field
+     * @return self
+     */
+    public function setBidirectionalTarget(string $field): self
+    {
+        if ($this->bidirectional_target === '') {
+            $this->bidirectional_target = [];
+        }
+
+        $this->bidirectional_target[] = $field;
 
         return $this;
     }
