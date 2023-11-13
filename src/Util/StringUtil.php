@@ -22,42 +22,8 @@ abstract class StringUtil
 
         $string = str_replace(' ', '_', strtolower($string));
 
+        $string = preg_replace('/_+/', '_', $string);
 
-        $string = self::removeDuplicates($string);
-
-
-        // Replace spaces with underscores.
         return $string;
-    }
-
-    /**
-     * Remove duplicate characters from a string.
-     * 
-     * @param string $string 
-     * @return string 
-     */
-    private static function removeDuplicates(string $string): string
-    {
-        $stringArray = str_split($string);
-
-        $lastLetter = null;
-
-        $stringArray = array_filter($stringArray, function ($stringBit) use (&$lastLetter) {
-            if (is_null($lastLetter)) {
-                $lastLetter = $stringBit;
-
-                return true;
-            }
-
-            if ($stringBit === $lastLetter && $stringBit === '_') {
-                return false;
-            }
-
-            $lastLetter = $stringBit;
-
-            return true;
-        });
-
-        return implode('', $stringArray);
     }
 }
