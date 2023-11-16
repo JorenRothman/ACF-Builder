@@ -1,5 +1,5 @@
 {
-    "name": "joren/acf-builder",
+    "name": "jorenrothman/acf-builder",
     "description": "A simple PHP api for creating ACF Custom Field Groups",
     "type": "library",
     "license": "MIT",
@@ -26,9 +26,5 @@
         "phpunit/phpunit": "^9.5"
     },
     "config": {},
-    "extra": {
-        "phabel": {
-            "revision": 0
-        }
-    }
+    "extra": {}
 }
