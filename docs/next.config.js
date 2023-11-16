@@ -8,7 +8,7 @@ const isGithubActions = process.env.GITHUB_ACTIONS || false;
 let basePath = "";
 
 if (isGithubActions) {
-    basePath = "/wordpressboilerplatedocs";
+    basePath = "/ACF-Builder";
 }
 
 module.exports = withNextra({
