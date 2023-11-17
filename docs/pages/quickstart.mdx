@@ -1,0 +1,120 @@
+import {Tabs} from 'nextra/components';
+
+# Quickstart
+
+## Installation
+
+<Tabs items={['Composer (recommended)']}>
+    <Tabs.Tab>
+        Run the following command in the root of your project/theme/plugin:
+
+        ```bash copy
+        composer require jorenrothman/acf-builder
+        ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+        This is currently not supported.
+    </Tabs.Tab>
+</Tabs>
+
+## Creating a Field Group
+
+To create a field group, you must first create a new instance of the `FieldGroup` class. The constructor requires a single argument, the name of the field group. The name is used to identify the field group in the WordPress admin.
+
+```php
+<?php
+
+use JorenRothman\ACFBuilder\FieldGroup;
+
+$fieldGroup = new FieldGroup('My Field Group');
+```
+That's it! You've created a field group. Now you can add fields to it.
+
+## Adding Fields
+
+To add a field to a field group, you must first create a new instance of a `Field` class. The constructor requires a single argument, the name of the field. The name is used to identify the field in the WordPress admin.
+
+```php
+<?php
+
+use JorenRothman\ACFBuilder\FieldGroup;
+use JorenRothman\ACFBuilder\Basic\Text;
+
+$fieldGroup = new FieldGroup('My Field Group');
+
+$fieldGroup->addField(
+    new Text('My Text Field')
+);
+```
+
+## Field Group Locations
+
+By default, field groups are assigned to the `post` post type. 
+You can change this by using the `setLocations` method on the field group. 
+The `setLocations` method accepts a single argument, 
+an instance of the `FieldGroupLocations` class. 
+
+```php
+<?php
+
+use JorenRothman\ACFBuilder\FieldGroup;
+use JorenRothman\ACFBuilder\Basic\Text;
+use JorenRothman\ACFBuilder\FieldGroupLocations;
+
+$fieldGroup = new FieldGroup('My Field Group');
+
+$fieldGroup->addField(
+    new Text('My Text Field')
+);
+
+$locations = new FieldGroupLocations;
+$locations->and('post_type', '==', 'page');
+
+$fieldGroup->setLocations($location);
+
+```
+
+This will assign the field group to the `page` post type.
+
+## Register Field Group
+
+Once you've created a field group, you must register it with ACF.
+
+```php
+<?php
+
+use JorenRothman\ACFBuilder\FieldGroup;
+use JorenRothman\ACFBuilder\Basic\Text;
+use JorenRothman\ACFBuilder\FieldGroupLocations;
+
+$fieldGroup = new FieldGroup('My Field Group');
+
+$fieldGroup->addField(
+    new Text('My Text Field')
+);
+
+$locations = new FieldGroupLocations;
+$locations->and('post_type', '==', 'page');
+
+$fieldGroup->setLocations($location);
+
+$fieldGroup->register();
+```
+
+Go to the WordPress admin and you should see your field group.
+
+## Querying Fields
+
+To query the field you can use the standard `get_field` function.
+
+The name is automatically generated using the field group name + field name.
+
+**For example,** <br/>if the field group name is `My Field Group` and the field name is `My Text Field`, <br/>the field name will be `my_field_group_my_text_field`.
+
+```php
+<?php
+
+$fieldValue = get_field('my_field_group_my_text_field');
+```
+
+*A field name is created by converting the field group name and field name to snake case and concatenating them with an underscore.*
