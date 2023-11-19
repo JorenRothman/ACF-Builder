@@ -3,6 +3,8 @@ export default {
     project: {
         link: "https://github.com/JorenRothman/ACF-Builder",
     },
+    docsRepositoryBase:
+        "https://github.com/JorenRothman/ACF-Builder/tree/main/docs",
     navigation: {
         prev: true,
         next: true,
@@ -10,5 +12,9 @@ export default {
     footer: {
         text: <span>MIT {new Date().getFullYear()} © ACF Builder.</span>,
     },
-    // ... other theme options
+    useNextSeoProps() {
+        return {
+            titleTemplate: "%s - ACF Builder",
+        };
+    },
 };
