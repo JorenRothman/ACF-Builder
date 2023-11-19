@@ -1,6 +1,6 @@
 <?php
 
-namespace Joren\ACFBuilder;
+namespace JorenRothman\ACFBuilder;
 
 class FieldConditionalLogic
 {

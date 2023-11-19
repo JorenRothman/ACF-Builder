@@ -1,11 +1,11 @@
 <?php
 
-namespace Joren\ACFBuilder\Util;
+namespace JorenRothman\ACFBuilder\Util;
 
 /**
  * Class StringUtil
  * 
- * @package Joren\ACFBuilder\Util
+ * @package JorenRothman\ACFBuilder\Util
  */
 abstract class StringUtil
 {

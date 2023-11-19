@@ -1,11 +1,11 @@
 <?php
 
-namespace Joren\ACFBuilder;
+namespace JorenRothman\ACFBuilder;
 
 /**
  * Class FieldGroupLocations
  * 
- * @package Joren\ACFBuilder
+ * @package JorenRothman\ACFBuilder
  */
 class FieldGroupLocations
 {

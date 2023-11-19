@@ -1,6 +1,6 @@
 <?php
 
-namespace Joren\ACFBuilder\Fields\Choice;
+namespace JorenRothman\ACFBuilder\Fields\Choice;
 
 class ButtonGroup extends ChoiceField
 {

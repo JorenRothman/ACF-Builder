@@ -1,8 +1,8 @@
 <?php
 
-namespace Joren\ACFBuilder\Fields\Relational;
+namespace JorenRothman\ACFBuilder\Fields\Relational;
 
-use Joren\ACFBuilder\Field;
+use JorenRothman\ACFBuilder\Field;
 
 abstract class RelationalField extends Field
 {

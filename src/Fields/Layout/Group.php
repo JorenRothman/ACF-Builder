@@ -1,8 +1,8 @@
 <?php
 
-namespace Joren\ACFBuilder\Fields\Layout;
+namespace JorenRothman\ACFBuilder\Fields\Layout;
 
-use Joren\ACFBuilder\Field;
+use JorenRothman\ACFBuilder\Field;
 
 class Group extends Field
 {

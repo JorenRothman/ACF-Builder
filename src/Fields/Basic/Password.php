@@ -1,8 +1,8 @@
 <?php
 
-namespace Joren\ACFBuilder\Fields\Basic;
+namespace JorenRothman\ACFBuilder\Fields\Basic;
 
-use Joren\ACFBuilder\Field;
+use JorenRothman\ACFBuilder\Field;
 
 class Password extends FieldBasic
 {

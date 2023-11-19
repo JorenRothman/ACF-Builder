@@ -1,8 +1,8 @@
 <?php
 
-namespace Joren\ACFBuilder;
+namespace JorenRothman\ACFBuilder;
 
-use Joren\ACFBuilder\Util\StringUtil;
+use JorenRothman\ACFBuilder\Util\StringUtil;
 
 abstract class Field
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Joren\ACFBuilder\Fields\Layout;
+namespace JorenRothman\ACFBuilder\Fields\Layout;
 
-use Joren\ACFBuilder\Field;
-use Joren\ACFBuilder\Util\StringUtil;
+use JorenRothman\ACFBuilder\Field;
+use JorenRothman\ACFBuilder\Util\StringUtil;
 
 class FlexibleLayout
 {

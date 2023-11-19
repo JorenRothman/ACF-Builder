@@ -1,6 +1,6 @@
 <?php
 
-namespace Joren\ACFBuilder\Fields\Relational;
+namespace JorenRothman\ACFBuilder\Fields\Relational;
 
 class Taxonomy extends RelationalField
 {

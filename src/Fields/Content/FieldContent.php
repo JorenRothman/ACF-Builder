@@ -1,8 +1,8 @@
 <?php
 
-namespace Joren\ACFBuilder\Fields\Content;
+namespace JorenRothman\ACFBuilder\Fields\Content;
 
-use Joren\ACFBuilder\Field;
+use JorenRothman\ACFBuilder\Field;
 
 abstract class FieldContent extends Field
 {

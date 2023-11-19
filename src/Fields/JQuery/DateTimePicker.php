@@ -1,6 +1,6 @@
 <?php
 
-namespace Joren\ACFBuilder\Fields\JQuery;
+namespace JorenRothman\ACFBuilder\Fields\JQuery;
 
 class DateTimePicker extends JQueryField
 {

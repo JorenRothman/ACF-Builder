@@ -1,8 +1,8 @@
 <?php
 
-namespace Joren\ACFBuilder\Fields\JQuery;
+namespace JorenRothman\ACFBuilder\Fields\JQuery;
 
-use Joren\ACFBuilder\Field;
+use JorenRothman\ACFBuilder\Field;
 
 abstract class JQueryField extends Field
 {
