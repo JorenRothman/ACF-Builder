@@ -8,7 +8,7 @@
             "JorenRothman\\ACFBuilder\\": "src/"
         }
     },
-    "version": "3.0.15",
+    "version": "3.0.16",
     "authors": [
         {
             "name": "Joren Rothman",
@@ -25,7 +25,6 @@
     "require-dev": {
         "phpunit/phpunit": "^9.5"
     },
-    "config": {
-    },
+    "config": {},
     "extra": {}
 }
