@@ -18,7 +18,7 @@ class RadioButton extends ChoiceField
 
     public function setType(): void
     {
-        $this->type = 'radio_button';
+        $this->type = 'radio';
     }
 
     /**
