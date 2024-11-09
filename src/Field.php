@@ -52,6 +52,12 @@ abstract class Field
      */
     abstract protected function setType(): void;
 
+    /**
+     * Set instruction for field
+     *
+     * @param string $value
+     * @return static
+     */
     public function setInstructions(string $value): self
     {
         $this->instructions = $value;
