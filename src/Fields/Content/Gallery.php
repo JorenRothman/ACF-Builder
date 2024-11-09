@@ -37,7 +37,7 @@ class Gallery extends FieldContent
      * Specify the minimum number of images.
      *
      * @param int $value
-     * @return Field
+     * @return static
      */
     public function setMin(int $value): self
     {
@@ -50,7 +50,7 @@ class Gallery extends FieldContent
      * Specify the maximum number of images.
      *
      * @param int $value
-     * @return Field
+     * @return static
      */
     public function setMax(int $value): self
     {
@@ -64,7 +64,7 @@ class Gallery extends FieldContent
      * options: thumbnail, medium, large, full
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setPreviewSize(string $value): self
     {
@@ -78,7 +78,7 @@ class Gallery extends FieldContent
      * options: all, uploadedTo
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setLibrary(string $value): self
     {
@@ -91,7 +91,7 @@ class Gallery extends FieldContent
      * Specify the minimum width.
      *
      * @param int $value
-     * @return Field
+     * @return static
      */
     public function setMinWidth(int $value): self
     {
@@ -104,7 +104,7 @@ class Gallery extends FieldContent
      * Specify the minimum height.
      *
      * @param int $value
-     * @return Field
+     * @return static
      */
     public function setMinHeight(int $value): self
     {
@@ -117,7 +117,7 @@ class Gallery extends FieldContent
      * Specify the minimum size.
      *
      * @param int $value
-     * @return Field
+     * @return static
      */
     public function setMinSize(int $value): self
     {
@@ -130,7 +130,7 @@ class Gallery extends FieldContent
      * Specify the maximum width.
      *
      * @param int $value
-     * @return Field
+     * @return static
      */
     public function setMaxWidth(int $value): self
     {
@@ -143,7 +143,7 @@ class Gallery extends FieldContent
      * Specify the maximum height.
      *
      * @param int $value
-     * @return Field
+     * @return static
      */
     public function setMaxHeight(int $value): self
     {
@@ -156,7 +156,7 @@ class Gallery extends FieldContent
      * Specify the maximum size.
      *
      * @param int $value
-     * @return Field
+     * @return static
      */
     public function setMaxSize(int $value): self
     {
@@ -169,7 +169,7 @@ class Gallery extends FieldContent
      * Specify the mime types.
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setMimeTypes(string $value): self
     {

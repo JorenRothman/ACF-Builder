@@ -27,7 +27,7 @@ class Text extends FieldBasic
      * Set placeholder for a field.
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setPlaceholder(string $value): self
     {
@@ -40,7 +40,7 @@ class Text extends FieldBasic
      * Appears before the input.
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setPrepend(string $value): self
     {
@@ -53,7 +53,7 @@ class Text extends FieldBasic
      * Appears after the input.
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setAppend(string $value): self
     {
@@ -66,7 +66,7 @@ class Text extends FieldBasic
      * Set maxlength for a field.
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setMaxLength(string $value): self
     {
@@ -79,7 +79,7 @@ class Text extends FieldBasic
      * Set readonly for a field.
      *
      * @param bool $value
-     * @return Field
+     * @return static
      */
     public function setReadOnly(bool $value): self
     {
@@ -92,7 +92,7 @@ class Text extends FieldBasic
      * Set disabled for a field.
      *
      * @param bool $value
-     * @return Field
+     * @return static
      */
     public function setDisabled(bool $value): self
     {

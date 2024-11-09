@@ -21,7 +21,7 @@ class Email extends FieldBasic
      * Set placeholder for a field.
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setPlaceholder(string $value): self
     {
@@ -34,7 +34,7 @@ class Email extends FieldBasic
      * Appears before the input.
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setPrepend(string $value): self
     {
@@ -47,7 +47,7 @@ class Email extends FieldBasic
      * Appears after the input.
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setAppend(string $value): self
     {

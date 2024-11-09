@@ -10,9 +10,9 @@ abstract class FieldContent extends Field
 
     /**
      * A default value used by ACF if no value has yet been saved
-     * 
-     * @param mixed $value 
-     * @return Field 
+     *
+     * @param mixed $value
+     * @return static
      */
     public function setDefaultValue(mixed $value): self
     {

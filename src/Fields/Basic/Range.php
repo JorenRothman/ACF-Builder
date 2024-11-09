@@ -46,7 +46,7 @@ class Range extends FieldBasic
      * Appears before the input.
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setPrepend(string $value): self
     {
@@ -59,7 +59,7 @@ class Range extends FieldBasic
      * Appears after the input.
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setAppend(string $value): self
     {

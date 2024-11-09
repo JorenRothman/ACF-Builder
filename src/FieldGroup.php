@@ -6,7 +6,7 @@ use JorenRothman\ACFBuilder\Util\StringUtil;
 
 /**
  * Class FieldGroupLocations
- * 
+ *
  * @package JorenRothman\ACFBuilder
  */
 class FieldGroup
@@ -42,11 +42,11 @@ class FieldGroup
 
     /**
      * FieldGroup constructor.
-     * 
-     * @param string $title 
-     * @param null|string $name 
-     * @param null|string $key 
-     * @return void 
+     *
+     * @param string $title
+     * @param null|string $name
+     * @param null|string $key
+     * @return void
      */
     public function __construct(string $title, ?string $name = null, ?string $key = null)
     {
@@ -84,7 +84,7 @@ class FieldGroup
 
     /**
      * Set the meta box position of the field group.
-     * 
+     *
      * options: normal, side, acf_after_title
      *
      * @param string $value
@@ -99,7 +99,7 @@ class FieldGroup
 
     /**
      * Set style of the field group.
-     * 
+     *
      * options: default, seamless
      *
      * @param string $value
@@ -114,11 +114,11 @@ class FieldGroup
 
     /**
      * Set the placement of the label.
-     * 
+     *
      * options: top, left
-     * 
-     * @param string $value 
-     * @return FieldGroup 
+     *
+     * @param string $value
+     * @return FieldGroup
      */
     public function setLabelPlacement(string $value): self
     {
@@ -129,7 +129,7 @@ class FieldGroup
 
     /**
      * Set the placement of the instructions.
-     * 
+     *
      * options: label, field
      *
      * @param string $value
@@ -144,14 +144,14 @@ class FieldGroup
 
     /**
      * Set the hide on screen option.
-     * 
-     * options: permalink, the_content, excerpt, 
-     * discussion, comments, revisions, slug, author, 
-     * format, page_attributes, featured_image, 
+     *
+     * options: permalink, the_content, excerpt,
+     * discussion, comments, revisions, slug, author,
+     * format, page_attributes, featured_image,
      * categories, tags, send-trackbacks
-     * 
-     * @param array $value 
-     * @return FieldGroup 
+     *
+     * @param array $value
+     * @return FieldGroup
      */
     public function setHideOnScreen(array $value): self
     {
@@ -162,9 +162,9 @@ class FieldGroup
 
     /**
      * Set the active state of the field group.
-     * 
-     * @param boolean $value 
-     * @return FieldGroup 
+     *
+     * @param boolean $value
+     * @return FieldGroup
      */
     public function setActive(bool $value): self
     {
@@ -175,9 +175,9 @@ class FieldGroup
 
     /**
      * Set the description of the field group.
-     * 
-     * @param string $value 
-     * @return FieldGroup 
+     *
+     * @param string $value
+     * @return FieldGroup
      */
     public function setDescription(string $value): self
     {
@@ -188,9 +188,9 @@ class FieldGroup
 
     /**
      * Set the show in rest option.
-     * 
-     * @param bool $value 
-     * @return FieldGroup 
+     *
+     * @param bool $value
+     * @return FieldGroup
      */
     public function setShowInRest(bool $value): self
     {
@@ -201,9 +201,9 @@ class FieldGroup
 
     /**
      * Set the location of the field group.
-     * 
-     * @param FieldGroupLocations $locations 
-     * @return FieldGroup 
+     *
+     * @param FieldGroupLocations $locations
+     * @return FieldGroup
      */
     public function setLocations(FieldGroupLocations $locations): self
     {
@@ -214,9 +214,9 @@ class FieldGroup
 
     /**
      * Add a field to the field group.
-     * 
-     * @param Field $field 
-     * @return FieldGroup 
+     *
+     * @param Field $field
+     * @return FieldGroup
      */
     public function addField(Field $field): self
     {
@@ -229,8 +229,8 @@ class FieldGroup
 
     /**
      * build the field group.
-     * 
-     * @return array 
+     *
+     * @return array
      */
     public function build(): array
     {

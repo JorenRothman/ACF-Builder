@@ -27,7 +27,7 @@ class Number extends FieldBasic
      * Set placeholder for a field.
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setPlaceholder(string $value): self
     {
@@ -40,7 +40,7 @@ class Number extends FieldBasic
      * Appears before the input.
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setPrepend(string $value): self
     {
@@ -53,7 +53,7 @@ class Number extends FieldBasic
      * Appears after the input.
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setAppend(string $value): self
     {
@@ -64,9 +64,9 @@ class Number extends FieldBasic
 
     /**
      * Set Minimum number value.
-     * 
+     *
      * @param int $value
-     * @return Field
+     * @return static
      */
     public function setMin(int $value): self
     {
@@ -79,7 +79,7 @@ class Number extends FieldBasic
      * Set maximum number value.
      *
      * @param int $value
-     * @return Field
+     * @return static
      */
     public function setMax(int $value): self
     {
@@ -92,7 +92,7 @@ class Number extends FieldBasic
      * Set step size increments.
      *
      * @param int $value
-     * @return Field
+     * @return static
      */
     public function setStep(int $value): self
     {

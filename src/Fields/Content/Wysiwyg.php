@@ -22,7 +22,7 @@ class Wysiwyg extends FieldContent
      * options: all, visual, text
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setTabs(string $value): self
     {
@@ -36,7 +36,7 @@ class Wysiwyg extends FieldContent
      * options: full, basic
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setToolbar(string $value): self
     {
@@ -49,7 +49,7 @@ class Wysiwyg extends FieldContent
      * Show the media upload button.
      *
      * @param bool $value
-     * @return Field
+     * @return static
      */
     public function setMediaUpload(bool $value): self
     {

@@ -17,7 +17,7 @@ class URL extends FieldBasic
      * Set placeholder for a field.
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setPlaceholder(string $value): self
     {

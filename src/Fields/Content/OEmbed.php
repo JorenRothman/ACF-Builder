@@ -19,7 +19,7 @@ class OEmbed extends FieldContent
      * Specify the width of the embed.
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setWidth(string $value): self
     {
@@ -32,7 +32,7 @@ class OEmbed extends FieldContent
      * Specify the height of the embed.
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setHeight(string $value): self
     {

@@ -28,7 +28,7 @@ class File extends FieldContent
      * options: array, url, id
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setReturnFormat(string $value): self
     {
@@ -42,7 +42,7 @@ class File extends FieldContent
      * options: thumbnail, medium, large, full
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setPreviewSize(string $value): self
     {
@@ -56,7 +56,7 @@ class File extends FieldContent
      * options: all, uploadedTo
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setLibrary(string $value): self
     {
@@ -69,7 +69,7 @@ class File extends FieldContent
      * Specify the minimum file size.
      *
      * @param int $value
-     * @return Field
+     * @return static
      */
     public function setMinSize(int $value): self
     {
@@ -82,7 +82,7 @@ class File extends FieldContent
      * Specify the maximum file size.
      *
      * @param int $value
-     * @return Field
+     * @return static
      */
     public function setMaxSize(int $value): self
     {
@@ -95,7 +95,7 @@ class File extends FieldContent
      * Specify the allowed mime types.
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setMimeTypes(string $value): self
     {

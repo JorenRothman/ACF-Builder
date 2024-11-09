@@ -35,7 +35,7 @@ abstract class Field
      * Set key for a field.
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     protected function setKey(string $value): self
     {
@@ -61,9 +61,9 @@ abstract class Field
 
     /**
      * Whether or not the field value is required.
-     * 
-     * @param bool $value 
-     * @return Field 
+     *
+     * @param bool $value
+     * @return static
      */
     public function setRequired(bool $value): self
     {
@@ -73,11 +73,11 @@ abstract class Field
     }
 
     /**
-     * Conditionally hide or show this field based on other field's values. 
+     * Conditionally hide or show this field based on other field's values.
      * Best to use the ACF UI and export to understand the array structure.
-     * 
-     * @param FieldConditionalLogic $value 
-     * @return Field 
+     *
+     * @param FieldConditionalLogic $value
+     * @return static
      */
     public function setConditionalLogic(FieldConditionalLogic $value): self
     {
@@ -88,9 +88,9 @@ abstract class Field
 
     /**
      * An array of attributes given to the field element
-     * 
-     * @param array $value 
-     * @return Field 
+     *
+     * @param array $value
+     * @return static
      */
     public function setWrapper(string $width, string $class = '', string $id = ''): self
     {

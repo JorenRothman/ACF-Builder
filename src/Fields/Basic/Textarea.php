@@ -27,7 +27,7 @@ class Textarea extends FieldBasic
      * Set placeholder for a field.
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setPlaceholder(string $value): self
     {
@@ -40,7 +40,7 @@ class Textarea extends FieldBasic
      * Set maxlength for a field.
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setMaxLength(string $value): self
     {
@@ -53,7 +53,7 @@ class Textarea extends FieldBasic
      * Restricts the number of rows and height.
      *
      * @param int $value
-     * @return Field
+     * @return static
      */
     public function setRows(int $value): self
     {
@@ -64,10 +64,10 @@ class Textarea extends FieldBasic
 
     /**
      * Decides how to render new lines.
-     * options: 'wpautop' (Automatically add paragraphs), 'br' (Automatically add <br>) or '' (No Formatting) 
+     * options: 'wpautop' (Automatically add paragraphs), 'br' (Automatically add <br>) or '' (No Formatting)
      *
      * @param string $value
-     * @return Field
+     * @return static
      */
     public function setNewLines(string $value): self
     {
@@ -80,7 +80,7 @@ class Textarea extends FieldBasic
      * Whether or not the field value is readonly.
      *
      * @param bool $value
-     * @return Field
+     * @return static
      */
     public function setReadOnly(bool $value): self
     {
@@ -93,7 +93,7 @@ class Textarea extends FieldBasic
      * Whether or not the field value is disabled.
      *
      * @param bool $value
-     * @return Field
+     * @return static
      */
     public function setDisabled(bool $value): self
     {
