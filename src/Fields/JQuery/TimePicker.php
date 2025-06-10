@@ -10,14 +10,14 @@ class TimePicker extends JQueryField
 
     public function setType(): void
     {
-        $this->type = 'date_picker';
+        $this->type = 'time_picker';
     }
 
     /**
      * Set the display format.
-     * 
-     * @param string $display_format 
-     * @return self 
+     *
+     * @param string $display_format
+     * @return self
      */
     public function setDisplayFormat(string $display_format): self
     {
@@ -28,9 +28,9 @@ class TimePicker extends JQueryField
 
     /**
      * Set the return format.
-     * 
-     * @param string $return_format 
-     * @return self 
+     *
+     * @param string $return_format
+     * @return self
      */
     public function setReturnFormat(string $return_format): self
     {
