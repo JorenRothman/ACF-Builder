@@ -241,10 +241,18 @@ class FieldGroup
         return json_decode(json_encode($this), true);
     }
 
-    public function register(): void
+    public function register(?FieldGroupLocations $locations = null, ?int $menuOrder = null): void
     {
         if (!function_exists('acf_add_local_field_group') || !function_exists('add_action')) {
             return;
+        }
+
+        if ($locations) {
+            $this->setLocations($locations);
+        }
+
+        if ($menuOrder) {
+            $this->setMenuOrder($menuOrder);
         }
 
         add_action('acf/init', function () {
