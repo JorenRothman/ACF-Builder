@@ -2,6 +2,8 @@
 
 namespace JorenRothman\ACFBuilder\Fields\Relational;
 
+use JorenRothman\ACFBuilder\Settings\Instructions;
+
 class Relationship extends RelationalField
 {
     public array $post_type = [];
@@ -29,7 +31,7 @@ class Relationship extends RelationalField
 
     /**
      * Add a post type.
-     * 
+     *
      * @param string $post_type,...
      * @return self
      */
@@ -42,9 +44,9 @@ class Relationship extends RelationalField
 
     /**
      * Add a taxonomy.
-     * 
-     * @param string $taxonomy,... 
-     * @return self 
+     *
+     * @param string $taxonomy,...
+     * @return self
      */
     public function addTaxonomy(string ...$taxonomy): self
     {
@@ -56,11 +58,11 @@ class Relationship extends RelationalField
 
     /**
      * Add a filter.
-     * 
+     *
      * @param bool $search
      * @param bool $taxonomy
      * @param bool $post_type
-     * @return self 
+     * @return self
      */
     public function addFilter(bool $search, bool $taxonomy = false, bool $postType = false): self
     {
@@ -74,9 +76,9 @@ class Relationship extends RelationalField
     /**
      * Add an element.
      * options: featured_image
-     * 
-     * @param string $element,... 
-     * @return self 
+     *
+     * @param string $element,...
+     * @return self
      */
     public function addElement(string ...$element): self
     {
@@ -87,9 +89,9 @@ class Relationship extends RelationalField
 
     /**
      * Set the minimum number of posts.
-     * 
-     * @param int $min 
-     * @return self 
+     *
+     * @param int $min
+     * @return self
      */
     public function setMin(int $min): self
     {
@@ -100,9 +102,9 @@ class Relationship extends RelationalField
 
     /**
      * Set the maximum number of posts.
-     * 
-     * @param int $max 
-     * @return self 
+     *
+     * @param int $max
+     * @return self
      */
     public function setMax(int $max): self
     {
@@ -114,9 +116,9 @@ class Relationship extends RelationalField
     /**
      * Set the return format.
      * options: object, id
-     * 
-     * @param string $return_format 
-     * @return self 
+     *
+     * @param string $return_format
+     * @return self
      */
     public function setReturnFormat(string $return_format): self
     {
@@ -134,7 +136,7 @@ class Relationship extends RelationalField
 
     /**
      * Set the bidirectional target.
-     * 
+     *
      *
      * @param string $field
      * @return self
@@ -148,5 +150,12 @@ class Relationship extends RelationalField
         $this->bidirectional_target[] = $field;
 
         return $this;
+    }
+
+    public function setInstructions(string $value): self
+    {
+        $defaultInstruction = Instructions::$DEFAULT_INSTRUCTION_RELATIONSHIP;
+
+        return parent::setInstructions(sprintf('%s %s', $value, $defaultInstruction));
     }
 }
