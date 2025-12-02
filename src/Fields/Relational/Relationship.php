@@ -24,6 +24,13 @@ class Relationship extends RelationalField
 
     public string|array $bidirectional_target = '';
 
+    public function __construct(string $label, ?string $name = null, ?string $key = null)
+    {
+        $this->instructions = Instructions::$DEFAULT_INSTRUCTION_RELATIONSHIP;
+
+        return parent::__construct($label, $name, $key);
+    }
+
     public function setType(): void
     {
         $this->type = 'relationship';
