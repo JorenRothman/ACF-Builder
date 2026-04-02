@@ -18,7 +18,7 @@ class FieldConditionalLogic
         return count($this->conditionalLogic) - 1;
     }
 
-    public function and(Field $field, string $operator, ?mixed $value = null): self
+    public function and(Field $field, string $operator, mixed $value = null): self
     {
         $currentConditionalLogicIndex = $this->getCurrentConditionalLogicIndex();
 
@@ -31,7 +31,7 @@ class FieldConditionalLogic
         return $this;
     }
 
-    public function or(Field $field, string $operator, ?mixed $value = null): self
+    public function or(Field $field, string $operator, mixed $value = null): self
     {
         if (!empty($this->conditionalLogic[$this->getCurrentConditionalLogicIndex()])) {
             $this->conditionalLogic[] = [];
