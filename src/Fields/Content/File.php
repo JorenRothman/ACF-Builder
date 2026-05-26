@@ -25,9 +25,8 @@ class File extends FieldContent
 
     /**
      * Specify the return format.
-     * options: array, url, id
      *
-     * @param string $value
+     * @param 'array'|'url'|'id' $value
      * @return static
      */
     public function setReturnFormat(string $value): self
@@ -39,9 +38,8 @@ class File extends FieldContent
 
     /**
      * Specify the preview size.
-     * options: thumbnail, medium, large, full
      *
-     * @param string $value
+     * @param 'thumbnail'|'medium'|'large'|'full' $value
      * @return static
      */
     public function setPreviewSize(string $value): self
@@ -53,9 +51,8 @@ class File extends FieldContent
 
     /**
      * Specify the library.
-     * options: all, uploadedTo
      *
-     * @param string $value
+     * @param 'all'|'uploadedTo' $value
      * @return static
      */
     public function setLibrary(string $value): self

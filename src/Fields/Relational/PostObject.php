@@ -79,9 +79,8 @@ class PostObject extends RelationalField
 
     /**
      * Set the return format.
-     * options: object, array
      *
-     * @param string $return_format
+     * @param 'object'|'id' $return_format
      * @return self
      */
     public function setReturnFormat(string $return_format): self

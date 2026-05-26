@@ -58,10 +58,9 @@ class User extends RelationalField
 
     /**
      * Set the return format.
-     * options: array, object, id
-     * 
-     * @param string $return_format 
-     * @return self 
+     *
+     * @param 'array'|'object'|'id' $return_format
+     * @return self
      */
     public function setReturnFormat(string $return_format): self
     {

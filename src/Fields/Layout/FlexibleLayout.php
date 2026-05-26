@@ -61,6 +61,9 @@ class FlexibleLayout
         return $this;
     }
 
+    /**
+     * @param 'block'|'table'|'row' $display
+     */
     public function setDisplay(string $display): self
     {
         $this->display = $display;

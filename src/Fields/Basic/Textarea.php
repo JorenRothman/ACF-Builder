@@ -64,9 +64,8 @@ class Textarea extends FieldBasic
 
     /**
      * Decides how to render new lines.
-     * options: 'wpautop' (Automatically add paragraphs), 'br' (Automatically add <br>) or '' (No Formatting)
      *
-     * @param string $value
+     * @param 'wpautop'|'br'|'' $value
      * @return static
      */
     public function setNewLines(string $value): self

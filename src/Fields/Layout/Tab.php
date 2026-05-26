@@ -17,9 +17,8 @@ class Tab extends Field
 
     /**
      * Set the placement of the tab
-     * options: top, bottom, left, right
      *
-     * @param string $placement
+     * @param 'top'|'left' $placement
      * @return self
      */
     public function setPlacement(string $placement): self

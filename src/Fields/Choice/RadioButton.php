@@ -62,9 +62,8 @@ class RadioButton extends ChoiceField
 
     /**
      * Set the layout of the select
-     * options: vertical, horizontal
      *
-     * @param string $layout
+     * @param 'vertical'|'horizontal' $layout
      * @return self
      */
     public function setLayout(string $layout): self
@@ -76,9 +75,8 @@ class RadioButton extends ChoiceField
 
     /**
      * Set the return format of the select
-     * options: value, label
      *
-     * @param string $return_format
+     * @param 'value'|'label' $return_format
      * @return self
      */
     public function setReturnFormat(string $return_format): self

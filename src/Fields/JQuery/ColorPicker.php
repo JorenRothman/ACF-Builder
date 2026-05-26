@@ -43,10 +43,9 @@ class ColorPicker extends JQueryField
 
     /**
      * Set the return format.
-     * options: string, array
-     * 
-     * @param string $return_format 
-     * @return self 
+     *
+     * @param 'string'|'array' $return_format
+     * @return self
      */
     public function setReturnFormat(string $return_format): self
     {

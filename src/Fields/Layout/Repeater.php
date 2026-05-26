@@ -71,9 +71,8 @@ class Repeater extends Field
 
     /**
      * Set the layout of the repeater
-     * options: table, row, block
-     * 
-     * @param string $layout
+     *
+     * @param 'table'|'row'|'block' $layout
      * @return Repeater
      */
     public function setLayout(string $layout): self

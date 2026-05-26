@@ -85,9 +85,7 @@ class FieldGroup
     /**
      * Set the meta box position of the field group.
      *
-     * options: normal, side, acf_after_title
-     *
-     * @param string $value
+     * @param 'normal'|'side'|'acf_after_title' $value
      * @return FieldGroup
      */
     public function setPosition(string $value): self
@@ -100,9 +98,7 @@ class FieldGroup
     /**
      * Set style of the field group.
      *
-     * options: default, seamless
-     *
-     * @param string $value
+     * @param 'default'|'seamless' $value
      * @return FieldGroup
      */
     public function setStyle(string $value): self
@@ -115,9 +111,7 @@ class FieldGroup
     /**
      * Set the placement of the label.
      *
-     * options: top, left
-     *
-     * @param string $value
+     * @param 'top'|'left' $value
      * @return FieldGroup
      */
     public function setLabelPlacement(string $value): self
@@ -130,9 +124,7 @@ class FieldGroup
     /**
      * Set the placement of the instructions.
      *
-     * options: label, field
-     *
-     * @param string $value
+     * @param 'label'|'field' $value
      * @return FieldGroup
      */
     public function setInstructionPlacement(string $value): self
@@ -145,12 +137,7 @@ class FieldGroup
     /**
      * Set the hide on screen option.
      *
-     * options: permalink, the_content, excerpt,
-     * discussion, comments, revisions, slug, author,
-     * format, page_attributes, featured_image,
-     * categories, tags, send-trackbacks
-     *
-     * @param array $value
+     * @param array<'permalink'|'the_content'|'excerpt'|'discussion'|'comments'|'revisions'|'slug'|'author'|'format'|'page_attributes'|'featured_image'|'categories'|'tags'|'send-trackbacks'> $value
      * @return FieldGroup
      */
     public function setHideOnScreen(array $value): self

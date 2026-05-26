@@ -19,9 +19,8 @@ class Wysiwyg extends FieldContent
 
     /**
      * Specify which tabs are available.
-     * options: all, visual, text
      *
-     * @param string $value
+     * @param 'all'|'visual'|'text' $value
      * @return static
      */
     public function setTabs(string $value): self
@@ -33,9 +32,8 @@ class Wysiwyg extends FieldContent
 
     /**
      * Specify the editor's toolbar.
-     * options: full, basic
      *
-     * @param string $value
+     * @param 'full'|'basic' $value
      * @return static
      */
     public function setToolbar(string $value): self

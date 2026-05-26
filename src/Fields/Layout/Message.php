@@ -32,9 +32,8 @@ class Message extends Field
 
     /**
      * Set the new lines of the message
-     * options: wpautop, br, empty string for no new lines
      *
-     * @param string $new_lines
+     * @param 'wpautop'|'br'|'' $new_lines
      * @return self
      */
     public function setNewLines(string $new_lines): self

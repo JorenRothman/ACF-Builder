@@ -61,9 +61,8 @@ class Gallery extends FieldContent
 
     /**
      * Specify the preview size.
-     * options: thumbnail, medium, large, full
      *
-     * @param string $value
+     * @param 'thumbnail'|'medium'|'large'|'full' $value
      * @return static
      */
     public function setPreviewSize(string $value): self
@@ -75,9 +74,8 @@ class Gallery extends FieldContent
 
     /**
      * Specify the library.
-     * options: all, uploadedTo
      *
-     * @param string $value
+     * @param 'all'|'uploadedTo' $value
      * @return static
      */
     public function setLibrary(string $value): self

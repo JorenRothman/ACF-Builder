@@ -51,9 +51,8 @@ class Checkbox extends ChoiceField
 
     /**
      * Set the layout of the checkbox
-     * options: vertical, horizontal
      *
-     * @param string $layout
+     * @param 'vertical'|'horizontal' $layout
      * @return self
      */
     public function setLayout(string $layout): self
@@ -79,7 +78,7 @@ class Checkbox extends ChoiceField
     /**
      * Set the return format of the checkbox
      *
-     * @param bool $return_format
+     * @param 'value'|'label'|'array' $return_format
      * @return self
      */
     public function setReturnFormat(string $return_format): self

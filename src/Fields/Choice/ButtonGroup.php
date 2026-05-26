@@ -45,9 +45,8 @@ class ButtonGroup extends ChoiceField
 
     /**
      * Set the layout of the select
-     * options: vertical, horizontal
      *
-     * @param string $layout
+     * @param 'vertical'|'horizontal' $layout
      * @return self
      */
     public function setLayout(string $layout): self

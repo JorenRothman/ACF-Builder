@@ -30,9 +30,8 @@ class Group extends Field
 
     /**
      * Set the layout of the group
-     * options: row, column, block
      *
-     * @param string $layout
+     * @param 'row'|'column'|'block' $layout
      * @return self
      */
     public function setLayout(string $layout): self

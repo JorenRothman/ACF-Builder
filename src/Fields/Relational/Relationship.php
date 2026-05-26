@@ -82,9 +82,8 @@ class Relationship extends RelationalField
 
     /**
      * Add an element.
-     * options: featured_image
      *
-     * @param string $element,...
+     * @param 'featured_image' ...$element
      * @return self
      */
     public function addElement(string ...$element): self
@@ -122,9 +121,8 @@ class Relationship extends RelationalField
 
     /**
      * Set the return format.
-     * options: object, id
      *
-     * @param string $return_format
+     * @param 'object'|'id' $return_format
      * @return self
      */
     public function setReturnFormat(string $return_format): self

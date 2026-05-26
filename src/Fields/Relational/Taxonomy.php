@@ -40,10 +40,9 @@ class Taxonomy extends RelationalField
 
     /**
      * Set the field type.
-     * options: checkbox, multi_select, select, radio
-     * 
-     * @param string $field_type 
-     * @return self 
+     *
+     * @param 'checkbox'|'multi_select'|'select'|'radio' $field_type
+     * @return self
      */
     public function setFieldType(string $field_type): self
     {
@@ -93,10 +92,9 @@ class Taxonomy extends RelationalField
 
     /**
      * Set the return format.
-     * options: id, object
-     * 
-     * @param string $return_format 
-     * @return self 
+     *
+     * @param 'id'|'object' $return_format
+     * @return self
      */
     public function setReturnFormat(string $return_format): self
     {

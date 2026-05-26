@@ -18,6 +18,9 @@ class FieldConditionalLogic
         return count($this->conditionalLogic) - 1;
     }
 
+    /**
+     * @param '=='|'!='|'>'|'<'|'>='|'<='|'contains'|'not_contains'|'pattern' $operator
+     */
     public function and(Field $field, string $operator, mixed $value = null): self
     {
         $currentConditionalLogicIndex = $this->getCurrentConditionalLogicIndex();
@@ -31,6 +34,9 @@ class FieldConditionalLogic
         return $this;
     }
 
+    /**
+     * @param '=='|'!='|'>'|'<'|'>='|'<='|'contains'|'not_contains'|'pattern' $operator
+     */
     public function or(Field $field, string $operator, mixed $value = null): self
     {
         if (!empty($this->conditionalLogic[$this->getCurrentConditionalLogicIndex()])) {
