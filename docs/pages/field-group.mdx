@@ -1,0 +1,139 @@
+# Field Group
+
+## Settings
+
+The `FieldGroup` class accepts a title, and optional name and key overrides.
+
+```php
+use JorenRothman\ACFBuilder\FieldGroup;
+
+$fieldGroup = new FieldGroup('My Field Group');
+```
+
+The following settings can be configured via setter methods:
+
+| Method | Default | Options |
+| :--- | :--- | :--- |
+| `setPosition(string)` | `'normal'` | `'normal'`, `'side'`, `'acf_after_title'` |
+| `setStyle(string)` | `'default'` | `'default'`, `'seamless'` |
+| `setLabelPlacement(string)` | `'top'` | `'top'`, `'left'` |
+| `setInstructionPlacement(string)` | `'label'` | `'label'`, `'field'` |
+| `setMenuOrder(int)` | `0` | Any integer |
+| `setActive(bool)` | `true` | `true`, `false` |
+| `setDescription(string)` | `''` | Any string |
+| `setShowInRest(bool)` | `false` | `true`, `false` |
+| `setHideOnScreen(array)` | `''` | See below |
+
+### Hide on Screen
+
+Pass an array of UI elements to hide from the WordPress edit screen:
+
+```php
+$fieldGroup->setHideOnScreen([
+    'permalink',
+    'the_content',
+    'excerpt',
+    'discussion',
+    'comments',
+    'revisions',
+    'slug',
+    'author',
+    'format',
+    'page_attributes',
+    'featured_image',
+    'categories',
+    'tags',
+    'send-trackbacks',
+]);
+```
+
+### Example
+
+```php
+use JorenRothman\ACFBuilder\FieldGroup;
+
+$fieldGroup = new FieldGroup('My Field Group');
+$fieldGroup
+    ->setPosition('side')
+    ->setStyle('seamless')
+    ->setLabelPlacement('top')
+    ->setDescription('Fields for my custom post type');
+```
+
+---
+
+## Locations
+
+`FieldGroupLocations` controls where a field group appears in the WordPress admin.
+
+### `and()`
+
+Adds a rule to the **current** location group (all rules in a group must match — AND logic).
+
+### `or()`
+
+Adds a rule to a **new** location group (any group can match — OR logic).
+
+```php
+use JorenRothman\ACFBuilder\FieldGroupLocations;
+
+$locations = new FieldGroupLocations();
+
+// Show on pages OR posts
+$locations
+    ->and('post_type', '==', 'page')
+    ->or('post_type', '==', 'post');
+```
+
+### Location Parameters
+
+| Parameter | Description |
+| :--- | :--- |
+| `post_type` | Post type slug |
+| `post_template` | Page template filename |
+| `post_status` | Post status |
+| `post_format` | Post format |
+| `post_category` | Post category |
+| `post_taxonomy` | Post taxonomy term |
+| `post` | Specific post |
+| `page_template` | Page template |
+| `page_type` | Page type (front page, posts page, etc.) |
+| `page_parent` | Page parent |
+| `page` | Specific page |
+| `current_user` | Current logged-in user |
+| `current_user_role` | Current user role |
+| `user_form` | User form (add/edit) |
+| `user_role` | User role |
+| `taxonomy` | Taxonomy edit screen |
+| `attachment` | Media attachment |
+| `comment` | Comment |
+| `widget` | Widget |
+| `nav_menu` | Navigation menu |
+| `nav_menu_item` | Navigation menu item |
+| `block` | Gutenberg block |
+| `options_page` | ACF options page |
+
+### Operators
+
+| Operator | Description |
+| :--- | :--- |
+| `==` | Equal to |
+| `!=` | Not equal to |
+
+### Registering with Locations
+
+You can pass locations directly to `register()`:
+
+```php
+use JorenRothman\ACFBuilder\FieldGroup;
+use JorenRothman\ACFBuilder\Fields\Basic\Text;
+use JorenRothman\ACFBuilder\FieldGroupLocations;
+
+$fieldGroup = new FieldGroup('My Field Group');
+$fieldGroup->addField(Text::make('My Text Field'));
+
+$locations = new FieldGroupLocations();
+$locations->and('post_type', '==', 'page');
+
+$fieldGroup->register($locations);
+```

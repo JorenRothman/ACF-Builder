@@ -4,25 +4,7 @@
 
 In this example, we will create a field group with a true/false field and a text field. The text field will only be visible if the true/false field is set to true.
 
-We will start with the following code:
 ```php showLineNumbers
-<?php
-
-use JorenRothman\ACFBuilder\FieldGroup;
-use JorenRothman\ACFBuilder\Fields\Choice\TrueFalse;
-use JorenRothman\ACFBuilder\Fields\Basic\Text;
-
-$fieldGroup = new FieldGroup('My Field Group');
-
-$trueFalse = new TrueFalse('My True False Field');
-
-$textField = new Text('My Text Field');
-
-$fieldGroup->addField($textField);
-```
-
-We will now create the conditional logic and add it to the text field:
-```php {13,14, 17} showLineNumbers
 <?php
 
 use JorenRothman\ACFBuilder\FieldGroup;
@@ -30,31 +12,41 @@ use JorenRothman\ACFBuilder\Fields\Choice\TrueFalse;
 use JorenRothman\ACFBuilder\Fields\Basic\Text;
 use JorenRothman\ACFBuilder\FieldConditionalLogic;
 
-
 $fieldGroup = new FieldGroup('My Field Group');
 
-$trueFalse = new TrueFalse('My True False Field');
+$trueFalse = TrueFalse::make('My True False Field');
 
-$istrueFalseTrue = new FieldConditionalLogic();
-$istrueFalseTrue->and($trueFalse, '==', true);
+$isTrueFalseTrue = new FieldConditionalLogic();
+$isTrueFalseTrue->and($trueFalse, '==', true);
 
-$textField = new Text('My Text Field');
-$textField->setConditionalLogic($istrueFalseTrue);
+$textField = Text::make('My Text Field');
+$textField->setConditionalLogic($isTrueFalseTrue);
 
+$fieldGroup->addField($trueFalse);
 $fieldGroup->addField($textField);
 ```
 
-## Conditional Logic Operators
+## Chaining with `or()`
 
-The following operators are available:
+Use `or()` to add an alternative condition group. The field will be visible when **any** group matches.
+
+```php
+$logic = new FieldConditionalLogic();
+$logic
+    ->and($statusField, '==', 'published')
+    ->or($roleField, '==', 'editor');
+```
+
+## Operators
 
 | Operator | Description |
-| :--- | ---: |
+| :--- | :--- |
 | `==` | Equal to |
 | `!=` | Not equal to |
-| `>`| Greater than |
+| `>` | Greater than |
 | `<` | Less than |
-
-There are many more operators available, but these are the most common ones.
-
-To see all available operators, check out the [ACF documentation](https://www.advancedcustomfields.com/resources/conditional-logic/#operators).
+| `>=` | Greater than or equal to |
+| `<=` | Less than or equal to |
+| `contains` | Contains value |
+| `not_contains` | Does not contain value |
+| `pattern` | Matches pattern |

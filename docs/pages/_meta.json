@@ -2,5 +2,6 @@
     "index": "Welcome",
     "quickstart": "Quickstart",
     "fields": "Fields",
+    "field-group": "Field Group",
     "conditional-logic": "Conditional Logic"
 }

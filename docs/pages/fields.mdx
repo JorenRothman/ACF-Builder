@@ -1,5 +1,22 @@
 # Fields
 
+All fields extend the base `Field` class and share these common methods:
+
+| Method | Description |
+| :--- | :--- |
+| `setRequired(bool)` | Mark the field as required |
+| `setInstructions(string)` | Add helper text shown below the label |
+| `setWrapper(string $width, string $class, string $id)` | Set the HTML wrapper attributes |
+| `setConditionalLogic(FieldConditionalLogic)` | Show/hide the field based on other fields |
+
+Fields can be created with `new` or with the static `::make()` factory for cleaner chaining:
+
+```php
+Text::make('My Text Field')->setRequired(true)->setInstructions('Enter some text');
+```
+
+---
+
 ## Basic Fields
 
 ### Text
@@ -7,7 +24,7 @@
 ```php
 use JorenRothman\ACFBuilder\Fields\Basic\Text;
 
-$text = new Text('Text Field');
+$text = Text::make('Text Field');
 ```
 
 ### Textarea
@@ -15,7 +32,8 @@ $text = new Text('Text Field');
 ```php
 use JorenRothman\ACFBuilder\Fields\Basic\Textarea;
 
-$textarea = new Textarea('Textarea Field');
+$textarea = Textarea::make('Textarea Field')
+    ->setNewLines('wpautop'); // 'wpautop', 'br', ''
 ```
 
 ### Number
@@ -23,7 +41,7 @@ $textarea = new Textarea('Textarea Field');
 ```php
 use JorenRothman\ACFBuilder\Fields\Basic\Number;
 
-$number = new Number('Number Field');
+$number = Number::make('Number Field');
 ```
 
 ### Range
@@ -31,7 +49,7 @@ $number = new Number('Number Field');
 ```php
 use JorenRothman\ACFBuilder\Fields\Basic\Range;
 
-$range = new Range('Range Field');
+$range = Range::make('Range Field');
 ```
 
 ### Email
@@ -39,15 +57,15 @@ $range = new Range('Range Field');
 ```php
 use JorenRothman\ACFBuilder\Fields\Basic\Email;
 
-$email = new Email('Email Field');
+$email = Email::make('Email Field');
 ```
 
-### Url
+### URL
 
 ```php
-use JorenRothman\ACFBuilder\Fields\Basic\Url;
+use JorenRothman\ACFBuilder\Fields\Basic\URL;
 
-$url = new Url('Url Field');
+$url = URL::make('URL Field');
 ```
 
 ### Password
@@ -55,8 +73,10 @@ $url = new Url('Url Field');
 ```php
 use JorenRothman\ACFBuilder\Fields\Basic\Password;
 
-$password = new Password('Password Field');
+$password = Password::make('Password Field');
 ```
+
+---
 
 ## Content Fields
 
@@ -65,7 +85,10 @@ $password = new Password('Password Field');
 ```php
 use JorenRothman\ACFBuilder\Fields\Content\Image;
 
-$image = new Image('Image Field');
+$image = Image::make('Image Field')
+    ->setReturnFormat('array')   // 'array', 'url', 'id'
+    ->setPreviewSize('medium')   // 'thumbnail', 'medium', 'large', 'full'
+    ->setLibrary('all');         // 'all', 'uploadedTo'
 ```
 
 ### Gallery
@@ -73,7 +96,9 @@ $image = new Image('Image Field');
 ```php
 use JorenRothman\ACFBuilder\Fields\Content\Gallery;
 
-$gallery = new Gallery('Gallery Field');
+$gallery = Gallery::make('Gallery Field')
+    ->setPreviewSize('thumbnail') // 'thumbnail', 'medium', 'large', 'full'
+    ->setLibrary('all');          // 'all', 'uploadedTo'
 ```
 
 ### File
@@ -81,7 +106,10 @@ $gallery = new Gallery('Gallery Field');
 ```php
 use JorenRothman\ACFBuilder\Fields\Content\File;
 
-$file = new File('File Field');
+$file = File::make('File Field')
+    ->setReturnFormat('array')   // 'array', 'url', 'id'
+    ->setPreviewSize('thumbnail') // 'thumbnail', 'medium', 'large', 'full'
+    ->setLibrary('all');          // 'all', 'uploadedTo'
 ```
 
 ### Wysiwyg
@@ -89,16 +117,20 @@ $file = new File('File Field');
 ```php
 use JorenRothman\ACFBuilder\Fields\Content\Wysiwyg;
 
-$wysiwyg = new Wysiwyg('Wysiwyg Field');
+$wysiwyg = Wysiwyg::make('Wysiwyg Field')
+    ->setTabs('all')       // 'all', 'visual', 'text'
+    ->setToolbar('full');  // 'full', 'basic'
 ```
 
-### Oembed
+### OEmbed
 
 ```php
-use JorenRothman\ACFBuilder\Fields\Content\Oembed;
+use JorenRothman\ACFBuilder\Fields\Content\OEmbed;
 
-$oembed = new Oembed('Oembed Field');
+$oembed = OEmbed::make('OEmbed Field');
 ```
+
+---
 
 ## Choice Fields
 
@@ -107,7 +139,9 @@ $oembed = new Oembed('Oembed Field');
 ```php
 use JorenRothman\ACFBuilder\Fields\Choice\Select;
 
-$select = new Select('Select Field');
+$select = Select::make('Select Field')
+    ->setChoices(['draft' => 'Draft', 'published' => 'Published'])
+    ->setReturnFormat('value'); // 'value', 'label', 'array'
 ```
 
 ### Checkbox
@@ -115,7 +149,10 @@ $select = new Select('Select Field');
 ```php
 use JorenRothman\ACFBuilder\Fields\Choice\Checkbox;
 
-$checkbox = new Checkbox('Checkbox Field');
+$checkbox = Checkbox::make('Checkbox Field')
+    ->setChoices(['option_a' => 'Option A', 'option_b' => 'Option B'])
+    ->setLayout('vertical')       // 'vertical', 'horizontal'
+    ->setReturnFormat('value');   // 'value', 'label', 'array'
 ```
 
 ### Radio Button
@@ -123,7 +160,10 @@ $checkbox = new Checkbox('Checkbox Field');
 ```php
 use JorenRothman\ACFBuilder\Fields\Choice\RadioButton;
 
-$radio = new RadioButton('Radio Field');
+$radio = RadioButton::make('Radio Field')
+    ->setChoices(['option_a' => 'Option A', 'option_b' => 'Option B'])
+    ->setLayout('vertical')       // 'vertical', 'horizontal'
+    ->setReturnFormat('value');   // 'value', 'label'
 ```
 
 ### Button Group
@@ -131,7 +171,9 @@ $radio = new RadioButton('Radio Field');
 ```php
 use JorenRothman\ACFBuilder\Fields\Choice\ButtonGroup;
 
-$buttonGroup = new ButtonGroup('Button Group Field');
+$buttonGroup = ButtonGroup::make('Button Group Field')
+    ->setChoices(['option_a' => 'Option A', 'option_b' => 'Option B'])
+    ->setLayout('horizontal'); // 'vertical', 'horizontal'
 ```
 
 ### True False
@@ -139,8 +181,13 @@ $buttonGroup = new ButtonGroup('Button Group Field');
 ```php
 use JorenRothman\ACFBuilder\Fields\Choice\TrueFalse;
 
-$trueFalse = new TrueFalse('True False Field');
+$trueFalse = TrueFalse::make('True False Field')
+    ->setUI(true)
+    ->setUiOnText('Yes')
+    ->setUiOffText('No');
 ```
+
+---
 
 ## Relational Fields
 
@@ -149,7 +196,8 @@ $trueFalse = new TrueFalse('True False Field');
 ```php
 use JorenRothman\ACFBuilder\Fields\Relational\Link;
 
-$link = new Link('Link Field');
+$link = Link::make('Link Field')
+    ->setReturnFormat('array'); // 'array', 'url'
 ```
 
 ### Post Object
@@ -157,7 +205,9 @@ $link = new Link('Link Field');
 ```php
 use JorenRothman\ACFBuilder\Fields\Relational\PostObject;
 
-$postObject = new PostObject('Post Object Field');
+$postObject = PostObject::make('Post Object Field')
+    ->addPostType('post')
+    ->setReturnFormat('object'); // 'object', 'id'
 ```
 
 ### Page Link
@@ -165,7 +215,9 @@ $postObject = new PostObject('Post Object Field');
 ```php
 use JorenRothman\ACFBuilder\Fields\Relational\PageLink;
 
-$pageLink = new PageLink('Page Link Field');
+$pageLink = PageLink::make('Page Link Field')
+    ->addPostType('page')
+    ->setAllowNull(false);
 ```
 
 ### Relationship
@@ -173,7 +225,9 @@ $pageLink = new PageLink('Page Link Field');
 ```php
 use JorenRothman\ACFBuilder\Fields\Relational\Relationship;
 
-$relationship = new Relationship('Relationship Field');
+$relationship = Relationship::make('Relationship Field')
+    ->addPostType('post', 'page')
+    ->setReturnFormat('object'); // 'object', 'id'
 ```
 
 ### Taxonomy
@@ -181,7 +235,10 @@ $relationship = new Relationship('Relationship Field');
 ```php
 use JorenRothman\ACFBuilder\Fields\Relational\Taxonomy;
 
-$taxonomy = new Taxonomy('Taxonomy Field');
+$taxonomy = Taxonomy::make('Taxonomy Field')
+    ->setTaxonomy('category')
+    ->setFieldType('checkbox')    // 'checkbox', 'multi_select', 'select', 'radio'
+    ->setReturnFormat('object');  // 'id', 'object'
 ```
 
 ### User
@@ -189,8 +246,11 @@ $taxonomy = new Taxonomy('Taxonomy Field');
 ```php
 use JorenRothman\ACFBuilder\Fields\Relational\User;
 
-$user = new User('User Field');
+$user = User::make('User Field')
+    ->setReturnFormat('object'); // 'array', 'object', 'id'
 ```
+
+---
 
 ## Layout Fields
 
@@ -199,7 +259,9 @@ $user = new User('User Field');
 ```php
 use JorenRothman\ACFBuilder\Fields\Layout\Message;
 
-$message = new Message('Message Field');
+$message = Message::make('Message Field')
+    ->setMessage('This is a message.')
+    ->setNewLines('wpautop'); // 'wpautop', 'br', ''
 ```
 
 ### Group
@@ -207,7 +269,9 @@ $message = new Message('Message Field');
 ```php
 use JorenRothman\ACFBuilder\Fields\Layout\Group;
 
-$group = new Group('Group Field');
+$group = Group::make('Group Field')
+    ->setLayout('block') // 'row', 'column', 'block'
+    ->addSubField(Text::make('Sub Text'));
 ```
 
 ### Repeater
@@ -215,15 +279,23 @@ $group = new Group('Group Field');
 ```php
 use JorenRothman\ACFBuilder\Fields\Layout\Repeater;
 
-$repeater = new Repeater('Repeater Field');
+$repeater = Repeater::make('Repeater Field')
+    ->setLayout('block')      // 'table', 'row', 'block'
+    ->setButtonLabel('Add Row')
+    ->addSubField(Text::make('Sub Text'));
 ```
 
 ### Flexible Content
 
 ```php
 use JorenRothman\ACFBuilder\Fields\Layout\FlexibleContent;
+use JorenRothman\ACFBuilder\Fields\Layout\FlexibleLayout;
 
-$flexibleContent = new FlexibleContent('Flexible Content Field');
+$layout = new FlexibleLayout('Text Layout');
+$layout->addSubField(Text::make('Content'));
+
+$flexibleContent = FlexibleContent::make('Flexible Content Field')
+    ->addLayout($layout);
 ```
 
 ### Accordion
@@ -231,7 +303,10 @@ $flexibleContent = new FlexibleContent('Flexible Content Field');
 ```php
 use JorenRothman\ACFBuilder\Fields\Layout\Accordion;
 
-$accordion = new Accordion('Accordion Field');
+$accordion = Accordion::make('Accordion Field')
+    ->setOpen(false)
+    ->setMultiExpand(false)
+    ->setEndpoint(false);
 ```
 
 ### Tab
@@ -239,47 +314,60 @@ $accordion = new Accordion('Accordion Field');
 ```php
 use JorenRothman\ACFBuilder\Fields\Layout\Tab;
 
-$tab = new Tab('Tab Field');
+$tab = Tab::make('Tab Field')
+    ->setPlacement('top'); // 'top', 'left'
 ```
+
+---
 
 ## jQuery Fields
 
 ### Google Map
 
 ```php
-use JorenRothman\ACFBuilder\Fields\jQuery\GoogleMap;
+use JorenRothman\ACFBuilder\Fields\JQuery\GoogleMap;
 
-$googleMap = new GoogleMap('Google Map Field');
+$googleMap = GoogleMap::make('Google Map Field');
 ```
 
 ### Date Picker
 
 ```php
-use JorenRothman\ACFBuilder\Fields\jQuery\DatePicker;
+use JorenRothman\ACFBuilder\Fields\JQuery\DatePicker;
 
-$datePicker = new DatePicker('Date Picker Field');
+$datePicker = DatePicker::make('Date Picker Field')
+    ->setDisplayFormat('d/m/Y')
+    ->setReturnFormat('d/m/Y')
+    ->setFirstDay('monday'); // 'sunday', 'monday', ..., 'saturday'
 ```
 
 ### Date Time Picker
 
 ```php
-use JorenRothman\ACFBuilder\Fields\jQuery\DateTimePicker;
+use JorenRothman\ACFBuilder\Fields\JQuery\DateTimePicker;
 
-$dateTimePicker = new DateTimePicker('Date Time Picker Field');
+$dateTimePicker = DateTimePicker::make('Date Time Picker Field')
+    ->setDisplayFormat('d/m/Y g:i a')
+    ->setReturnFormat('d/m/Y g:i a')
+    ->setFirstDay('monday'); // 'sunday', 'monday', ..., 'saturday'
 ```
 
 ### Time Picker
 
 ```php
-use JorenRothman\ACFBuilder\Fields\jQuery\TimePicker;
+use JorenRothman\ACFBuilder\Fields\JQuery\TimePicker;
 
-$timePicker = new TimePicker('Time Picker Field');
+$timePicker = TimePicker::make('Time Picker Field')
+    ->setDisplayFormat('g:i a')
+    ->setReturnFormat('g:i a');
 ```
 
 ### Color Picker
 
 ```php
-use JorenRothman\ACFBuilder\Fields\jQuery\ColorPicker;
+use JorenRothman\ACFBuilder\Fields\JQuery\ColorPicker;
 
-$colorPicker = new ColorPicker('Color Picker Field');
+$colorPicker = ColorPicker::make('Color Picker Field')
+    ->setReturnFormat('string') // 'string', 'array'
+    ->setEnableOpacity(false);
 ```
