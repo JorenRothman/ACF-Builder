@@ -78,7 +78,7 @@ class Select extends ChoiceField
     /**
      * Set the return format of the select
      *
-     * @param string $return_format
+     * @param 'value'|'label'|'array' $return_format
      * @return self
      */
     public function setReturnFormat(string $return_format): self

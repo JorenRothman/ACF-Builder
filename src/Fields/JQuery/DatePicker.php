@@ -43,9 +43,9 @@ class DatePicker extends JQueryField
 
     /**
      * Set the first day.
-     * 
-     * @param string $first_day 
-     * @return self 
+     *
+     * @param 'sunday'|'monday'|'tuesday'|'wednesday'|'thursday'|'friday'|'saturday' $first_day
+     * @return self
      */
     public function setFirstDay(string $first_day): self
     {

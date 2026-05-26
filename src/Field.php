@@ -22,6 +22,11 @@ abstract class Field
 
     public array $wrapper = ['width' => '', 'class' => '', 'id' => ''];
 
+    public static function make(string $label, ?string $name = null, ?string $key = null): static
+    {
+        return new static($label, $name, $key);
+    }
+
     public function __construct(string $label, ?string $name = null, ?string $key = null)
     {
         $this->label = ucwords($label);
