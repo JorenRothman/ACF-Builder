@@ -11,20 +11,8 @@ abstract class JQueryField extends Field
      */
     protected function searchDay(string $day): int
     {
-        $days = [
-            'sunday',
-            'monday',
-            'tuesday',
-            'wednesday',
-            'thursday',
-            'friday',
-            'saturday',
-        ];
+        $days = ['sunday' => 0, 'monday' => 1, 'tuesday' => 2, 'wednesday' => 3, 'thursday' => 4, 'friday' => 5, 'saturday' => 6];
 
-        if (in_array($day, $days)) {
-            return array_search($day, $days);
-        }
-
-        return 1;
+        return $days[$day] ?? throw new \InvalidArgumentException("Invalid day: {$day}");
     }
 }

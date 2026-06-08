@@ -21,6 +21,11 @@ class FlexibleLayout
 
     public int $max = 0;
 
+    public static function make(string $label, ?string $name = null, ?string $key = null): static
+    {
+        return new static($label, $name, $key);
+    }
+
     public function __construct(string $label, ?string $name = null, ?string $key = null)
     {
         $this->label = $label;
@@ -29,12 +34,6 @@ class FlexibleLayout
         $this->setKey($key ?? $this->name);
     }
 
-    /**
-     * Set key for a flexible layout.
-     *
-     * @param string $value
-     * @return void
-     */
     protected function setKey(string $value): void
     {
         $this->key = 'layout_' . $value;
@@ -71,12 +70,16 @@ class FlexibleLayout
         return $this;
     }
 
-    public function build()
+    public function build(): array
     {
-        foreach ($this->sub_fields as $field) {
-            $field->build($this->key);
-        }
+        $builtSubFields = array_map(
+            fn(Field $field) => $field->build($this->key),
+            $this->sub_fields
+        );
 
-        return json_decode(json_encode($this), true);
+        $data = json_decode(json_encode($this), true);
+        $data['sub_fields'] = $builtSubFields;
+
+        return $data;
     }
 }

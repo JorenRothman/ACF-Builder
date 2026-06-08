@@ -1,8 +1,8 @@
 <?php
 
-use Joren\ACFBuilder\Fields\Basic\Text;
-use Joren\ACFBuilder\Fields\Layout\FlexibleContent;
-use Joren\ACFBuilder\Fields\Layout\FlexibleLayout;
+use JorenRothman\ACFBuilder\Fields\Basic\Text;
+use JorenRothman\ACFBuilder\Fields\Layout\FlexibleContent;
+use JorenRothman\ACFBuilder\Fields\Layout\FlexibleLayout;
 use PHPUnit\Framework\TestCase;
 
 
@@ -48,5 +48,33 @@ final class FlexibleContentTest extends TestCase
         ];
 
         $this->assertEquals($expected, $result);
+    }
+
+    public function testBuildLayoutWithSubFields()
+    {
+        $flexibleContent = new FlexibleContent('Content');
+        $layout = new FlexibleLayout('Hero');
+        $layout->addSubField(new Text('Heading'));
+        $flexibleContent->addLayout($layout);
+
+        $result = $flexibleContent->build();
+
+        $subField = $result['layouts']['layout_hero']['sub_fields'][0];
+        $this->assertEquals('field_layout_hero_field_heading', $subField['key']);
+        $this->assertEquals('heading', $subField['name']);
+    }
+
+    public function testBuildIsIdempotent()
+    {
+        $flexibleContent = new FlexibleContent('Content');
+        $layout = new FlexibleLayout('Hero');
+        $layout->addSubField(new Text('Heading'));
+        $flexibleContent->addLayout($layout);
+
+        $first  = $flexibleContent->build();
+        $second = $flexibleContent->build();
+
+        $this->assertEquals($first, $second);
+        $this->assertEquals('field_content', $flexibleContent->key);
     }
 }

@@ -49,12 +49,14 @@ class FlexibleContent extends Field
 
     public function build(string $name = ''): array
     {
-        $this->setKey($name . '_' . $this->key);
-
-        foreach ($this->layouts as $layout) {
-            $layout = $layout->build();
+        $builtLayouts = [];
+        foreach ($this->layouts as $key => $layout) {
+            $builtLayouts[$key] = $layout->build();
         }
 
-        return parent::build();
+        $data = parent::build($name);
+        $data['layouts'] = $builtLayouts;
+
+        return $data;
     }
 }

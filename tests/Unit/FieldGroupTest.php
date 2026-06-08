@@ -1,7 +1,11 @@
 <?php
 
-use Joren\ACFBuilder\FieldGroup;
-use Joren\ACFBuilder\FieldGroupLocations;
+use JorenRothman\ACFBuilder\FieldConditionalLogic;
+use JorenRothman\ACFBuilder\FieldGroup;
+use JorenRothman\ACFBuilder\FieldGroupLocations;
+use JorenRothman\ACFBuilder\Fields\Basic\Text;
+use JorenRothman\ACFBuilder\Fields\Choice\TrueFalse;
+use JorenRothman\ACFBuilder\Fields\Layout\Repeater;
 use PHPUnit\Framework\TestCase;
 
 
@@ -58,5 +62,65 @@ final class FieldGroupTest extends TestCase
             'location' => [],
             'fields' => [],
         ], $fieldGroup->build());
+    }
+
+    public function testBuildWithField()
+    {
+        $group = new FieldGroup('My Group');
+        $group->addField(new Text('Title'));
+
+        $result = $group->build();
+
+        $this->assertCount(1, $result['fields']);
+        $this->assertEquals('field_my_group_field_title', $result['fields'][0]['key']);
+        $this->assertEquals('my_group_title', $result['fields'][0]['name']);
+    }
+
+    public function testBuildWithRepeater()
+    {
+        $group    = new FieldGroup('My Group');
+        $repeater = new Repeater('Items');
+        $repeater->addSubField(new Text('Label'));
+        $group->addField($repeater);
+
+        $result      = $group->build();
+        $repeaterOut = $result['fields'][0];
+
+        $this->assertEquals('field_my_group_field_items', $repeaterOut['key']);
+        $this->assertEquals('field_field_my_group_field_items_field_label', $repeaterOut['sub_fields'][0]['key']);
+    }
+
+    public function testBuildWithConditionalLogic()
+    {
+        $group   = new FieldGroup('My Group');
+        $trigger = new TrueFalse('Show Email');
+        $email   = new Text('Email');
+
+        $logic = new FieldConditionalLogic();
+        $logic->and($trigger, '==', true);
+        $email->setConditionalLogic($logic);
+
+        $group->addField($trigger);
+        $group->addField($email);
+
+        $result = $group->build();
+
+        $emailOut = $result['fields'][1];
+        $this->assertEquals([
+            [['field' => 'field_my_group_field_show_email', 'operator' => '==', 'value' => '1']],
+        ], $emailOut['conditional_logic']);
+    }
+
+    public function testBuildIsIdempotent()
+    {
+        $group    = new FieldGroup('My Group');
+        $repeater = new Repeater('Items');
+        $repeater->addSubField(new Text('Label'));
+        $group->addField($repeater);
+
+        $first  = $group->build();
+        $second = $group->build();
+
+        $this->assertEquals($first, $second);
     }
 }

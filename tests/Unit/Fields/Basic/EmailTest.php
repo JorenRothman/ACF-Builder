@@ -1,6 +1,8 @@
 <?php
 
-use Joren\ACFBuilder\Fields\Basic\Email;
+use JorenRothman\ACFBuilder\FieldConditionalLogic;
+use JorenRothman\ACFBuilder\Fields\Basic\Email;
+use JorenRothman\ACFBuilder\Fields\Choice\TrueFalse;
 use PHPUnit\Framework\TestCase;
 
 class EmailTest extends TestCase
@@ -115,5 +117,41 @@ class EmailTest extends TestCase
         ];
 
         $this->assertEquals($expected, $result);
+    }
+
+    public function testMake()
+    {
+        $email = Email::make('Contact', 'contact_email');
+
+        $this->assertInstanceOf(Email::class, $email);
+        $this->assertEquals('field_contact_email', $email->key);
+        $this->assertEquals('contact_email', $email->name);
+    }
+
+    public function testBuildIsIdempotent()
+    {
+        $email = new Email('Email');
+
+        $this->assertEquals($email->build(), $email->build());
+        $this->assertEquals('field_email', $email->key);
+    }
+
+    public function testBuildSerializesConditionalLogic()
+    {
+        $trigger = new TrueFalse('Active');
+        $email   = new Email('Email');
+
+        $logic = new FieldConditionalLogic();
+        $logic->and($trigger, '==', true);
+        $email->setConditionalLogic($logic);
+
+        $result = $email->build();
+
+        $this->assertEquals([
+            [['field' => 'field_active', 'operator' => '==', 'value' => '1']],
+        ], $result['conditional_logic']);
+
+        // FieldConditionalLogic object must not be replaced — second build still works
+        $this->assertEquals($result, $email->build());
     }
 }

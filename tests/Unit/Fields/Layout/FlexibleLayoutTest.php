@@ -1,7 +1,7 @@
 <?php
 
-use Joren\ACFBuilder\Fields\Basic\Text;
-use Joren\ACFBuilder\Fields\Layout\FlexibleLayout;
+use JorenRothman\ACFBuilder\Fields\Basic\Text;
+use JorenRothman\ACFBuilder\Fields\Layout\FlexibleLayout;
 use PHPUnit\Framework\TestCase;
 
 
@@ -48,5 +48,26 @@ final class FlexibleLayoutTest extends TestCase
         ];
 
         $this->assertEquals($expected, $result);
+    }
+
+    public function testBuildIsIdempotent()
+    {
+        $layout = new FlexibleLayout('Flexible Layout');
+        $layout->addSubField(new Text('Text Field'));
+
+        $first  = $layout->build();
+        $second = $layout->build();
+
+        $this->assertEquals($first, $second);
+        $this->assertEquals('layout_flexible_layout', $layout->key);
+    }
+
+    public function testMake()
+    {
+        $layout = FlexibleLayout::make('Hero Layout');
+
+        $this->assertInstanceOf(FlexibleLayout::class, $layout);
+        $this->assertEquals('layout_hero_layout', $layout->key);
+        $this->assertEquals('hero_layout', $layout->name);
     }
 }

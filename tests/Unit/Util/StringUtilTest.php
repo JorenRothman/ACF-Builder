@@ -1,6 +1,6 @@
 <?php
 
-use Joren\ACFBuilder\Util\StringUtil;
+use JorenRothman\ACFBuilder\Util\StringUtil;
 use PHPUnit\Framework\TestCase;
 
 class StringUtilTest extends TestCase

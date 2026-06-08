@@ -1,9 +1,9 @@
 <?php
 
-use Joren\ACFBuilder\Fields\Basic\Text;
-use Joren\ACFBuilder\Fields\Layout\FlexibleContent;
-use Joren\ACFBuilder\Fields\Layout\FlexibleLayout;
-use Joren\ACFBuilder\Fields\Layout\Repeater;
+use JorenRothman\ACFBuilder\Fields\Basic\Text;
+use JorenRothman\ACFBuilder\Fields\Layout\FlexibleContent;
+use JorenRothman\ACFBuilder\Fields\Layout\FlexibleLayout;
+use JorenRothman\ACFBuilder\Fields\Layout\Repeater;
 use PHPUnit\Framework\TestCase;
 
 
@@ -63,6 +63,27 @@ final class RepeaterTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
+    public function testBuildWithNoSubFields()
+    {
+        $repeater = new Repeater('Repeater');
+
+        $result = $repeater->build();
+
+        $this->assertEquals([], $result['sub_fields']);
+    }
+
+    public function testBuildIsIdempotent()
+    {
+        $repeater = new Repeater('Repeater');
+        $repeater->addSubField(new Text('Text'));
+
+        $first  = $repeater->build();
+        $second = $repeater->build();
+
+        $this->assertEquals($first, $second);
+        $this->assertEquals('field_repeater', $repeater->key);
+    }
+
     public function testCollapsed()
     {
         $repeater = new Repeater('Repeater');
@@ -77,9 +98,6 @@ final class RepeaterTest extends TestCase
 
         $result = $build['collapsed'];
 
-
-        $expected = $text->key;
-
-        $this->assertEquals($expected, $result);
+        $this->assertEquals('field_field_repeater_field_text', $result);
     }
 }

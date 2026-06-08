@@ -221,11 +221,13 @@ class FieldGroup
      */
     public function build(): array
     {
-        foreach ($this->fields as $field) {
-            $field->build();
-        }
+        $data = json_decode(json_encode($this), true);
+        $data['fields'] = array_values(array_map(
+            fn(Field $field) => $field->build(),
+            $this->fields
+        ));
 
-        return json_decode(json_encode($this), true);
+        return $data;
     }
 
     public function register(?FieldGroupLocations $locations = null, ?int $menuOrder = null): void

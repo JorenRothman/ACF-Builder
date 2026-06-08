@@ -3,24 +3,19 @@
 namespace JorenRothman\ACFBuilder\Fields\Layout;
 
 use JorenRothman\ACFBuilder\Field;
+use JorenRothman\ACFBuilder\Util\StringUtil;
 
 class Group extends Field
 {
     public string $layout = 'block';
 
-    public array $sub_fields;
+    public array $sub_fields = [];
 
     protected function setType(): void
     {
         $this->type = 'group';
     }
 
-    /**
-     * Add a sub field to the group
-     *
-     * @param Field $field
-     * @return self
-     */
     public function addSubField(Field $field): self
     {
         $this->sub_fields[] = $field;
@@ -29,10 +24,7 @@ class Group extends Field
     }
 
     /**
-     * Set the layout of the group
-     *
      * @param 'row'|'column'|'block' $layout
-     * @return self
      */
     public function setLayout(string $layout): self
     {
@@ -41,19 +33,20 @@ class Group extends Field
         return $this;
     }
 
-    /**
-     * Build the group
-     *
-     * @return array
-     */
-    public function build($name = ''): array
+    public function build(string $name = ''): array
     {
-        $this->setKey($name . '_' . $this->key);
+        $ownKey = $name
+            ? 'field_' . StringUtil::nameFormat($name . '_' . $this->key)
+            : $this->key;
 
-        foreach ($this->sub_fields as $field) {
-            $field->build($this->key);
-        }
+        $builtSubFields = array_map(
+            fn(Field $field) => $field->build($ownKey),
+            $this->sub_fields
+        );
 
-        return parent::build();
+        $data = parent::build($name);
+        $data['sub_fields'] = $builtSubFields;
+
+        return $data;
     }
 }

@@ -123,16 +123,18 @@ abstract class Field
      *
      * @return array
      */
-    public function build(string $name = '')
+    public function build(string $name = ''): array
     {
+        $data = json_decode(json_encode($this), true);
+
         if ($name) {
-            $this->setKey($name . '_' . $this->key);
+            $data['key'] = 'field_' . StringUtil::nameFormat($name . '_' . $this->key);
         }
 
-        if ($this->conditional_logic) {
-            $this->conditional_logic = $this->conditional_logic->build();
+        if ($this->conditional_logic instanceof FieldConditionalLogic) {
+            $data['conditional_logic'] = $this->conditional_logic->build();
         }
 
-        return json_decode(json_encode($this), true);
+        return $data;
     }
 }

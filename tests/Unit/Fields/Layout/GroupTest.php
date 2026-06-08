@@ -1,10 +1,10 @@
 <?php
 
-use Joren\ACFBuilder\Fields\Basic\Text;
-use Joren\ACFBuilder\Fields\Layout\FlexibleContent;
-use Joren\ACFBuilder\Fields\Layout\FlexibleLayout;
-use Joren\ACFBuilder\Fields\Layout\Group;
-use Joren\ACFBuilder\Fields\Layout\Repeater;
+use JorenRothman\ACFBuilder\Fields\Basic\Text;
+use JorenRothman\ACFBuilder\Fields\Layout\FlexibleContent;
+use JorenRothman\ACFBuilder\Fields\Layout\FlexibleLayout;
+use JorenRothman\ACFBuilder\Fields\Layout\Group;
+use JorenRothman\ACFBuilder\Fields\Layout\Repeater;
 use PHPUnit\Framework\TestCase;
 
 
@@ -58,5 +58,26 @@ final class GroupTest extends TestCase
         ];
 
         $this->assertEquals($expected, $result);
+    }
+
+    public function testBuildWithNoSubFields()
+    {
+        $group = new Group('Group');
+
+        $result = $group->build();
+
+        $this->assertEquals([], $result['sub_fields']);
+    }
+
+    public function testBuildIsIdempotent()
+    {
+        $group = new Group('Group');
+        $group->addSubField(new Text('Text'));
+
+        $first  = $group->build();
+        $second = $group->build();
+
+        $this->assertEquals($first, $second);
+        $this->assertEquals('field_group', $group->key);
     }
 }

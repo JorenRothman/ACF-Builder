@@ -1,7 +1,7 @@
 <?php
 
-use Joren\ACFBuilder\Fields\Choice\Checkbox;
-use Joren\ACFBuilder\Fields\Choice\Select;
+use JorenRothman\ACFBuilder\Fields\Choice\Checkbox;
+use JorenRothman\ACFBuilder\Fields\Choice\Select;
 use PHPUnit\Framework\TestCase;
 
 class CheckboxTest extends TestCase
