@@ -132,7 +132,7 @@ abstract class Field
         }
 
         if ($this->conditional_logic instanceof FieldConditionalLogic) {
-            $data['conditional_logic'] = $this->conditional_logic->build();
+            $data['conditional_logic'] = $this->conditional_logic->build($name);
         }
 
         return $data;

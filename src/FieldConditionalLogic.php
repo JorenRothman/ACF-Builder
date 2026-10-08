@@ -2,6 +2,8 @@
 
 namespace JorenRothman\ACFBuilder;
 
+use JorenRothman\ACFBuilder\Util\StringUtil;
+
 class FieldConditionalLogic
 {
     public array $conditionalLogic;
@@ -54,16 +56,23 @@ class FieldConditionalLogic
         return $this;
     }
 
-    public function build()
+    public function build(string $name = '')
     {
-        return array_map(function ($conditionalLogic) {
-            return array_map(function ($conditionalLogicItem) {
+        return array_map(function ($conditionalLogic) use ($name) {
+            return array_map(function ($conditionalLogicItem) use ($name) {
                 return [
-                    'field' => is_object($conditionalLogicItem['field']) ? $conditionalLogicItem['field']->key : '',
+                    'field' => is_object($conditionalLogicItem['field']) ? $this->resolveKey($conditionalLogicItem['field'], $name) : '',
                     'operator' => $conditionalLogicItem['operator'],
                     'value' => $conditionalLogicItem['value'],
                 ];
             }, $conditionalLogic);
         }, $this->conditionalLogic);
+    }
+
+    private function resolveKey(Field $field, string $name): string
+    {
+        return $name
+            ? 'field_' . StringUtil::nameFormat($name . '_' . $field->key)
+            : $field->key;
     }
 }
