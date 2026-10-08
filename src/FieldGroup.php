@@ -2,6 +2,7 @@
 
 namespace JorenRothman\ACFBuilder;
 
+use JorenRothman\ACFBuilder\Cli\MigrateKeysCommand;
 use JorenRothman\ACFBuilder\Util\StringUtil;
 
 /**
@@ -40,6 +41,17 @@ class FieldGroup
 
     public array $location = [];
 
+    protected string $keyStrategy;
+
+    protected static string $defaultKeyStrategy = KeyStrategy::LEGACY;
+
+    /**
+     * Field groups passed to register(), used by the migrate-keys command.
+     *
+     * @var FieldGroup[]
+     */
+    protected static array $registered = [];
+
     /**
      * FieldGroup constructor.
      *
@@ -54,6 +66,56 @@ class FieldGroup
         $this->name = StringUtil::nameFormat($name ?? $title);
 
         $this->setKey($key ?? $this->name);
+
+        $this->keyStrategy = static::$defaultKeyStrategy;
+    }
+
+    /**
+     * Set the key strategy used by field groups created after this call.
+     *
+     * @param 'legacy'|'path' $strategy
+     * @return void
+     */
+    public static function setDefaultKeyStrategy(string $strategy): void
+    {
+        KeyStrategy::assertValid($strategy);
+
+        static::$defaultKeyStrategy = $strategy;
+    }
+
+    /**
+     * Set how field keys are generated, see KeyStrategy.
+     *
+     * @param 'legacy'|'path' $strategy
+     * @return FieldGroup
+     */
+    public function setKeyStrategy(string $strategy): static
+    {
+        KeyStrategy::assertValid($strategy);
+
+        $this->keyStrategy = $strategy;
+
+        return $this;
+    }
+
+    /**
+     * Get the key strategy of the field group.
+     *
+     * @return string
+     */
+    public function getKeyStrategy(): string
+    {
+        return $this->keyStrategy;
+    }
+
+    /**
+     * Get all field groups passed to register().
+     *
+     * @return FieldGroup[]
+     */
+    public static function getRegistered(): array
+    {
+        return static::$registered;
     }
 
     /**
@@ -223,9 +285,10 @@ class FieldGroup
      */
     public function build(): array
     {
-        $keys = [];
-        foreach ($this->fields as $field) {
-            $keys += $field->collectKeys();
+        $keys = $this->collectKeys($this->keyStrategy);
+
+        if ($this->keyStrategy === KeyStrategy::PATH) {
+            $this->assertUniqueKeys($keys);
         }
 
         $data = json_decode(json_encode($this), true);
@@ -235,6 +298,60 @@ class FieldGroup
         ));
 
         return $data;
+    }
+
+    /**
+     * Map legacy field keys to path field keys, for migrating stored values.
+     *
+     * @return array<string, string>
+     */
+    public function migrationMap(): array
+    {
+        $legacy = $this->collectKeys(KeyStrategy::LEGACY);
+        $path = $this->collectKeys(KeyStrategy::PATH);
+
+        $map = [];
+        foreach ($legacy as $id => $oldKey) {
+            if (str_starts_with($oldKey, 'field_') && $oldKey !== $path[$id]) {
+                $map[$oldKey] = $path[$id];
+            }
+        }
+
+        return $map;
+    }
+
+    /**
+     * Collect the built keys of all fields, indexed by object id.
+     *
+     * @param string $strategy
+     * @return array<int, string>
+     */
+    protected function collectKeys(string $strategy): array
+    {
+        $scope = $strategy === KeyStrategy::PATH ? $this->name : '';
+
+        $keys = [];
+        foreach ($this->fields as $field) {
+            $keys += $field->collectKeys($scope, $strategy);
+        }
+
+        return $keys;
+    }
+
+    /**
+     * @param array<int, string> $keys
+     * @return void
+     * @throws \LogicException
+     */
+    protected function assertUniqueKeys(array $keys): void
+    {
+        $duplicates = array_keys(array_filter(array_count_values($keys), fn(int $count) => $count > 1));
+
+        if ($duplicates) {
+            throw new \LogicException(
+                "Field group '{$this->name}' has duplicate keys: " . implode(', ', $duplicates)
+            );
+        }
     }
 
     public function register(?FieldGroupLocations $locations = null, ?int $menuOrder = null): void
@@ -249,6 +366,12 @@ class FieldGroup
 
         if ($menuOrder) {
             $this->setMenuOrder($menuOrder);
+        }
+
+        static::$registered[] = $this;
+
+        if (defined('WP_CLI') && WP_CLI) {
+            MigrateKeysCommand::register();
         }
 
         add_action('acf/init', function () {

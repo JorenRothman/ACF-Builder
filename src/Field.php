@@ -22,6 +22,11 @@ abstract class Field
 
     public array $wrapper = ['width' => '', 'class' => '', 'id' => ''];
 
+    /**
+     * This field's own segment in a path key, see KeyStrategy::PATH.
+     */
+    protected string $keySegment;
+
     public static function make(string $label, ?string $name = null, ?string $key = null): static
     {
         return new static($label, $name, $key);
@@ -31,6 +36,8 @@ abstract class Field
     {
         $this->label = ucwords($label);
         $this->name = StringUtil::nameFormat($name ?? $label);
+
+        $this->keySegment = StringUtil::nameFormat($key ?? $this->name);
 
         $this->setKey($key ?? $this->name);
         $this->setType();
@@ -119,27 +126,49 @@ abstract class Field
     }
 
     /**
-     * Resolve the key this field gets when built under the given parent key.
+     * Resolve the key this field gets when built under the given parent scope.
      *
-     * @param string $name
+     * @param string $scope Parent key (legacy) or parent path (path).
+     * @param string $strategy
      * @return string
      */
-    protected function resolveKey(string $name): string
+    protected function resolveKey(string $scope, string $strategy = KeyStrategy::LEGACY): string
     {
-        return $name
-            ? 'field_' . StringUtil::nameFormat($name . '_' . $this->key)
+        if ($strategy === KeyStrategy::PATH) {
+            return 'field_' . $this->resolveScope($scope, $strategy);
+        }
+
+        return $scope
+            ? 'field_' . StringUtil::nameFormat($scope . '_' . $this->key)
             : $this->key;
+    }
+
+    /**
+     * Resolve the scope this field's sub fields are keyed under.
+     *
+     * @param string $scope Parent key (legacy) or parent path (path).
+     * @param string $strategy
+     * @return string
+     */
+    protected function resolveScope(string $scope, string $strategy = KeyStrategy::LEGACY): string
+    {
+        if ($strategy === KeyStrategy::PATH) {
+            return $scope ? $scope . '_' . $this->keySegment : $this->keySegment;
+        }
+
+        return $this->resolveKey($scope, $strategy);
     }
 
     /**
      * Collect the built keys of this field and its descendants, indexed by object id.
      *
-     * @param string $name
+     * @param string $scope Parent key (legacy) or parent path (path).
+     * @param string $strategy
      * @return array<int, string>
      */
-    public function collectKeys(string $name = ''): array
+    public function collectKeys(string $scope = '', string $strategy = KeyStrategy::LEGACY): array
     {
-        return [spl_object_id($this) => $this->resolveKey($name)];
+        return [spl_object_id($this) => $this->resolveKey($scope, $strategy)];
     }
 
     /**
@@ -154,7 +183,7 @@ abstract class Field
         $keys = $keys ?: $this->collectKeys($name);
 
         $data = json_decode(json_encode($this), true);
-        $data['key'] = $this->resolveKey($name);
+        $data['key'] = $keys[spl_object_id($this)] ?? $this->resolveKey($name);
 
         if ($this->conditional_logic instanceof FieldConditionalLogic) {
             $data['conditional_logic'] = $this->conditional_logic->build($name, $keys);

@@ -3,6 +3,7 @@
 namespace JorenRothman\ACFBuilder\Fields\Layout;
 
 use JorenRothman\ACFBuilder\Field;
+use JorenRothman\ACFBuilder\KeyStrategy;
 
 class FlexibleContent extends Field
 {
@@ -47,12 +48,13 @@ class FlexibleContent extends Field
         return $this;
     }
 
-    public function collectKeys(string $name = ''): array
+    public function collectKeys(string $scope = '', string $strategy = KeyStrategy::LEGACY): array
     {
-        $keys = parent::collectKeys($name);
+        $keys = parent::collectKeys($scope, $strategy);
+        $ownScope = $this->resolveScope($scope, $strategy);
 
         foreach ($this->layouts as $layout) {
-            $keys += $layout->collectKeys();
+            $keys += $layout->collectKeys($ownScope, $strategy);
         }
 
         return $keys;
@@ -63,8 +65,9 @@ class FlexibleContent extends Field
         $keys = $keys ?: $this->collectKeys($name);
 
         $builtLayouts = [];
-        foreach ($this->layouts as $key => $layout) {
-            $builtLayouts[$key] = $layout->build($keys);
+        foreach ($this->layouts as $layout) {
+            $built = $layout->build($keys);
+            $builtLayouts[$built['key']] = $built;
         }
 
         $data = parent::build($name, $keys);

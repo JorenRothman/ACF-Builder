@@ -1,0 +1,71 @@
+# Field Keys
+
+ACF stores every value twice: under the field **name** (`hero_title`) and a reference to the field **key** under `_` + name (`_hero_title`). The key links the stored value to its field definition, so changing a key on a live site detaches existing values until they are migrated.
+
+## Key Strategies
+
+| Strategy | Example key | |
+| :--- | :--- | :--- |
+| `KeyStrategy::LEGACY` | `field_field_hero_field_cta_field_title` | Default, the 3.x scheme |
+| `KeyStrategy::PATH` | `field_hero_cta_title` | Path of names from the field group down |
+
+Field names are the same in both strategies, only keys differ.
+
+Set the strategy per field group:
+
+```php
+use JorenRothman\ACFBuilder\FieldGroup;
+use JorenRothman\ACFBuilder\KeyStrategy;
+
+$fieldGroup = new FieldGroup('Hero');
+$fieldGroup->setKeyStrategy(KeyStrategy::PATH);
+```
+
+Or once for all field groups created afterwards:
+
+```php
+FieldGroup::setDefaultKeyStrategy(KeyStrategy::PATH);
+```
+
+### Path Keys
+
+Every field and flexible content layout is keyed by the names of the field group and its parents:
+
+```php
+$fieldGroup = (new FieldGroup('Page'))->setKeyStrategy(KeyStrategy::PATH);
+
+$fieldGroup->addField(
+    Group::make('CTA')->addSubField(Text::make('Title')),          // field_page_cta_title
+    FlexibleContent::make('Blocks')->addLayout(                    // field_page_blocks
+        FlexibleLayout::make('Hero')->addSubField(Text::make('Title')) // layout_page_blocks_hero, field_page_blocks_hero_title
+    ),
+);
+```
+
+A custom key replaces the field's own segment, not the whole key: `Text::make('Title', null, 'custom')` becomes `field_page_custom`.
+
+Path keys must be unique. `build()` throws a `LogicException` listing the duplicates, for example when `CTA > Title` and a field named `CTA Title` both resolve to `field_page_cta_title`.
+
+## Migrating an Existing Site
+
+Switching a field group that already has saved values to `KeyStrategy::PATH` requires rewriting the stored key references. Values themselves are never touched.
+
+1. Back up the database.
+2. Set `KeyStrategy::PATH` on the field groups to migrate and deploy.
+3. Run the WP-CLI command, first as a dry run:
+
+```bash
+wp acf-builder migrate-keys --dry-run
+wp acf-builder migrate-keys
+```
+
+The command migrates every field group passed to `register()` that uses `KeyStrategy::PATH`. It rewrites references in post, term, user and comment meta, options (options pages) and ACF block content in `post_content`, then flushes the object cache.
+
+Until the command has run, `get_field()` returns unformatted values for migrated groups, and `have_rows()` returns `false` for repeaters and flexible content.
+
+To inspect or run the migration yourself, get the map of old to new keys:
+
+```php
+$fieldGroup->migrationMap();
+// ['field_page_field_cta' => 'field_page_cta', ...]
+```

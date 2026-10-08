@@ -3,6 +3,7 @@
 namespace JorenRothman\ACFBuilder\Fields\Layout;
 
 use JorenRothman\ACFBuilder\Field;
+use JorenRothman\ACFBuilder\KeyStrategy;
 use JorenRothman\ACFBuilder\Util\StringUtil;
 
 class FlexibleLayout
@@ -21,6 +22,11 @@ class FlexibleLayout
 
     public int $max = 0;
 
+    /**
+     * This layout's own segment in a path key, see KeyStrategy::PATH.
+     */
+    protected string $keySegment;
+
     public static function make(string $label, ?string $name = null, ?string $key = null): static
     {
         return new static($label, $name, $key);
@@ -30,6 +36,8 @@ class FlexibleLayout
     {
         $this->label = $label;
         $this->name = StringUtil::nameFormat($name ?? $label);
+
+        $this->keySegment = StringUtil::nameFormat($key ?? $this->name);
 
         $this->setKey($key ?? $this->name);
     }
@@ -71,16 +79,24 @@ class FlexibleLayout
     }
 
     /**
-     * Collect the built keys of all sub fields, indexed by object id.
+     * Collect the built keys of this layout and its sub fields, indexed by object id.
      *
+     * @param string $scope Parent path, only used by KeyStrategy::PATH.
+     * @param string $strategy
      * @return array<int, string>
      */
-    public function collectKeys(): array
+    public function collectKeys(string $scope = '', string $strategy = KeyStrategy::LEGACY): array
     {
-        $keys = [];
+        if ($strategy === KeyStrategy::PATH) {
+            $ownScope = $scope ? $scope . '_' . $this->keySegment : $this->keySegment;
+            $keys = [spl_object_id($this) => 'layout_' . $ownScope];
+        } else {
+            $ownScope = $this->key;
+            $keys = [spl_object_id($this) => $this->key];
+        }
 
         foreach ($this->sub_fields as $field) {
-            $keys += $field->collectKeys($this->key);
+            $keys += $field->collectKeys($ownScope, $strategy);
         }
 
         return $keys;
@@ -92,13 +108,15 @@ class FlexibleLayout
     public function build(array $keys = []): array
     {
         $keys = $keys ?: $this->collectKeys();
+        $ownKey = $keys[spl_object_id($this)] ?? $this->key;
 
         $builtSubFields = array_map(
-            fn(Field $field) => $field->build($this->key, $keys),
+            fn(Field $field) => $field->build($ownKey, $keys),
             $this->sub_fields
         );
 
         $data = json_decode(json_encode($this), true);
+        $data['key'] = $ownKey;
         $data['sub_fields'] = $builtSubFields;
 
         return $data;

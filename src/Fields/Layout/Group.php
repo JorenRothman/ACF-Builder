@@ -3,6 +3,7 @@
 namespace JorenRothman\ACFBuilder\Fields\Layout;
 
 use JorenRothman\ACFBuilder\Field;
+use JorenRothman\ACFBuilder\KeyStrategy;
 
 class Group extends Field
 {
@@ -32,13 +33,13 @@ class Group extends Field
         return $this;
     }
 
-    public function collectKeys(string $name = ''): array
+    public function collectKeys(string $scope = '', string $strategy = KeyStrategy::LEGACY): array
     {
-        $keys = parent::collectKeys($name);
-        $ownKey = $this->resolveKey($name);
+        $keys = parent::collectKeys($scope, $strategy);
+        $ownScope = $this->resolveScope($scope, $strategy);
 
         foreach ($this->sub_fields as $field) {
-            $keys += $field->collectKeys($ownKey);
+            $keys += $field->collectKeys($ownScope, $strategy);
         }
 
         return $keys;
@@ -47,7 +48,7 @@ class Group extends Field
     public function build(string $name = '', array $keys = []): array
     {
         $keys = $keys ?: $this->collectKeys($name);
-        $ownKey = $this->resolveKey($name);
+        $ownKey = $keys[spl_object_id($this)] ?? $this->resolveKey($name);
 
         $builtSubFields = array_map(
             fn(Field $field) => $field->build($ownKey, $keys),

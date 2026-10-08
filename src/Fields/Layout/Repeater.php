@@ -3,6 +3,7 @@
 namespace JorenRothman\ACFBuilder\Fields\Layout;
 
 use JorenRothman\ACFBuilder\Field;
+use JorenRothman\ACFBuilder\KeyStrategy;
 
 class Repeater extends Field
 {
@@ -17,6 +18,8 @@ class Repeater extends Field
     public string $button_label = 'Add Row';
 
     public array $sub_fields = [];
+
+    protected ?Field $collapsedField = null;
 
     public function addSubField(Field ...$fields): static
     {
@@ -33,6 +36,7 @@ class Repeater extends Field
     public function setCollapsed(Field $field): static
     {
         $this->collapsed = $field->key;
+        $this->collapsedField = $field;
 
         return $this;
     }
@@ -68,13 +72,13 @@ class Repeater extends Field
         return $this;
     }
 
-    public function collectKeys(string $name = ''): array
+    public function collectKeys(string $scope = '', string $strategy = KeyStrategy::LEGACY): array
     {
-        $keys = parent::collectKeys($name);
-        $ownKey = $this->resolveKey($name);
+        $keys = parent::collectKeys($scope, $strategy);
+        $ownScope = $this->resolveScope($scope, $strategy);
 
         foreach ($this->sub_fields as $field) {
-            $keys += $field->collectKeys($ownKey);
+            $keys += $field->collectKeys($ownScope, $strategy);
         }
 
         return $keys;
@@ -83,7 +87,7 @@ class Repeater extends Field
     public function build(string $name = '', array $keys = []): array
     {
         $keys = $keys ?: $this->collectKeys($name);
-        $ownKey = $this->resolveKey($name);
+        $ownKey = $keys[spl_object_id($this)] ?? $this->resolveKey($name);
 
         $collapsed = $this->collapsed;
         $builtSubFields = [];
@@ -99,7 +103,9 @@ class Repeater extends Field
 
         $data = parent::build($name, $keys);
         $data['sub_fields'] = $builtSubFields;
-        $data['collapsed'] = $collapsed;
+        $data['collapsed'] = $this->collapsedField
+            ? $keys[spl_object_id($this->collapsedField)] ?? $collapsed
+            : $collapsed;
 
         return $data;
     }
