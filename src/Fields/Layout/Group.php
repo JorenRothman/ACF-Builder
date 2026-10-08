@@ -11,6 +11,8 @@ class Group extends Field
 
     public array $sub_fields = [];
 
+    protected const BUILT_SEPARATELY = ['sub_fields'];
+
     protected function setType(): void
     {
         $this->type = 'group';

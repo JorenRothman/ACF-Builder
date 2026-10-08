@@ -3,6 +3,7 @@
 namespace JorenRothman\ACFBuilder;
 
 use JorenRothman\ACFBuilder\Cli\MigrateKeysCommand;
+use JorenRothman\ACFBuilder\Util\ObjectUtil;
 use JorenRothman\ACFBuilder\Util\StringUtil;
 
 /**
@@ -298,7 +299,7 @@ class FieldGroup implements KeyParent
             $this->assertUniqueKeys($keys);
         }
 
-        $data = json_decode(json_encode($this), true);
+        $data = ObjectUtil::toArray($this, ['fields']);
         $data['fields'] = array_values(array_map(
             fn(Field $field) => $field->build('', $keys),
             $this->fields

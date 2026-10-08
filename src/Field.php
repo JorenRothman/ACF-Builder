@@ -2,6 +2,7 @@
 
 namespace JorenRothman\ACFBuilder;
 
+use JorenRothman\ACFBuilder\Util\ObjectUtil;
 use JorenRothman\ACFBuilder\Util\StringUtil;
 
 abstract class Field implements KeyParent
@@ -31,6 +32,11 @@ abstract class Field implements KeyParent
      * This field's own segment in a path key, see KeyStrategy::PATH.
      */
     protected string $keySegment;
+
+    /**
+     * Public properties holding child objects, which build() fills in separately.
+     */
+    protected const BUILT_SEPARATELY = [];
 
     public static function make(string $label, ?string $name = null, ?string $key = null): static
     {
@@ -201,9 +207,12 @@ abstract class Field implements KeyParent
     {
         $keys = $keys ?: $this->collectRootKeys($name);
 
-        $data = ['key' => $keys[spl_object_id($this)]] + json_decode(json_encode($this), true);
+        $hasConditionalLogic = $this->conditional_logic instanceof FieldConditionalLogic;
+        $except = $hasConditionalLogic ? [...static::BUILT_SEPARATELY, 'conditional_logic'] : static::BUILT_SEPARATELY;
 
-        if ($this->conditional_logic instanceof FieldConditionalLogic) {
+        $data = ['key' => $keys[spl_object_id($this)]] + ObjectUtil::toArray($this, $except);
+
+        if ($hasConditionalLogic) {
             $data['conditional_logic'] = $this->conditional_logic->build($name, $keys);
         }
 

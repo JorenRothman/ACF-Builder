@@ -11,6 +11,8 @@ class FlexibleContent extends Field
 
     public array $layouts = [];
 
+    protected const BUILT_SEPARATELY = ['layouts'];
+
     public int $min = 0;
 
     public int $max = 0;

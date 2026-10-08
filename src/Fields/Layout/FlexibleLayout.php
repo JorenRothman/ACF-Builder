@@ -6,6 +6,7 @@ use JorenRothman\ACFBuilder\Field;
 use JorenRothman\ACFBuilder\KeyParent;
 use JorenRothman\ACFBuilder\KeyStrategy;
 use JorenRothman\ACFBuilder\ResolvesKey;
+use JorenRothman\ACFBuilder\Util\ObjectUtil;
 use JorenRothman\ACFBuilder\Util\StringUtil;
 
 class FlexibleLayout implements KeyParent
@@ -160,7 +161,7 @@ class FlexibleLayout implements KeyParent
             $this->sub_fields
         );
 
-        $data = ['key' => $ownKey] + json_decode(json_encode($this), true);
+        $data = ['key' => $ownKey] + ObjectUtil::toArray($this, ['sub_fields']);
         $data['sub_fields'] = $builtSubFields;
 
         return $data;

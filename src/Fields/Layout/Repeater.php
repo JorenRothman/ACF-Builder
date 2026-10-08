@@ -19,6 +19,8 @@ class Repeater extends Field
 
     public array $sub_fields = [];
 
+    protected const BUILT_SEPARATELY = ['sub_fields'];
+
     protected ?Field $collapsedField = null;
 
     public function addSubField(Field ...$fields): static
