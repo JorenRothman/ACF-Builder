@@ -4,9 +4,14 @@ namespace JorenRothman\ACFBuilder;
 
 use JorenRothman\ACFBuilder\Util\StringUtil;
 
-abstract class Field
+abstract class Field implements KeyParent
 {
-    public string $key;
+    use ResolvesKey;
+
+    /**
+     * Own key before resolving through parents. Reading $field->key returns getKey().
+     */
+    protected string $key;
 
     public string $label;
 
@@ -119,10 +124,8 @@ abstract class Field
 
     public function onAddToFieldGroup(FieldGroup $parent): void
     {
-        $fieldGroupName = $parent->name;
-
-        $this->name = $fieldGroupName . '_' . $this->name;
-        $this->setKey($fieldGroupName . '_' . $this->key);
+        $this->name = $parent->name . '_' . $this->name;
+        $this->setParent($parent);
     }
 
     /**
@@ -175,6 +178,19 @@ abstract class Field
     }
 
     /**
+     * Collect keys for a build started at this field.
+     *
+     * @param string $name Explicit parent scope, defaults to the scope of the attached parent.
+     * @return array<int, string>
+     */
+    protected function collectRootKeys(string $name): array
+    {
+        $strategy = $this->getKeyStrategy();
+
+        return $this->collectKeys($name !== '' ? $name : $this->getParentScope($strategy), $strategy);
+    }
+
+    /**
      * Build the field
      *
      * @param string $name
@@ -183,10 +199,9 @@ abstract class Field
      */
     public function build(string $name = '', array $keys = []): array
     {
-        $keys = $keys ?: $this->collectKeys($name);
+        $keys = $keys ?: $this->collectRootKeys($name);
 
-        $data = json_decode(json_encode($this), true);
-        $data['key'] = $keys[spl_object_id($this)] ?? $this->resolveKey($name);
+        $data = ['key' => $keys[spl_object_id($this)]] + json_decode(json_encode($this), true);
 
         if ($this->conditional_logic instanceof FieldConditionalLogic) {
             $data['conditional_logic'] = $this->conditional_logic->build($name, $keys);

@@ -43,7 +43,9 @@ class FlexibleContent extends Field
 
     public function addLayout(FlexibleLayout $layout): static
     {
-        $this->layouts[$layout->key] = $layout;
+        $layout->setParent($this);
+
+        $this->layouts[] = $layout;
 
         return $this;
     }
@@ -63,7 +65,7 @@ class FlexibleContent extends Field
 
     public function build(string $name = '', array $keys = []): array
     {
-        $keys = $keys ?: $this->collectKeys($name);
+        $keys = $keys ?: $this->collectRootKeys($name);
 
         $builtLayouts = [];
         foreach ($this->layouts as $layout) {

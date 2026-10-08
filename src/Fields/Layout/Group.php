@@ -18,6 +18,10 @@ class Group extends Field
 
     public function addSubField(Field ...$fields): static
     {
+        foreach ($fields as $field) {
+            $field->setParent($this);
+        }
+
         array_push($this->sub_fields, ...$fields);
 
         return $this;
@@ -48,8 +52,8 @@ class Group extends Field
 
     public function build(string $name = '', array $keys = []): array
     {
-        $keys = $keys ?: $this->collectKeys($name);
-        $ownKey = $keys[spl_object_id($this)] ?? $this->resolveKey($name);
+        $keys = $keys ?: $this->collectRootKeys($name);
+        $ownKey = $keys[spl_object_id($this)];
 
         $builtSubFields = array_map(
             fn(Field $field) => $field->build($ownKey, $keys),

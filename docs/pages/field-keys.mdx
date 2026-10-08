@@ -46,6 +46,26 @@ A custom key replaces the field's own segment, not the whole key: `Text::make('T
 
 Path keys must be unique. `build()` throws a `LogicException` listing the duplicates, for example when `CTA > Title` and a field named `CTA Title` both resolve to `field_page_cta_title`.
 
+## Reading a Key
+
+`$field->key` and `$field->getKey()` return the key the field is built with, resolved through its parents and the field group's strategy. Fields can be added in any order, the key is resolved when read:
+
+```php
+$title = Text::make('Title');
+$cta = Group::make('CTA');
+
+$fieldGroup->addField($cta);
+$cta->addSubField($title);
+
+$title->key; // field_page_cta_title
+```
+
+Fields can also be passed wherever a key is expected, so they never need to be read by hand:
+
+```php
+$relatedPages->setBidirectional(true)->setBidirectionalTarget($relatedPosts);
+```
+
 ## Upgrading from 3.x
 
 4.0 generates different keys for every field, so a site with saved values needs one of the following.

@@ -2,8 +2,6 @@
 
 namespace JorenRothman\ACFBuilder;
 
-use JorenRothman\ACFBuilder\Util\StringUtil;
-
 class FieldConditionalLogic
 {
     public array $conditionalLogic;
@@ -57,15 +55,15 @@ class FieldConditionalLogic
     }
 
     /**
-     * @param string $name
+     * @param string $name Unused, kept for compatibility.
      * @param array<int, string> $keys Built keys of all fields in the tree, see Field::collectKeys().
      */
     public function build(string $name = '', array $keys = [])
     {
-        return array_map(function ($conditionalLogic) use ($name, $keys) {
-            return array_map(function ($conditionalLogicItem) use ($name, $keys) {
+        return array_map(function ($conditionalLogic) use ($keys) {
+            return array_map(function ($conditionalLogicItem) use ($keys) {
                 return [
-                    'field' => is_object($conditionalLogicItem['field']) ? $this->resolveKey($conditionalLogicItem['field'], $name, $keys) : '',
+                    'field' => is_object($conditionalLogicItem['field']) ? $this->resolveKey($conditionalLogicItem['field'], $keys) : '',
                     'operator' => $conditionalLogicItem['operator'],
                     'value' => $conditionalLogicItem['value'],
                 ];
@@ -73,14 +71,8 @@ class FieldConditionalLogic
         }, $this->conditionalLogic);
     }
 
-    private function resolveKey(Field $field, string $name, array $keys): string
+    private function resolveKey(Field $field, array $keys): string
     {
-        if ($keys) {
-            return $keys[spl_object_id($field)] ?? $field->key;
-        }
-
-        return $name
-            ? 'field_' . StringUtil::nameFormat($name . '_' . $field->key)
-            : $field->key;
+        return $keys[spl_object_id($field)] ?? $field->getKey();
     }
 }

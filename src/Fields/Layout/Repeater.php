@@ -23,6 +23,10 @@ class Repeater extends Field
 
     public function addSubField(Field ...$fields): static
     {
+        foreach ($fields as $field) {
+            $field->setParent($this);
+        }
+
         array_push($this->sub_fields, ...$fields);
 
         return $this;
@@ -87,8 +91,8 @@ class Repeater extends Field
 
     public function build(string $name = '', array $keys = []): array
     {
-        $keys = $keys ?: $this->collectKeys($name);
-        $ownKey = $keys[spl_object_id($this)] ?? $this->resolveKey($name);
+        $keys = $keys ?: $this->collectRootKeys($name);
+        $ownKey = $keys[spl_object_id($this)];
 
         $collapsed = $this->collapsed;
         $builtSubFields = [];
@@ -105,7 +109,7 @@ class Repeater extends Field
         $data = parent::build($name, $keys);
         $data['sub_fields'] = $builtSubFields;
         $data['collapsed'] = $this->collapsedField
-            ? $keys[spl_object_id($this->collapsedField)] ?? $collapsed
+            ? $keys[spl_object_id($this->collapsedField)] ?? $this->collapsedField->getKey()
             : $collapsed;
 
         return $data;

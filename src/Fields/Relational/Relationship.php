@@ -2,6 +2,7 @@
 
 namespace JorenRothman\ACFBuilder\Fields\Relational;
 
+use JorenRothman\ACFBuilder\Field;
 use JorenRothman\ACFBuilder\Settings\Instructions;
 
 class Relationship extends RelationalField
@@ -23,6 +24,11 @@ class Relationship extends RelationalField
     public int $bidirectional = 0;
 
     public string|array $bidirectional_target = '';
+
+    /**
+     * @var array<Field|string>
+     */
+    protected array $bidirectionalTargets = [];
 
     public function __construct(string $label, ?string $name = null, ?string $key = null)
     {
@@ -140,21 +146,34 @@ class Relationship extends RelationalField
     }
 
     /**
-     * Set the bidirectional target.
+     * Add a bidirectional target, a field or a field key.
      *
-     *
-     * @param string $field
+     * @param Field|string $field
      * @return static
      */
-    public function setBidirectionalTarget(string $field): static
+    public function setBidirectionalTarget(Field|string $field): static
     {
-        if ($this->bidirectional_target === '') {
-            $this->bidirectional_target = [];
-        }
-
-        $this->bidirectional_target[] = $field;
+        $this->bidirectionalTargets[] = $field;
 
         return $this;
+    }
+
+    public function build(string $name = '', array $keys = []): array
+    {
+        $keys = $keys ?: $this->collectRootKeys($name);
+
+        $data = parent::build($name, $keys);
+
+        if ($this->bidirectionalTargets) {
+            $data['bidirectional_target'] = array_map(
+                fn(Field|string $target) => $target instanceof Field
+                    ? $keys[spl_object_id($target)] ?? $target->getKey()
+                    : $target,
+                $this->bidirectionalTargets
+            );
+        }
+
+        return $data;
     }
 
     public function setInstructions(string $value): static

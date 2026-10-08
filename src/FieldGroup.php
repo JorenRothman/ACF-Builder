@@ -10,7 +10,7 @@ use JorenRothman\ACFBuilder\Util\StringUtil;
  *
  * @package JorenRothman\ACFBuilder
  */
-class FieldGroup
+class FieldGroup implements KeyParent
 {
 
     public string $title;
@@ -102,6 +102,17 @@ class FieldGroup
     public function getKeyStrategy(): string
     {
         return $this->keyStrategy;
+    }
+
+    /**
+     * Fields are keyed under the field group name in both strategies.
+     *
+     * @param string $strategy
+     * @return string
+     */
+    public function getChildScope(string $strategy): string
+    {
+        return $this->name;
     }
 
     /**
@@ -324,11 +335,9 @@ class FieldGroup
      */
     protected function collectKeys(string $strategy): array
     {
-        $scope = $strategy === KeyStrategy::PATH ? $this->name : '';
-
         $keys = [];
         foreach ($this->fields as $field) {
-            $keys += $field->collectKeys($scope, $strategy);
+            $keys += $field->collectKeys($this->getChildScope($strategy), $strategy);
         }
 
         return $keys;

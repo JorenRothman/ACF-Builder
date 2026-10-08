@@ -8,6 +8,7 @@ use JorenRothman\ACFBuilder\Fields\Layout\FlexibleContent;
 use JorenRothman\ACFBuilder\Fields\Layout\FlexibleLayout;
 use JorenRothman\ACFBuilder\Fields\Layout\Group;
 use JorenRothman\ACFBuilder\Fields\Layout\Repeater;
+use JorenRothman\ACFBuilder\Fields\Relational\Relationship;
 use JorenRothman\ACFBuilder\KeyStrategy;
 use PHPUnit\Framework\TestCase;
 
@@ -191,5 +192,64 @@ final class KeyStrategyTest extends TestCase
             'field_page_field_blocks' => 'field_page_blocks',
             'field_layout_hero_field_heading' => 'field_page_blocks_hero_heading',
         ], $fieldGroup->migrationMap());
+    }
+
+    public function testFieldKeyPropertyMatchesBuiltKey()
+    {
+        $title = new Text('Title');
+        $group = new Group('CTA');
+        $fieldGroup = new FieldGroup('Hero');
+
+        // Sub field added after its parent is attached, the key must still resolve through the tree.
+        $fieldGroup->addField($group);
+        $group->addSubField($title);
+
+        $built = $fieldGroup->build()['fields'][0];
+
+        $this->assertEquals('field_hero_cta_title', $title->key);
+        $this->assertEquals($built['sub_fields'][0]['key'], $title->key);
+        $this->assertEquals($built['key'], $group->getKey());
+    }
+
+    public function testFieldKeyPropertyMatchesBuiltKeyInLegacy()
+    {
+        $title = new Text('Title');
+        $fieldGroup = (new FieldGroup('Hero'))
+            ->setKeyStrategy(KeyStrategy::LEGACY)
+            ->addField((new Group('CTA'))->addSubField($title));
+
+        $built = $fieldGroup->build()['fields'][0];
+
+        $this->assertEquals('field_field_hero_field_cta_field_title', $title->key);
+        $this->assertEquals($built['sub_fields'][0]['key'], $title->key);
+    }
+
+    public function testLayoutKeyPropertyMatchesBuiltKey()
+    {
+        $layout = new FlexibleLayout('Hero');
+        $heading = new Text('Heading');
+        $layout->addSubField($heading);
+
+        $fieldGroup = (new FieldGroup('Page'))->addField((new FlexibleContent('Blocks'))->addLayout($layout));
+
+        $this->assertEquals('layout_page_blocks_hero', $layout->key);
+        $this->assertEquals('field_page_blocks_hero_heading', $heading->key);
+        $this->assertArrayHasKey($layout->key, $fieldGroup->build()['fields'][0]['layouts']);
+    }
+
+    public function testBidirectionalTargetAcceptsField()
+    {
+        $relatedPosts = new Relationship('Related Posts');
+        $relatedPages = new Relationship('Related Pages');
+
+        (new FieldGroup('Page'))->addField($relatedPosts);
+        $postGroup = (new FieldGroup('Post'))->addField(
+            $relatedPages->setBidirectional(true)->setBidirectionalTarget($relatedPosts)->setBidirectionalTarget('field_custom')
+        );
+
+        $this->assertEquals(
+            ['field_page_related_posts', 'field_custom'],
+            $postGroup->build()['fields'][0]['bidirectional_target']
+        );
     }
 }

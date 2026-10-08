@@ -3,12 +3,19 @@
 namespace JorenRothman\ACFBuilder\Fields\Layout;
 
 use JorenRothman\ACFBuilder\Field;
+use JorenRothman\ACFBuilder\KeyParent;
 use JorenRothman\ACFBuilder\KeyStrategy;
+use JorenRothman\ACFBuilder\ResolvesKey;
 use JorenRothman\ACFBuilder\Util\StringUtil;
 
-class FlexibleLayout
+class FlexibleLayout implements KeyParent
 {
-    public string $key = '';
+    use ResolvesKey;
+
+    /**
+     * Own key before resolving through parents. Reading $layout->key returns getKey().
+     */
+    protected string $key = '';
 
     public string $name = '';
 
@@ -47,8 +54,46 @@ class FlexibleLayout
         $this->key = 'layout_' . $value;
     }
 
+    /**
+     * Resolve the key this layout gets when built under the given parent scope.
+     *
+     * @param string $scope Parent path, only used by KeyStrategy::PATH.
+     * @param string|null $strategy Defaults to KeyStrategy::getDefault().
+     * @return string
+     */
+    protected function resolveKey(string $scope, ?string $strategy = null): string
+    {
+        $strategy ??= KeyStrategy::getDefault();
+
+        return $strategy === KeyStrategy::PATH
+            ? 'layout_' . $this->resolveScope($scope, $strategy)
+            : $this->key;
+    }
+
+    /**
+     * Resolve the scope this layout's sub fields are keyed under.
+     *
+     * @param string $scope Parent path, only used by KeyStrategy::PATH.
+     * @param string|null $strategy Defaults to KeyStrategy::getDefault().
+     * @return string
+     */
+    protected function resolveScope(string $scope, ?string $strategy = null): string
+    {
+        $strategy ??= KeyStrategy::getDefault();
+
+        if ($strategy === KeyStrategy::PATH) {
+            return $scope ? $scope . '_' . $this->keySegment : $this->keySegment;
+        }
+
+        return $this->key;
+    }
+
     public function addSubField(Field ...$fields): static
     {
+        foreach ($fields as $field) {
+            $field->setParent($this);
+        }
+
         array_push($this->sub_fields, ...$fields);
 
         return $this;
@@ -88,13 +133,8 @@ class FlexibleLayout
     public function collectKeys(string $scope = '', ?string $strategy = null): array
     {
         $strategy ??= KeyStrategy::getDefault();
-        if ($strategy === KeyStrategy::PATH) {
-            $ownScope = $scope ? $scope . '_' . $this->keySegment : $this->keySegment;
-            $keys = [spl_object_id($this) => 'layout_' . $ownScope];
-        } else {
-            $ownScope = $this->key;
-            $keys = [spl_object_id($this) => $this->key];
-        }
+        $keys = [spl_object_id($this) => $this->resolveKey($scope, $strategy)];
+        $ownScope = $this->resolveScope($scope, $strategy);
 
         foreach ($this->sub_fields as $field) {
             $keys += $field->collectKeys($ownScope, $strategy);
@@ -108,16 +148,19 @@ class FlexibleLayout
      */
     public function build(array $keys = []): array
     {
-        $keys = $keys ?: $this->collectKeys();
-        $ownKey = $keys[spl_object_id($this)] ?? $this->key;
+        if (!$keys) {
+            $strategy = $this->getKeyStrategy();
+            $keys = $this->collectKeys($this->getParentScope($strategy), $strategy);
+        }
+
+        $ownKey = $keys[spl_object_id($this)];
 
         $builtSubFields = array_map(
             fn(Field $field) => $field->build($ownKey, $keys),
             $this->sub_fields
         );
 
-        $data = json_decode(json_encode($this), true);
-        $data['key'] = $ownKey;
+        $data = ['key' => $ownKey] + json_decode(json_encode($this), true);
         $data['sub_fields'] = $builtSubFields;
 
         return $data;
