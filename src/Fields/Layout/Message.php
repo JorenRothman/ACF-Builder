@@ -21,9 +21,9 @@ class Message extends Field
      * Set the message of the message
      *
      * @param string $message
-     * @return self
+     * @return static
      */
-    public function setMessage(string $message): self
+    public function setMessage(string $message): static
     {
         $this->message = $message;
 
@@ -34,9 +34,9 @@ class Message extends Field
      * Set the new lines of the message
      *
      * @param 'wpautop'|'br'|'' $new_lines
-     * @return self
+     * @return static
      */
-    public function setNewLines(string $new_lines): self
+    public function setNewLines(string $new_lines): static
     {
         $this->new_lines = $new_lines;
 
@@ -47,9 +47,9 @@ class Message extends Field
      * Set the esc_html state of the message
      *
      * @param bool $esc_html
-     * @return self
+     * @return static
      */
-    public function setEscHtml(bool $esc_html): self
+    public function setEscHtml(bool $esc_html): static
     {
         $this->esc_html = $esc_html;
 

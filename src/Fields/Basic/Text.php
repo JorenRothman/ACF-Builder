@@ -29,7 +29,7 @@ class Text extends FieldBasic
      * @param string $value
      * @return static
      */
-    public function setPlaceholder(string $value): self
+    public function setPlaceholder(string $value): static
     {
         $this->placeholder = $value;
 
@@ -42,7 +42,7 @@ class Text extends FieldBasic
      * @param string $value
      * @return static
      */
-    public function setPrepend(string $value): self
+    public function setPrepend(string $value): static
     {
         $this->prepend = $value;
 
@@ -55,7 +55,7 @@ class Text extends FieldBasic
      * @param string $value
      * @return static
      */
-    public function setAppend(string $value): self
+    public function setAppend(string $value): static
     {
         $this->append = $value;
 
@@ -68,7 +68,7 @@ class Text extends FieldBasic
      * @param string $value
      * @return static
      */
-    public function setMaxLength(string $value): self
+    public function setMaxLength(string $value): static
     {
         $this->maxlength = $value;
 
@@ -81,7 +81,7 @@ class Text extends FieldBasic
      * @param bool $value
      * @return static
      */
-    public function setReadOnly(bool $value): self
+    public function setReadOnly(bool $value): static
     {
         $this->readonly = $value;
 
@@ -94,7 +94,7 @@ class Text extends FieldBasic
      * @param bool $value
      * @return static
      */
-    public function setDisabled(bool $value): self
+    public function setDisabled(bool $value): static
     {
         $this->disabled = $value;
 

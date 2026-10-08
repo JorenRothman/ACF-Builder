@@ -39,7 +39,7 @@ class Gallery extends FieldContent
      * @param int $value
      * @return static
      */
-    public function setMin(int $value): self
+    public function setMin(int $value): static
     {
         $this->min = $value;
 
@@ -52,7 +52,7 @@ class Gallery extends FieldContent
      * @param int $value
      * @return static
      */
-    public function setMax(int $value): self
+    public function setMax(int $value): static
     {
         $this->max = $value;
 
@@ -65,7 +65,7 @@ class Gallery extends FieldContent
      * @param 'thumbnail'|'medium'|'large'|'full' $value
      * @return static
      */
-    public function setPreviewSize(string $value): self
+    public function setPreviewSize(string $value): static
     {
         $this->preview_size = $value;
 
@@ -78,7 +78,7 @@ class Gallery extends FieldContent
      * @param 'all'|'uploadedTo' $value
      * @return static
      */
-    public function setLibrary(string $value): self
+    public function setLibrary(string $value): static
     {
         $this->library = $value;
 
@@ -91,7 +91,7 @@ class Gallery extends FieldContent
      * @param int $value
      * @return static
      */
-    public function setMinWidth(int $value): self
+    public function setMinWidth(int $value): static
     {
         $this->min_width = $value;
 
@@ -104,7 +104,7 @@ class Gallery extends FieldContent
      * @param int $value
      * @return static
      */
-    public function setMinHeight(int $value): self
+    public function setMinHeight(int $value): static
     {
         $this->min_height = $value;
 
@@ -117,7 +117,7 @@ class Gallery extends FieldContent
      * @param int $value
      * @return static
      */
-    public function setMinSize(int $value): self
+    public function setMinSize(int $value): static
     {
         $this->min_size = $value;
 
@@ -130,7 +130,7 @@ class Gallery extends FieldContent
      * @param int $value
      * @return static
      */
-    public function setMaxWidth(int $value): self
+    public function setMaxWidth(int $value): static
     {
         $this->max_width = $value;
 
@@ -143,7 +143,7 @@ class Gallery extends FieldContent
      * @param int $value
      * @return static
      */
-    public function setMaxHeight(int $value): self
+    public function setMaxHeight(int $value): static
     {
         $this->max_height = $value;
 
@@ -156,7 +156,7 @@ class Gallery extends FieldContent
      * @param int $value
      * @return static
      */
-    public function setMaxSize(int $value): self
+    public function setMaxSize(int $value): static
     {
         $this->max_size = $value;
 
@@ -169,7 +169,7 @@ class Gallery extends FieldContent
      * @param string $value
      * @return static
      */
-    public function setMimeTypes(string $value): self
+    public function setMimeTypes(string $value): static
     {
         $this->mime_types = $value;
 

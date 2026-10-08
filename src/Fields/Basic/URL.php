@@ -19,7 +19,7 @@ class URL extends FieldBasic
      * @param string $value
      * @return static
      */
-    public function setPlaceholder(string $value): self
+    public function setPlaceholder(string $value): static
     {
         $this->placeholder = $value;
 

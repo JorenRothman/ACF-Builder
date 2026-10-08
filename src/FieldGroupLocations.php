@@ -39,7 +39,7 @@ class FieldGroupLocations
      * @param string $value
      * @return FieldGroupLocations
      */
-    public function and(string $parameter, string $operator, string $value): self
+    public function and(string $parameter, string $operator, string $value): static
     {
         $currentLocationIndex = $this->getCurrentLocationIndex();
 
@@ -56,7 +56,7 @@ class FieldGroupLocations
      * @param string $value
      * @return FieldGroupLocations
      */
-    public function or(string $parameter, string $operator, string $value): self
+    public function or(string $parameter, string $operator, string $value): static
     {
         if (!empty($this->locations[$this->getCurrentLocationIndex()])) {
             $this->locations[] = [];

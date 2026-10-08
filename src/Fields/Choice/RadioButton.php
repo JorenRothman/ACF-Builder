@@ -25,9 +25,9 @@ class RadioButton extends ChoiceField
      * Set array of choices where the key is used as value and the value is used as label
      *
      * @param array $choices
-     * @return self
+     * @return static
      */
-    public function setChoices(array $choices): self
+    public function setChoices(array $choices): static
     {
         $this->choices = $choices;
 
@@ -38,9 +38,9 @@ class RadioButton extends ChoiceField
      * Set the allow null state of the select
      *
      * @param bool $allow_null
-     * @return self
+     * @return static
      */
-    public function setAllowNull(bool $allow_null): self
+    public function setAllowNull(bool $allow_null): static
     {
         $this->allow_null = (int) $allow_null;
 
@@ -51,9 +51,9 @@ class RadioButton extends ChoiceField
      * Set the other choice state of the select
      *
      * @param bool $other_choice
-     * @return self
+     * @return static
      */
-    public function setOtherChoice(bool $other_choice): self
+    public function setOtherChoice(bool $other_choice): static
     {
         $this->other_choice = (int) $other_choice;
 
@@ -64,9 +64,9 @@ class RadioButton extends ChoiceField
      * Set the layout of the select
      *
      * @param 'vertical'|'horizontal' $layout
-     * @return self
+     * @return static
      */
-    public function setLayout(string $layout): self
+    public function setLayout(string $layout): static
     {
         $this->layout = $layout;
 
@@ -77,9 +77,9 @@ class RadioButton extends ChoiceField
      * Set the return format of the select
      *
      * @param 'value'|'label' $return_format
-     * @return self
+     * @return static
      */
-    public function setReturnFormat(string $return_format): self
+    public function setReturnFormat(string $return_format): static
     {
         $this->return_format = $return_format;
 
@@ -90,9 +90,9 @@ class RadioButton extends ChoiceField
      * Set the save other choice state of the select
      *
      * @param bool $save_other_choice
-     * @return self
+     * @return static
      */
-    public function setSaveOtherChoice(bool $save_other_choice): self
+    public function setSaveOtherChoice(bool $save_other_choice): static
     {
         $this->save_other_choice = (int) $save_other_choice;
 

@@ -23,7 +23,7 @@ class FieldConditionalLogic
     /**
      * @param '=='|'!='|'>'|'<'|'>='|'<='|'contains'|'not_contains'|'pattern' $operator
      */
-    public function and(Field $field, string $operator, mixed $value = null): self
+    public function and(Field $field, string $operator, mixed $value = null): static
     {
         $currentConditionalLogicIndex = $this->getCurrentConditionalLogicIndex();
 
@@ -39,7 +39,7 @@ class FieldConditionalLogic
     /**
      * @param '=='|'!='|'>'|'<'|'>='|'<='|'contains'|'not_contains'|'pattern' $operator
      */
-    public function or(Field $field, string $operator, mixed $value = null): self
+    public function or(Field $field, string $operator, mixed $value = null): static
     {
         if (!empty($this->conditionalLogic[$this->getCurrentConditionalLogicIndex()])) {
             $this->conditionalLogic[] = [];
@@ -56,12 +56,16 @@ class FieldConditionalLogic
         return $this;
     }
 
-    public function build(string $name = '')
+    /**
+     * @param string $name
+     * @param array<int, string> $keys Built keys of all fields in the tree, see Field::collectKeys().
+     */
+    public function build(string $name = '', array $keys = [])
     {
-        return array_map(function ($conditionalLogic) use ($name) {
-            return array_map(function ($conditionalLogicItem) use ($name) {
+        return array_map(function ($conditionalLogic) use ($name, $keys) {
+            return array_map(function ($conditionalLogicItem) use ($name, $keys) {
                 return [
-                    'field' => is_object($conditionalLogicItem['field']) ? $this->resolveKey($conditionalLogicItem['field'], $name) : '',
+                    'field' => is_object($conditionalLogicItem['field']) ? $this->resolveKey($conditionalLogicItem['field'], $name, $keys) : '',
                     'operator' => $conditionalLogicItem['operator'],
                     'value' => $conditionalLogicItem['value'],
                 ];
@@ -69,8 +73,12 @@ class FieldConditionalLogic
         }, $this->conditionalLogic);
     }
 
-    private function resolveKey(Field $field, string $name): string
+    private function resolveKey(Field $field, string $name, array $keys): string
     {
+        if ($keys) {
+            return $keys[spl_object_id($field)] ?? $field->key;
+        }
+
         return $name
             ? 'field_' . StringUtil::nameFormat($name . '_' . $field->key)
             : $field->key;

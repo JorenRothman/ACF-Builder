@@ -21,9 +21,9 @@ class ButtonGroup extends ChoiceField
      * Set array of choices where the key is used as value and the value is used as label
      *
      * @param array $choices
-     * @return self
+     * @return static
      */
-    public function setChoices(array $choices): self
+    public function setChoices(array $choices): static
     {
         $this->choices = $choices;
 
@@ -34,9 +34,9 @@ class ButtonGroup extends ChoiceField
      * Set the allow null state of the select
      *
      * @param bool $allow_null
-     * @return self
+     * @return static
      */
-    public function setAllowNull(bool $allow_null): self
+    public function setAllowNull(bool $allow_null): static
     {
         $this->allow_null = (int) $allow_null;
 
@@ -47,9 +47,9 @@ class ButtonGroup extends ChoiceField
      * Set the layout of the select
      *
      * @param 'vertical'|'horizontal' $layout
-     * @return self
+     * @return static
      */
-    public function setLayout(string $layout): self
+    public function setLayout(string $layout): static
     {
         $this->layout = $layout;
 

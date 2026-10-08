@@ -23,7 +23,7 @@ class Wysiwyg extends FieldContent
      * @param 'all'|'visual'|'text' $value
      * @return static
      */
-    public function setTabs(string $value): self
+    public function setTabs(string $value): static
     {
         $this->tabs = $value;
 
@@ -36,7 +36,7 @@ class Wysiwyg extends FieldContent
      * @param 'full'|'basic' $value
      * @return static
      */
-    public function setToolbar(string $value): self
+    public function setToolbar(string $value): static
     {
         $this->toolbar = $value;
 
@@ -49,7 +49,7 @@ class Wysiwyg extends FieldContent
      * @param bool $value
      * @return static
      */
-    public function setMediaUpload(bool $value): self
+    public function setMediaUpload(bool $value): static
     {
         $this->media_upload = $value;
 

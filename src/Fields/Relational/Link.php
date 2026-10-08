@@ -15,9 +15,9 @@ class Link extends RelationalField
      * Set the return format.
      *
      * @param 'array'|'url' $return_format
-     * @return self
+     * @return static
      */
-    public function setReturnFormat(string $return_format): self
+    public function setReturnFormat(string $return_format): static
     {
         $this->return_format = $return_format;
 

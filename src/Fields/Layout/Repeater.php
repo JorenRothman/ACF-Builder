@@ -3,7 +3,6 @@
 namespace JorenRothman\ACFBuilder\Fields\Layout;
 
 use JorenRothman\ACFBuilder\Field;
-use JorenRothman\ACFBuilder\Util\StringUtil;
 
 class Repeater extends Field
 {
@@ -19,7 +18,7 @@ class Repeater extends Field
 
     public array $sub_fields = [];
 
-    public function addSubField(Field ...$fields): self
+    public function addSubField(Field ...$fields): static
     {
         array_push($this->sub_fields, ...$fields);
 
@@ -31,7 +30,7 @@ class Repeater extends Field
         $this->type = 'repeater';
     }
 
-    public function setCollapsed(Field $field): self
+    public function setCollapsed(Field $field): static
     {
         $this->collapsed = $field->key;
 
@@ -41,53 +40,64 @@ class Repeater extends Field
     /**
      * @param 'table'|'row'|'block' $layout
      */
-    public function setLayout(string $layout): self
+    public function setLayout(string $layout): static
     {
         $this->layout = $layout;
 
         return $this;
     }
 
-    public function setMin(int $min): self
+    public function setMin(int $min): static
     {
         $this->min = $min;
 
         return $this;
     }
 
-    public function setMax(int $max): self
+    public function setMax(int $max): static
     {
         $this->max = $max;
 
         return $this;
     }
 
-    public function setButtonLabel(string $button_label): self
+    public function setButtonLabel(string $button_label): static
     {
         $this->button_label = $button_label;
 
         return $this;
     }
 
-    public function build(string $name = ''): array
+    public function collectKeys(string $name = ''): array
     {
-        $ownKey = $name
-            ? 'field_' . StringUtil::nameFormat($name . '_' . $this->key)
-            : $this->key;
+        $keys = parent::collectKeys($name);
+        $ownKey = $this->resolveKey($name);
+
+        foreach ($this->sub_fields as $field) {
+            $keys += $field->collectKeys($ownKey);
+        }
+
+        return $keys;
+    }
+
+    public function build(string $name = '', array $keys = []): array
+    {
+        $keys = $keys ?: $this->collectKeys($name);
+        $ownKey = $this->resolveKey($name);
 
         $collapsed = $this->collapsed;
         $builtSubFields = [];
 
         foreach ($this->sub_fields as $field) {
             $wasCollapsed = $field->key === $collapsed;
-            $built = $field->build($ownKey);
+            $built = $field->build($ownKey, $keys);
             if ($wasCollapsed) {
                 $collapsed = $built['key'];
             }
             $builtSubFields[] = $built;
         }
 
-        $data = parent::build($name);
+        $data = parent::build($name, $keys);
         $data['sub_fields'] = $builtSubFields;
         $data['collapsed'] = $collapsed;
 

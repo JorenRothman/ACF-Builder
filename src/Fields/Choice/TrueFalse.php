@@ -24,28 +24,28 @@ class TrueFalse extends ChoiceField
         $this->type = 'true_false';
     }
 
-    public function setMessage(string $value): self
+    public function setMessage(string $value): static
     {
         $this->message = $value;
 
         return $this;
     }
 
-    public function setUI(bool $value): self
+    public function setUI(bool $value): static
     {
         $this->ui = (int) $value;
 
         return $this;
     }
 
-    public function setUiOnText(string $value): self
+    public function setUiOnText(string $value): static
     {
         $this->ui_on_text = $value;
 
         return $this;
     }
 
-    public function setUiOffText(string $value): self
+    public function setUiOffText(string $value): static
     {
         $this->ui_off_text = $value;
 

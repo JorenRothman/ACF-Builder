@@ -21,9 +21,9 @@ class GoogleMap extends JQueryField
      * Set the center lat.
      * 
      * @param string $center_lat 
-     * @return self 
+     * @return static 
      */
-    public function setCenterLat(string $center_lat): self
+    public function setCenterLat(string $center_lat): static
     {
         $this->center_lat = $center_lat;
 
@@ -34,9 +34,9 @@ class GoogleMap extends JQueryField
      * Set the center lng.
      * 
      * @param string $center_lng 
-     * @return self 
+     * @return static 
      */
-    public function setCenterLng(string $center_lng): self
+    public function setCenterLng(string $center_lng): static
     {
         $this->center_lng = $center_lng;
 
@@ -47,9 +47,9 @@ class GoogleMap extends JQueryField
      * Set the zoom.
      * 
      * @param string $zoom 
-     * @return self 
+     * @return static 
      */
-    public function setZoom(string $zoom): self
+    public function setZoom(string $zoom): static
     {
         $this->zoom = $zoom;
 
@@ -60,9 +60,9 @@ class GoogleMap extends JQueryField
      * Set the height.
      * 
      * @param string $height 
-     * @return self 
+     * @return static 
      */
-    public function setHeight(string $height): self
+    public function setHeight(string $height): static
     {
         $this->height = $height;
 

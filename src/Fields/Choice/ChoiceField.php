@@ -14,7 +14,7 @@ abstract class ChoiceField extends Field
      * @param mixed $value
      * @return static
      */
-    public function setDefaultValue(mixed $value): self
+    public function setDefaultValue(mixed $value): static
     {
         $this->default_value = $value;
 

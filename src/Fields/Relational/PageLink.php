@@ -23,9 +23,9 @@ class PageLink extends RelationalField
      * Add a post type.
      * 
      * @param string $post_type 
-     * @return self 
+     * @return static 
      */
-    public function addPostType(string $post_type): self
+    public function addPostType(string $post_type): static
     {
         $this->post_type[] = $post_type;
 
@@ -36,9 +36,9 @@ class PageLink extends RelationalField
      * Add a taxonomy.
      * 
      * @param string $taxonomy 
-     * @return self 
+     * @return static 
      */
-    public function addTaxonomy(string $taxonomy): self
+    public function addTaxonomy(string $taxonomy): static
     {
         $this->taxonomy[] = $taxonomy;
 
@@ -49,9 +49,9 @@ class PageLink extends RelationalField
      * Set the allow null state.
      * 
      * @param bool $allow_null 
-     * @return self 
+     * @return static 
      */
-    public function setAllowNull(bool $allow_null): self
+    public function setAllowNull(bool $allow_null): static
     {
         $this->allow_null = $allow_null;
 
@@ -62,9 +62,9 @@ class PageLink extends RelationalField
      * Set the allow archives state.
      * 
      * @param bool $allow_archives 
-     * @return self 
+     * @return static 
      */
-    public function setAllowArchives(bool $allow_archives): self
+    public function setAllowArchives(bool $allow_archives): static
     {
         $this->allow_archives = $allow_archives;
 
@@ -75,9 +75,9 @@ class PageLink extends RelationalField
      * Set the multiple state.
      * 
      * @param bool $multiple 
-     * @return self 
+     * @return static 
      */
-    public function setMultiple(bool $multiple): self
+    public function setMultiple(bool $multiple): static
     {
         $this->multiple = $multiple;
 

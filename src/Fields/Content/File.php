@@ -29,7 +29,7 @@ class File extends FieldContent
      * @param 'array'|'url'|'id' $value
      * @return static
      */
-    public function setReturnFormat(string $value): self
+    public function setReturnFormat(string $value): static
     {
         $this->return_format = $value;
 
@@ -42,7 +42,7 @@ class File extends FieldContent
      * @param 'thumbnail'|'medium'|'large'|'full' $value
      * @return static
      */
-    public function setPreviewSize(string $value): self
+    public function setPreviewSize(string $value): static
     {
         $this->preview_size = $value;
 
@@ -55,7 +55,7 @@ class File extends FieldContent
      * @param 'all'|'uploadedTo' $value
      * @return static
      */
-    public function setLibrary(string $value): self
+    public function setLibrary(string $value): static
     {
         $this->library = $value;
 
@@ -68,7 +68,7 @@ class File extends FieldContent
      * @param int $value
      * @return static
      */
-    public function setMinSize(int $value): self
+    public function setMinSize(int $value): static
     {
         $this->min_size = $value;
 
@@ -81,7 +81,7 @@ class File extends FieldContent
      * @param int $value
      * @return static
      */
-    public function setMaxSize(int $value): self
+    public function setMaxSize(int $value): static
     {
         $this->max_size = $value;
 
@@ -94,7 +94,7 @@ class File extends FieldContent
      * @param string $value
      * @return static
      */
-    public function setMimeTypes(string $value): self
+    public function setMimeTypes(string $value): static
     {
         $this->mime_types = $value;
 

@@ -3,7 +3,6 @@
 namespace JorenRothman\ACFBuilder\Fields\Layout;
 
 use JorenRothman\ACFBuilder\Field;
-use JorenRothman\ACFBuilder\Util\StringUtil;
 
 class Group extends Field
 {
@@ -16,7 +15,7 @@ class Group extends Field
         $this->type = 'group';
     }
 
-    public function addSubField(Field ...$fields): self
+    public function addSubField(Field ...$fields): static
     {
         array_push($this->sub_fields, ...$fields);
 
@@ -26,25 +25,36 @@ class Group extends Field
     /**
      * @param 'row'|'column'|'block' $layout
      */
-    public function setLayout(string $layout): self
+    public function setLayout(string $layout): static
     {
         $this->layout = $layout;
 
         return $this;
     }
 
-    public function build(string $name = ''): array
+    public function collectKeys(string $name = ''): array
     {
-        $ownKey = $name
-            ? 'field_' . StringUtil::nameFormat($name . '_' . $this->key)
-            : $this->key;
+        $keys = parent::collectKeys($name);
+        $ownKey = $this->resolveKey($name);
+
+        foreach ($this->sub_fields as $field) {
+            $keys += $field->collectKeys($ownKey);
+        }
+
+        return $keys;
+    }
+
+    public function build(string $name = '', array $keys = []): array
+    {
+        $keys = $keys ?: $this->collectKeys($name);
+        $ownKey = $this->resolveKey($name);
 
         $builtSubFields = array_map(
-            fn(Field $field) => $field->build($ownKey),
+            fn(Field $field) => $field->build($ownKey, $keys),
             $this->sub_fields
         );
 
-        $data = parent::build($name);
+        $data = parent::build($name, $keys);
         $data['sub_fields'] = $builtSubFields;
 
         return $data;

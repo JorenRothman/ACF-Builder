@@ -21,9 +21,9 @@ class User extends RelationalField
      * Add a role.
      * 
      * @param string $role,... 
-     * @return self 
+     * @return static 
      */
-    public function addRole(string ...$role): self
+    public function addRole(string ...$role): static
     {
         $this->role = $role;
 
@@ -34,9 +34,9 @@ class User extends RelationalField
      * Set the allow null state.
      * 
      * @param bool $allow_null 
-     * @return self 
+     * @return static 
      */
-    public function setAllowNull(bool $allow_null): self
+    public function setAllowNull(bool $allow_null): static
     {
         $this->allow_null = $allow_null;
 
@@ -47,9 +47,9 @@ class User extends RelationalField
      * Set the multiple state.
      * 
      * @param bool $multiple 
-     * @return self 
+     * @return static 
      */
-    public function setMultiple(bool $multiple): self
+    public function setMultiple(bool $multiple): static
     {
         $this->multiple = $multiple;
 
@@ -60,9 +60,9 @@ class User extends RelationalField
      * Set the return format.
      *
      * @param 'array'|'object'|'id' $return_format
-     * @return self
+     * @return static
      */
-    public function setReturnFormat(string $return_format): self
+    public function setReturnFormat(string $return_format): static
     {
         $this->return_format = $return_format;
 

@@ -29,7 +29,7 @@ class Number extends FieldBasic
      * @param string $value
      * @return static
      */
-    public function setPlaceholder(string $value): self
+    public function setPlaceholder(string $value): static
     {
         $this->placeholder = $value;
 
@@ -42,7 +42,7 @@ class Number extends FieldBasic
      * @param string $value
      * @return static
      */
-    public function setPrepend(string $value): self
+    public function setPrepend(string $value): static
     {
         $this->prepend = $value;
 
@@ -55,7 +55,7 @@ class Number extends FieldBasic
      * @param string $value
      * @return static
      */
-    public function setAppend(string $value): self
+    public function setAppend(string $value): static
     {
         $this->append = $value;
 
@@ -68,7 +68,7 @@ class Number extends FieldBasic
      * @param int $value
      * @return static
      */
-    public function setMin(int $value): self
+    public function setMin(int $value): static
     {
         $this->min = $value;
 
@@ -81,7 +81,7 @@ class Number extends FieldBasic
      * @param int $value
      * @return static
      */
-    public function setMax(int $value): self
+    public function setMax(int $value): static
     {
         $this->max = $value;
 
@@ -94,7 +94,7 @@ class Number extends FieldBasic
      * @param int $value
      * @return static
      */
-    public function setStep(int $value): self
+    public function setStep(int $value): static
     {
         $this->step = $value;
 

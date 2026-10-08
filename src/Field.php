@@ -42,7 +42,7 @@ abstract class Field
      * @param string $value
      * @return static
      */
-    protected function setKey(string $value): self
+    protected function setKey(string $value): static
     {
         $this->key = 'field_' . StringUtil::nameFormat($value);
 
@@ -63,7 +63,7 @@ abstract class Field
      * @param string $value
      * @return static
      */
-    public function setInstructions(string $value): self
+    public function setInstructions(string $value): static
     {
         $this->instructions = $value;
 
@@ -76,7 +76,7 @@ abstract class Field
      * @param bool $value
      * @return static
      */
-    public function setRequired(bool $value): self
+    public function setRequired(bool $value): static
     {
         $this->required = (int) $value;
 
@@ -90,7 +90,7 @@ abstract class Field
      * @param FieldConditionalLogic $value
      * @return static
      */
-    public function setConditionalLogic(FieldConditionalLogic $value): self
+    public function setConditionalLogic(FieldConditionalLogic $value): static
     {
         $this->conditional_logic = $value;
 
@@ -103,7 +103,7 @@ abstract class Field
      * @param array $value
      * @return static
      */
-    public function setWrapper(string $width, string $class = '', string $id = ''): self
+    public function setWrapper(string $width, string $class = '', string $id = ''): static
     {
         $this->wrapper = ['width' => $width, 'class' => $class, 'id' => $id];
 
@@ -119,20 +119,45 @@ abstract class Field
     }
 
     /**
+     * Resolve the key this field gets when built under the given parent key.
+     *
+     * @param string $name
+     * @return string
+     */
+    protected function resolveKey(string $name): string
+    {
+        return $name
+            ? 'field_' . StringUtil::nameFormat($name . '_' . $this->key)
+            : $this->key;
+    }
+
+    /**
+     * Collect the built keys of this field and its descendants, indexed by object id.
+     *
+     * @param string $name
+     * @return array<int, string>
+     */
+    public function collectKeys(string $name = ''): array
+    {
+        return [spl_object_id($this) => $this->resolveKey($name)];
+    }
+
+    /**
      * Build the field
      *
+     * @param string $name
+     * @param array<int, string> $keys Built keys of all fields in the tree, see collectKeys().
      * @return array
      */
-    public function build(string $name = ''): array
+    public function build(string $name = '', array $keys = []): array
     {
-        $data = json_decode(json_encode($this), true);
+        $keys = $keys ?: $this->collectKeys($name);
 
-        if ($name) {
-            $data['key'] = 'field_' . StringUtil::nameFormat($name . '_' . $this->key);
-        }
+        $data = json_decode(json_encode($this), true);
+        $data['key'] = $this->resolveKey($name);
 
         if ($this->conditional_logic instanceof FieldConditionalLogic) {
-            $data['conditional_logic'] = $this->conditional_logic->build($name);
+            $data['conditional_logic'] = $this->conditional_logic->build($name, $keys);
         }
 
         return $data;

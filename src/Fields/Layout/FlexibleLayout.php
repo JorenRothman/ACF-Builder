@@ -39,21 +39,21 @@ class FlexibleLayout
         $this->key = 'layout_' . $value;
     }
 
-    public function addSubField(Field ...$fields): self
+    public function addSubField(Field ...$fields): static
     {
         array_push($this->sub_fields, ...$fields);
 
         return $this;
     }
 
-    public function setMin(int $min): self
+    public function setMin(int $min): static
     {
         $this->min = $min;
 
         return $this;
     }
 
-    public function setMax(int $max): self
+    public function setMax(int $max): static
     {
         $this->max = $max;
 
@@ -63,17 +63,38 @@ class FlexibleLayout
     /**
      * @param 'block'|'table'|'row' $display
      */
-    public function setDisplay(string $display): self
+    public function setDisplay(string $display): static
     {
         $this->display = $display;
 
         return $this;
     }
 
-    public function build(): array
+    /**
+     * Collect the built keys of all sub fields, indexed by object id.
+     *
+     * @return array<int, string>
+     */
+    public function collectKeys(): array
     {
+        $keys = [];
+
+        foreach ($this->sub_fields as $field) {
+            $keys += $field->collectKeys($this->key);
+        }
+
+        return $keys;
+    }
+
+    /**
+     * @param array<int, string> $keys Built keys of all fields in the tree, see collectKeys().
+     */
+    public function build(array $keys = []): array
+    {
+        $keys = $keys ?: $this->collectKeys();
+
         $builtSubFields = array_map(
-            fn(Field $field) => $field->build($this->key),
+            fn(Field $field) => $field->build($this->key, $keys),
             $this->sub_fields
         );
 

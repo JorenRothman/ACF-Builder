@@ -29,9 +29,9 @@ class Taxonomy extends RelationalField
      * Set the taxonomy.
      * 
      * @param string $taxonomy 
-     * @return self 
+     * @return static 
      */
-    public function setTaxonomy(string $taxonomy): self
+    public function setTaxonomy(string $taxonomy): static
     {
         $this->taxonomy = $taxonomy;
 
@@ -42,9 +42,9 @@ class Taxonomy extends RelationalField
      * Set the field type.
      *
      * @param 'checkbox'|'multi_select'|'select'|'radio' $field_type
-     * @return self
+     * @return static
      */
-    public function setFieldType(string $field_type): self
+    public function setFieldType(string $field_type): static
     {
         $this->field_type = $field_type;
 
@@ -55,9 +55,9 @@ class Taxonomy extends RelationalField
      * Set the add term state.
      * 
      * @param bool $add_term 
-     * @return self 
+     * @return static 
      */
-    public function setAddTerm(bool $add_term): self
+    public function setAddTerm(bool $add_term): static
     {
         $this->add_term = $add_term;
 
@@ -68,9 +68,9 @@ class Taxonomy extends RelationalField
      * Set the save terms state.
      * 
      * @param bool $save_terms 
-     * @return self 
+     * @return static 
      */
-    public function setSaveTerms(bool $save_terms): self
+    public function setSaveTerms(bool $save_terms): static
     {
         $this->save_terms = $save_terms;
 
@@ -81,9 +81,9 @@ class Taxonomy extends RelationalField
      * Set the load terms state.
      * 
      * @param bool $load_terms 
-     * @return self 
+     * @return static 
      */
-    public function setLoadTerms(bool $load_terms): self
+    public function setLoadTerms(bool $load_terms): static
     {
         $this->load_terms = $load_terms;
 
@@ -94,9 +94,9 @@ class Taxonomy extends RelationalField
      * Set the return format.
      *
      * @param 'id'|'object' $return_format
-     * @return self
+     * @return static
      */
-    public function setReturnFormat(string $return_format): self
+    public function setReturnFormat(string $return_format): static
     {
         $this->return_format = $return_format;
 
@@ -107,9 +107,9 @@ class Taxonomy extends RelationalField
      * Set the multiple state.
      * 
      * @param bool $multiple 
-     * @return self 
+     * @return static 
      */
-    public function setMultiple(bool $multiple): self
+    public function setMultiple(bool $multiple): static
     {
         $this->multiple = $multiple;
 
@@ -120,9 +120,9 @@ class Taxonomy extends RelationalField
      * Set the allow null state.
      * 
      * @param bool $allow_null 
-     * @return self 
+     * @return static 
      */
-    public function setAllowNull(bool $allow_null): self
+    public function setAllowNull(bool $allow_null): static
     {
         $this->allow_null = $allow_null;
 

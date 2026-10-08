@@ -19,9 +19,9 @@ class ColorPicker extends JQueryField
      * Set the default value.
      * 
      * @param string $default_value 
-     * @return self 
+     * @return static 
      */
-    public function setDefaultValue(string $default_value): self
+    public function setDefaultValue(string $default_value): static
     {
         $this->default_value = $default_value;
 
@@ -32,9 +32,9 @@ class ColorPicker extends JQueryField
      * Set the enable opacity.
      * 
      * @param bool $enable_opacity 
-     * @return self 
+     * @return static 
      */
-    public function setEnableOpacity(bool $enable_opacity): self
+    public function setEnableOpacity(bool $enable_opacity): static
     {
         $this->enable_opacity = $enable_opacity;
 
@@ -45,9 +45,9 @@ class ColorPicker extends JQueryField
      * Set the return format.
      *
      * @param 'string'|'array' $return_format
-     * @return self
+     * @return static
      */
-    public function setReturnFormat(string $return_format): self
+    public function setReturnFormat(string $return_format): static
     {
         $this->return_format = $return_format;
 

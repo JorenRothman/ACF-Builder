@@ -19,9 +19,9 @@ class Tab extends Field
      * Set the placement of the tab
      *
      * @param 'top'|'left' $placement
-     * @return self
+     * @return static
      */
-    public function setPlacement(string $placement): self
+    public function setPlacement(string $placement): static
     {
         $this->placement = $placement;
 
@@ -32,9 +32,9 @@ class Tab extends Field
      * Set the endpoint of the tab
      *
      * @param bool $endpoint
-     * @return self
+     * @return static
      */
-    public function setEndpoint(bool $endpoint): self
+    public function setEndpoint(bool $endpoint): static
     {
         $this->endpoint = $endpoint;
 

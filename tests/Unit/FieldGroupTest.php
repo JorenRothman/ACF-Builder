@@ -5,6 +5,9 @@ use JorenRothman\ACFBuilder\FieldGroup;
 use JorenRothman\ACFBuilder\FieldGroupLocations;
 use JorenRothman\ACFBuilder\Fields\Basic\Text;
 use JorenRothman\ACFBuilder\Fields\Choice\TrueFalse;
+use JorenRothman\ACFBuilder\Fields\Layout\FlexibleContent;
+use JorenRothman\ACFBuilder\Fields\Layout\FlexibleLayout;
+use JorenRothman\ACFBuilder\Fields\Layout\Group;
 use JorenRothman\ACFBuilder\Fields\Layout\Repeater;
 use PHPUnit\Framework\TestCase;
 
@@ -146,5 +149,55 @@ final class FieldGroupTest extends TestCase
         $second = $group->build();
 
         $this->assertEquals($first, $second);
+    }
+
+    public function testConditionalLogicInGroupReferencesTopLevelField()
+    {
+        $toggle = new TrueFalse('Show CTA');
+        $title = (new Text('Title'))
+            ->setConditionalLogic((new FieldConditionalLogic)->and($toggle, '==', true));
+
+        $fieldGroup = new FieldGroup('Hero');
+        $fieldGroup->addField($toggle, (new Group('CTA'))->addSubField($title));
+
+        $result = $fieldGroup->build();
+
+        $this->assertEquals(
+            $result['fields'][0]['key'],
+            $result['fields'][1]['sub_fields'][0]['conditional_logic'][0][0]['field']
+        );
+    }
+
+    public function testConditionalLogicInRepeaterReferencesTopLevelField()
+    {
+        $toggle = new TrueFalse('Show Items');
+        $title = (new Text('Title'))
+            ->setConditionalLogic((new FieldConditionalLogic)->and($toggle, '==', true));
+
+        $fieldGroup = new FieldGroup('Hero');
+        $fieldGroup->addField($toggle, (new Repeater('Items'))->addSubField($title));
+
+        $result = $fieldGroup->build();
+
+        $this->assertEquals(
+            $result['fields'][0]['key'],
+            $result['fields'][1]['sub_fields'][0]['conditional_logic'][0][0]['field']
+        );
+    }
+
+    public function testConditionalLogicInFlexibleLayoutReferencesSibling()
+    {
+        $toggle = new TrueFalse('Toggle');
+        $title = (new Text('Title'))
+            ->setConditionalLogic((new FieldConditionalLogic)->and($toggle, '==', true));
+
+        $fieldGroup = new FieldGroup('Page');
+        $fieldGroup->addField(
+            (new FlexibleContent('Blocks'))->addLayout((new FlexibleLayout('Hero'))->addSubField($toggle, $title))
+        );
+
+        $subFields = array_values($fieldGroup->build()['fields'][0]['layouts'])[0]['sub_fields'];
+
+        $this->assertEquals($subFields[0]['key'], $subFields[1]['conditional_logic'][0][0]['field']);
     }
 }

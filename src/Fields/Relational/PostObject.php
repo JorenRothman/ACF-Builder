@@ -29,9 +29,9 @@ class PostObject extends RelationalField
      * Add a post type.
      *
      * @param string $post_type
-     * @return self
+     * @return static
      */
-    public function addPostType(string $post_type): self
+    public function addPostType(string $post_type): static
     {
         $this->post_type[] = $post_type;
 
@@ -42,9 +42,9 @@ class PostObject extends RelationalField
      * Add a taxonomy.
      *
      * @param string $taxonomy
-     * @return self
+     * @return static
      */
-    public function addTaxonomy(string $taxonomy): self
+    public function addTaxonomy(string $taxonomy): static
     {
         $this->taxonomy[] = $taxonomy;
 
@@ -55,9 +55,9 @@ class PostObject extends RelationalField
      * Set the allow null state.
      *
      * @param bool $allow_null
-     * @return self
+     * @return static
      */
-    public function setAllowNull(bool $allow_null): self
+    public function setAllowNull(bool $allow_null): static
     {
         $this->allow_null = $allow_null;
 
@@ -68,9 +68,9 @@ class PostObject extends RelationalField
      * Set the multiple state.
      *
      * @param bool $multiple
-     * @return self
+     * @return static
      */
-    public function setMultiple(bool $multiple): self
+    public function setMultiple(bool $multiple): static
     {
         $this->multiple = $multiple;
 
@@ -81,9 +81,9 @@ class PostObject extends RelationalField
      * Set the return format.
      *
      * @param 'object'|'id' $return_format
-     * @return self
+     * @return static
      */
-    public function setReturnFormat(string $return_format): self
+    public function setReturnFormat(string $return_format): static
     {
         $this->return_format = $return_format;
 
@@ -94,16 +94,16 @@ class PostObject extends RelationalField
      * Set the UI state.
      *
      * @param bool $ui
-     * @return self
+     * @return static
      */
-    public function setUI(bool $ui): self
+    public function setUI(bool $ui): static
     {
         $this->ui = $ui;
 
         return $this;
     }
 
-    public function setBidirectional(bool $bidirectional): self
+    public function setBidirectional(bool $bidirectional): static
     {
         $this->bidirectional = (int) $bidirectional;
 
@@ -115,9 +115,9 @@ class PostObject extends RelationalField
      *
      *
      * @param string $field
-     * @return self
+     * @return static
      */
-    public function setBidirectionalTarget(string $field): self
+    public function setBidirectionalTarget(string $field): static
     {
         if ($this->bidirectional_target === '') {
             $this->bidirectional_target = [];

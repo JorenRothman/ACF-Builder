@@ -23,7 +23,7 @@ class Password extends FieldBasic
      * @param string $value
      * @return static
      */
-    public function setPlaceholder(string $value): self
+    public function setPlaceholder(string $value): static
     {
         $this->placeholder = $value;
 
@@ -36,7 +36,7 @@ class Password extends FieldBasic
      * @param string $value
      * @return static
      */
-    public function setPrepend(string $value): self
+    public function setPrepend(string $value): static
     {
         $this->prepend = $value;
 
@@ -49,7 +49,7 @@ class Password extends FieldBasic
      * @param string $value
      * @return static
      */
-    public function setAppend(string $value): self
+    public function setAppend(string $value): static
     {
         $this->append = $value;
 

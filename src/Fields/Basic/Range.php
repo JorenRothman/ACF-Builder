@@ -21,21 +21,21 @@ class Range extends FieldBasic
         $this->type = 'range';
     }
 
-    public function setMin(int $min): self
+    public function setMin(int $min): static
     {
         $this->min = $min;
 
         return $this;
     }
 
-    public function setMax(int $max): self
+    public function setMax(int $max): static
     {
         $this->max = $max;
 
         return $this;
     }
 
-    public function setStep(int $step): self
+    public function setStep(int $step): static
     {
         $this->step = $step;
 
@@ -48,7 +48,7 @@ class Range extends FieldBasic
      * @param string $value
      * @return static
      */
-    public function setPrepend(string $value): self
+    public function setPrepend(string $value): static
     {
         $this->prepend = $value;
 
@@ -61,7 +61,7 @@ class Range extends FieldBasic
      * @param string $value
      * @return static
      */
-    public function setAppend(string $value): self
+    public function setAppend(string $value): static
     {
         $this->append = $value;
 

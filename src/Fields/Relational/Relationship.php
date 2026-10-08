@@ -40,9 +40,9 @@ class Relationship extends RelationalField
      * Add a post type.
      *
      * @param string $post_type,...
-     * @return self
+     * @return static
      */
-    public function addPostType(string ...$post_type): self
+    public function addPostType(string ...$post_type): static
     {
         $this->post_type = $post_type;
 
@@ -53,9 +53,9 @@ class Relationship extends RelationalField
      * Add a taxonomy.
      *
      * @param string $taxonomy,...
-     * @return self
+     * @return static
      */
-    public function addTaxonomy(string ...$taxonomy): self
+    public function addTaxonomy(string ...$taxonomy): static
     {
         $this->taxonomy = $taxonomy;
 
@@ -69,9 +69,9 @@ class Relationship extends RelationalField
      * @param bool $search
      * @param bool $taxonomy
      * @param bool $post_type
-     * @return self
+     * @return static
      */
-    public function addFilter(bool $search, bool $taxonomy = false, bool $postType = false): self
+    public function addFilter(bool $search, bool $taxonomy = false, bool $postType = false): static
     {
         $search && $this->filters[] = 'search';
         $taxonomy && $this->filters[] = 'taxonomy';
@@ -84,9 +84,9 @@ class Relationship extends RelationalField
      * Add an element.
      *
      * @param 'featured_image' ...$element
-     * @return self
+     * @return static
      */
-    public function addElement(string ...$element): self
+    public function addElement(string ...$element): static
     {
         $this->elements = $element;
 
@@ -97,9 +97,9 @@ class Relationship extends RelationalField
      * Set the minimum number of posts.
      *
      * @param int $min
-     * @return self
+     * @return static
      */
-    public function setMin(int $min): self
+    public function setMin(int $min): static
     {
         $this->min = $min;
 
@@ -110,9 +110,9 @@ class Relationship extends RelationalField
      * Set the maximum number of posts.
      *
      * @param int $max
-     * @return self
+     * @return static
      */
-    public function setMax(int $max): self
+    public function setMax(int $max): static
     {
         $this->max = $max;
 
@@ -123,16 +123,16 @@ class Relationship extends RelationalField
      * Set the return format.
      *
      * @param 'object'|'id' $return_format
-     * @return self
+     * @return static
      */
-    public function setReturnFormat(string $return_format): self
+    public function setReturnFormat(string $return_format): static
     {
         $this->return_format = $return_format;
 
         return $this;
     }
 
-    public function setBidirectional(bool $bidirectional): self
+    public function setBidirectional(bool $bidirectional): static
     {
         $this->bidirectional = (int) $bidirectional;
 
@@ -144,9 +144,9 @@ class Relationship extends RelationalField
      *
      *
      * @param string $field
-     * @return self
+     * @return static
      */
-    public function setBidirectionalTarget(string $field): self
+    public function setBidirectionalTarget(string $field): static
     {
         if ($this->bidirectional_target === '') {
             $this->bidirectional_target = [];
@@ -157,7 +157,7 @@ class Relationship extends RelationalField
         return $this;
     }
 
-    public function setInstructions(string $value): self
+    public function setInstructions(string $value): static
     {
         $defaultInstruction = Instructions::$DEFAULT_INSTRUCTION_RELATIONSHIP;
 

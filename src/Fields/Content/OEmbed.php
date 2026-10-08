@@ -21,7 +21,7 @@ class OEmbed extends FieldContent
      * @param string $value
      * @return static
      */
-    public function setWidth(string $value): self
+    public function setWidth(string $value): static
     {
         $this->width = $value;
 
@@ -34,7 +34,7 @@ class OEmbed extends FieldContent
      * @param string $value
      * @return static
      */
-    public function setHeight(string $value): self
+    public function setHeight(string $value): static
     {
         $this->height = $value;
 

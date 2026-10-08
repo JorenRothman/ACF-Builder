@@ -62,7 +62,7 @@ class FieldGroup
      * @param string $value
      * @return FieldGroup
      */
-    protected function setKey(string $value): self
+    protected function setKey(string $value): static
     {
         $this->key = 'group_' . $value;
 
@@ -75,7 +75,7 @@ class FieldGroup
      * @param integer $value
      * @return FieldGroup
      */
-    public function setMenuOrder(int $value): self
+    public function setMenuOrder(int $value): static
     {
         $this->menu_order = $value;
 
@@ -88,7 +88,7 @@ class FieldGroup
      * @param 'normal'|'side'|'acf_after_title' $value
      * @return FieldGroup
      */
-    public function setPosition(string $value): self
+    public function setPosition(string $value): static
     {
         $this->position = $value;
 
@@ -101,7 +101,7 @@ class FieldGroup
      * @param 'default'|'seamless' $value
      * @return FieldGroup
      */
-    public function setStyle(string $value): self
+    public function setStyle(string $value): static
     {
         $this->style = $value;
 
@@ -114,7 +114,7 @@ class FieldGroup
      * @param 'top'|'left' $value
      * @return FieldGroup
      */
-    public function setLabelPlacement(string $value): self
+    public function setLabelPlacement(string $value): static
     {
         $this->label_placement = $value;
 
@@ -127,7 +127,7 @@ class FieldGroup
      * @param 'label'|'field' $value
      * @return FieldGroup
      */
-    public function setInstructionPlacement(string $value): self
+    public function setInstructionPlacement(string $value): static
     {
         $this->instruction_placement = $value;
 
@@ -140,7 +140,7 @@ class FieldGroup
      * @param array<'permalink'|'the_content'|'excerpt'|'discussion'|'comments'|'revisions'|'slug'|'author'|'format'|'page_attributes'|'featured_image'|'categories'|'tags'|'send-trackbacks'> $value
      * @return FieldGroup
      */
-    public function setHideOnScreen(array $value): self
+    public function setHideOnScreen(array $value): static
     {
         $this->hide_on_screen = $value;
 
@@ -153,7 +153,7 @@ class FieldGroup
      * @param boolean $value
      * @return FieldGroup
      */
-    public function setActive(bool $value): self
+    public function setActive(bool $value): static
     {
         $this->active = $value;
 
@@ -166,7 +166,7 @@ class FieldGroup
      * @param string $value
      * @return FieldGroup
      */
-    public function setDescription(string $value): self
+    public function setDescription(string $value): static
     {
         $this->description = $value;
 
@@ -179,7 +179,7 @@ class FieldGroup
      * @param bool $value
      * @return FieldGroup
      */
-    public function setShowInRest(bool $value): self
+    public function setShowInRest(bool $value): static
     {
         $this->show_in_rest = $value;
 
@@ -192,7 +192,7 @@ class FieldGroup
      * @param FieldGroupLocations $locations
      * @return FieldGroup
      */
-    public function setLocations(FieldGroupLocations $locations): self
+    public function setLocations(FieldGroupLocations $locations): static
     {
         $this->location = $locations->build();
 
@@ -205,7 +205,7 @@ class FieldGroup
      * @param Field ...$fields
      * @return FieldGroup
      */
-    public function addField(Field ...$fields): self
+    public function addField(Field ...$fields): static
     {
         foreach ($fields as $field) {
             $field->onAddToFieldGroup($this);
@@ -223,9 +223,14 @@ class FieldGroup
      */
     public function build(): array
     {
+        $keys = [];
+        foreach ($this->fields as $field) {
+            $keys += $field->collectKeys();
+        }
+
         $data = json_decode(json_encode($this), true);
         $data['fields'] = array_values(array_map(
-            fn(Field $field) => $field->build(),
+            fn(Field $field) => $field->build('', $keys),
             $this->fields
         ));
 

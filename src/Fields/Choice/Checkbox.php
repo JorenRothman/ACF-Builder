@@ -27,9 +27,9 @@ class Checkbox extends ChoiceField
      * Set array of choices where the key is used as value and the value is used as label
      *
      * @param array $choices
-     * @return self
+     * @return static
      */
-    public function setChoices(array $choices): self
+    public function setChoices(array $choices): static
     {
         $this->choices = $choices;
 
@@ -40,9 +40,9 @@ class Checkbox extends ChoiceField
      * Set the allow custom state of the checkbox
      *
      * @param bool $allow_custom
-     * @return self
+     * @return static
      */
-    public function setAllowCustom(bool $allow_custom): self
+    public function setAllowCustom(bool $allow_custom): static
     {
         $this->allow_custom = (int) $allow_custom;
 
@@ -53,9 +53,9 @@ class Checkbox extends ChoiceField
      * Set the layout of the checkbox
      *
      * @param 'vertical'|'horizontal' $layout
-     * @return self
+     * @return static
      */
-    public function setLayout(string $layout): self
+    public function setLayout(string $layout): static
     {
         $this->layout = $layout;
 
@@ -66,9 +66,9 @@ class Checkbox extends ChoiceField
      * Set the toggle state of the checkbox
      *
      * @param bool $toggle
-     * @return self
+     * @return static
      */
-    public function setToggle(bool $toggle): self
+    public function setToggle(bool $toggle): static
     {
         $this->toggle = (int) $toggle;
 
@@ -79,9 +79,9 @@ class Checkbox extends ChoiceField
      * Set the return format of the checkbox
      *
      * @param 'value'|'label'|'array' $return_format
-     * @return self
+     * @return static
      */
-    public function setReturnFormat(string $return_format): self
+    public function setReturnFormat(string $return_format): static
     {
         $this->return_format = $return_format;
 
@@ -92,9 +92,9 @@ class Checkbox extends ChoiceField
      * Set the save custom state of the checkbox
      *
      * @param bool $save_custom
-     * @return self
+     * @return static
      */
-    public function setSaveCustom(bool $save_custom): self
+    public function setSaveCustom(bool $save_custom): static
     {
         $this->save_custom = (int) $save_custom;
 

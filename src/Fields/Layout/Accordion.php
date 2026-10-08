@@ -21,9 +21,9 @@ class Accordion extends Field
      * Set the open state of the accordion
      *
      * @param bool $open
-     * @return self
+     * @return static
      */
-    public function setOpen(bool $open): self
+    public function setOpen(bool $open): static
     {
         $this->open = $open;
 
@@ -34,9 +34,9 @@ class Accordion extends Field
      * Set the multi expand state of the accordion
      *
      * @param bool $multi_expand
-     * @return self
+     * @return static
      */
-    public function setMultiExpand(bool $multi_expand): self
+    public function setMultiExpand(bool $multi_expand): static
     {
         $this->multi_expand = $multi_expand;
 
@@ -47,9 +47,9 @@ class Accordion extends Field
      * Set the endpoint state of the accordion
      *
      * @param bool $endpoint
-     * @return self
+     * @return static
      */
-    public function setEndpoint(bool $endpoint): self
+    public function setEndpoint(bool $endpoint): static
     {
         $this->endpoint = $endpoint;
 

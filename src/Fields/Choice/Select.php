@@ -27,9 +27,9 @@ class Select extends ChoiceField
      * Set array of choices where the key is used as value and the value is used as label
      *
      * @param array $choices
-     * @return self
+     * @return static
      */
-    public function setChoices(array $choices): self
+    public function setChoices(array $choices): static
     {
         $this->choices = $choices;
 
@@ -40,9 +40,9 @@ class Select extends ChoiceField
      * Set the allow null state of the select
      *
      * @param bool $allow_null
-     * @return self
+     * @return static
      */
-    public function setAllowNull(bool $allow_null): self
+    public function setAllowNull(bool $allow_null): static
     {
         $this->allow_null = (int) $allow_null;
 
@@ -53,9 +53,9 @@ class Select extends ChoiceField
      * Set the multiple state of the select
      *
      * @param bool $multiple
-     * @return self
+     * @return static
      */
-    public function setMultiple(bool $multiple): self
+    public function setMultiple(bool $multiple): static
     {
         $this->multiple = (int) $multiple;
 
@@ -66,9 +66,9 @@ class Select extends ChoiceField
      * Set the ui state of the select
      *
      * @param bool $ui
-     * @return self
+     * @return static
      */
-    public function setUi(bool $ui): self
+    public function setUi(bool $ui): static
     {
         $this->ui = (int) $ui;
 
@@ -79,9 +79,9 @@ class Select extends ChoiceField
      * Set the return format of the select
      *
      * @param 'value'|'label'|'array' $return_format
-     * @return self
+     * @return static
      */
-    public function setReturnFormat(string $return_format): self
+    public function setReturnFormat(string $return_format): static
     {
         $this->return_format = $return_format;
 
@@ -92,9 +92,9 @@ class Select extends ChoiceField
      * Set the ajax state of the select
      *
      * @param bool $ajax
-     * @return self
+     * @return static
      */
-    public function setAjax(bool $ajax): self
+    public function setAjax(bool $ajax): static
     {
         $this->ajax = (int) $ajax;
 
@@ -105,9 +105,9 @@ class Select extends ChoiceField
      * Set the placeholder of the select
      *
      * @param string $placeholder
-     * @return self
+     * @return static
      */
-    public function setPlaceholder(string $placeholder): self
+    public function setPlaceholder(string $placeholder): static
     {
         $this->placeholder = $placeholder;
 
