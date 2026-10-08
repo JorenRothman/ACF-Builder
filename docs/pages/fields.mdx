@@ -307,6 +307,15 @@ $flexibleContent = FlexibleContent::make('Flexible Content Field')
     ->addLayout($layout);
 ```
 
+`addLayout()` accepts one or more layouts:
+
+```php
+$flexibleContent->addLayout(
+    FlexibleLayout::make('Text')->addSubField(Text::make('Content')),
+    FlexibleLayout::make('Media')->addSubField(Image::make('Image')),
+);
+```
+
 ### Accordion
 
 ```php

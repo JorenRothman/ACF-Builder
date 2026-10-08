@@ -77,4 +77,14 @@ final class FlexibleContentTest extends TestCase
         $this->assertEquals($first, $second);
         $this->assertEquals('field_content', $flexibleContent->key);
     }
+
+    public function testAddLayoutAcceptsMultipleLayouts()
+    {
+        $flexibleContent = new FlexibleContent('Content');
+        $flexibleContent->addLayout(new FlexibleLayout('Hero'), new FlexibleLayout('Text'));
+
+        $result = $flexibleContent->build();
+
+        $this->assertEquals(['layout_content_hero', 'layout_content_text'], array_keys($result['layouts']));
+    }
 }

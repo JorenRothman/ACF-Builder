@@ -41,11 +41,13 @@ class FlexibleContent extends Field
         return $this;
     }
 
-    public function addLayout(FlexibleLayout $layout): static
+    public function addLayout(FlexibleLayout ...$layouts): static
     {
-        $layout->setParent($this);
+        foreach ($layouts as $layout) {
+            $layout->setParent($this);
+        }
 
-        $this->layouts[] = $layout;
+        array_push($this->layouts, ...$layouts);
 
         return $this;
     }
