@@ -96,9 +96,13 @@ wp acf-builder migrate-keys
 
 The command migrates every field group passed to `register()` that uses `KeyStrategy::PATH`. It rewrites references in post, term, user and comment meta, options (options pages) and ACF block content in `post_content`, then flushes the object cache.
 
+Each reference is resolved from the name its value is stored under, e.g. `_page_blocks_0_title` belongs to the `title` field of the layout stored at index `0` of `page_blocks`. This migrates references written by any earlier key scheme, including keys from customised builders, and keeps them apart when field groups share layouts. References that don't resolve fall back to the 3.x key map, if that key maps to a single new key, and are skipped otherwise, e.g. values of fields that no longer exist. ACF block content always uses the map.
+
+Running the command again only touches references that changed since.
+
 Until the command has run, `get_field()` returns unformatted values for migrated groups, and `have_rows()` returns `false` for repeaters and flexible content.
 
-To inspect or run the migration yourself, get the map of old to new keys:
+To inspect the 3.x key map yourself:
 
 ```php
 $fieldGroup->migrationMap();
