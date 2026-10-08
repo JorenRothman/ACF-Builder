@@ -72,8 +72,9 @@ class Repeater extends Field
         return $this;
     }
 
-    public function collectKeys(string $scope = '', string $strategy = KeyStrategy::LEGACY): array
+    public function collectKeys(string $scope = '', ?string $strategy = null): array
     {
+        $strategy ??= KeyStrategy::getDefault();
         $keys = parent::collectKeys($scope, $strategy);
         $ownScope = $this->resolveScope($scope, $strategy);
 

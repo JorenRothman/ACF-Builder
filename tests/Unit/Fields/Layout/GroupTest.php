@@ -36,7 +36,7 @@ final class GroupTest extends TestCase
             'layout' => 'block',
             'sub_fields' => array(
                 array(
-                    'key' => 'field_field_group_field_text',
+                    'key' => 'field_group_text',
                     'label' => 'Text',
                     'name' => 'text',
                     'type' => 'text',
@@ -94,9 +94,9 @@ final class GroupTest extends TestCase
 
         $result = $group->build();
 
-        $this->assertEquals('field_field_group_field_toggle', $result['sub_fields'][0]['key']);
+        $this->assertEquals('field_group_toggle', $result['sub_fields'][0]['key']);
         $this->assertEquals(
-            [[['field' => 'field_field_group_field_toggle', 'operator' => '==', 'value' => '1']]],
+            [[['field' => 'field_group_toggle', 'operator' => '==', 'value' => '1']]],
             $result['sub_fields'][1]['conditional_logic']
         );
     }

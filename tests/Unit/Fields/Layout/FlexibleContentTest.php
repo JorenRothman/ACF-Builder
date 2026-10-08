@@ -32,8 +32,8 @@ final class FlexibleContentTest extends TestCase
                 'id' => '',
             ),
             'layouts' => array(
-                'layout_flexible_layout' => array(
-                    'key' => 'layout_flexible_layout',
+                'layout_flexible_content_flexible_layout' => array(
+                    'key' => 'layout_flexible_content_flexible_layout',
                     'name' => 'flexible_layout',
                     'label' => 'Flexible Layout',
                     'display' => 'block',
@@ -59,8 +59,8 @@ final class FlexibleContentTest extends TestCase
 
         $result = $flexibleContent->build();
 
-        $subField = $result['layouts']['layout_hero']['sub_fields'][0];
-        $this->assertEquals('field_layout_hero_field_heading', $subField['key']);
+        $subField = $result['layouts']['layout_content_hero']['sub_fields'][0];
+        $this->assertEquals('field_content_hero_heading', $subField['key']);
         $this->assertEquals('heading', $subField['name']);
     }
 

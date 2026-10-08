@@ -22,7 +22,7 @@ final class FlexibleLayoutTest extends TestCase
             'display' => 'block',
             'sub_fields' => [
                 [
-                    'key' => 'field_layout_flexible_layout_field_text_field',
+                    'key' => 'field_flexible_layout_text_field',
                     'label' => 'Text Field',
                     'name' => 'text_field',
                     'type' => 'text',

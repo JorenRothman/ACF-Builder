@@ -37,7 +37,7 @@ final class RepeaterTest extends TestCase
             'button_label' => 'Add Row',
             'sub_fields' => array(
                 array(
-                    'key' => 'field_field_repeater_field_text',
+                    'key' => 'field_repeater_text',
                     'label' => 'Text',
                     'name' => 'text',
                     'type' => 'text',
@@ -98,6 +98,6 @@ final class RepeaterTest extends TestCase
 
         $result = $build['collapsed'];
 
-        $this->assertEquals('field_field_repeater_field_text', $result);
+        $this->assertEquals('field_repeater_text', $result);
     }
 }

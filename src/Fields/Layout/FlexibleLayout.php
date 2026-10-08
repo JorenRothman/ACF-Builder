@@ -82,11 +82,12 @@ class FlexibleLayout
      * Collect the built keys of this layout and its sub fields, indexed by object id.
      *
      * @param string $scope Parent path, only used by KeyStrategy::PATH.
-     * @param string $strategy
+     * @param string|null $strategy Defaults to KeyStrategy::getDefault().
      * @return array<int, string>
      */
-    public function collectKeys(string $scope = '', string $strategy = KeyStrategy::LEGACY): array
+    public function collectKeys(string $scope = '', ?string $strategy = null): array
     {
+        $strategy ??= KeyStrategy::getDefault();
         if ($strategy === KeyStrategy::PATH) {
             $ownScope = $scope ? $scope . '_' . $this->keySegment : $this->keySegment;
             $keys = [spl_object_id($this) => 'layout_' . $ownScope];

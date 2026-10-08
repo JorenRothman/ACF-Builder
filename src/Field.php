@@ -129,11 +129,12 @@ abstract class Field
      * Resolve the key this field gets when built under the given parent scope.
      *
      * @param string $scope Parent key (legacy) or parent path (path).
-     * @param string $strategy
+     * @param string|null $strategy Defaults to KeyStrategy::getDefault().
      * @return string
      */
-    protected function resolveKey(string $scope, string $strategy = KeyStrategy::LEGACY): string
+    protected function resolveKey(string $scope, ?string $strategy = null): string
     {
+        $strategy ??= KeyStrategy::getDefault();
         if ($strategy === KeyStrategy::PATH) {
             return 'field_' . $this->resolveScope($scope, $strategy);
         }
@@ -147,11 +148,12 @@ abstract class Field
      * Resolve the scope this field's sub fields are keyed under.
      *
      * @param string $scope Parent key (legacy) or parent path (path).
-     * @param string $strategy
+     * @param string|null $strategy Defaults to KeyStrategy::getDefault().
      * @return string
      */
-    protected function resolveScope(string $scope, string $strategy = KeyStrategy::LEGACY): string
+    protected function resolveScope(string $scope, ?string $strategy = null): string
     {
+        $strategy ??= KeyStrategy::getDefault();
         if ($strategy === KeyStrategy::PATH) {
             return $scope ? $scope . '_' . $this->keySegment : $this->keySegment;
         }
@@ -163,11 +165,12 @@ abstract class Field
      * Collect the built keys of this field and its descendants, indexed by object id.
      *
      * @param string $scope Parent key (legacy) or parent path (path).
-     * @param string $strategy
+     * @param string|null $strategy Defaults to KeyStrategy::getDefault().
      * @return array<int, string>
      */
-    public function collectKeys(string $scope = '', string $strategy = KeyStrategy::LEGACY): array
+    public function collectKeys(string $scope = '', ?string $strategy = null): array
     {
+        $strategy ??= KeyStrategy::getDefault();
         return [spl_object_id($this) => $this->resolveKey($scope, $strategy)];
     }
 

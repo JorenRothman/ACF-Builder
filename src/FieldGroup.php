@@ -43,8 +43,6 @@ class FieldGroup
 
     protected string $keyStrategy;
 
-    protected static string $defaultKeyStrategy = KeyStrategy::LEGACY;
-
     /**
      * Field groups passed to register(), used by the migrate-keys command.
      *
@@ -67,7 +65,7 @@ class FieldGroup
 
         $this->setKey($key ?? $this->name);
 
-        $this->keyStrategy = static::$defaultKeyStrategy;
+        $this->keyStrategy = KeyStrategy::getDefault();
     }
 
     /**
@@ -78,9 +76,7 @@ class FieldGroup
      */
     public static function setDefaultKeyStrategy(string $strategy): void
     {
-        KeyStrategy::assertValid($strategy);
-
-        static::$defaultKeyStrategy = $strategy;
+        KeyStrategy::setDefault($strategy);
     }
 
     /**

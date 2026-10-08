@@ -6,8 +6,8 @@ ACF stores every value twice: under the field **name** (`hero_title`) and a refe
 
 | Strategy | Example key | |
 | :--- | :--- | :--- |
-| `KeyStrategy::LEGACY` | `field_field_hero_field_cta_field_title` | Default, the 3.x scheme |
-| `KeyStrategy::PATH` | `field_hero_cta_title` | Path of names from the field group down |
+| `KeyStrategy::PATH` | `field_hero_cta_title` | Default since 4.0, path of names from the field group down |
+| `KeyStrategy::LEGACY` | `field_field_hero_field_cta_field_title` | The 3.x scheme |
 
 Field names are the same in both strategies, only keys differ.
 
@@ -18,13 +18,13 @@ use JorenRothman\ACFBuilder\FieldGroup;
 use JorenRothman\ACFBuilder\KeyStrategy;
 
 $fieldGroup = new FieldGroup('Hero');
-$fieldGroup->setKeyStrategy(KeyStrategy::PATH);
+$fieldGroup->setKeyStrategy(KeyStrategy::LEGACY);
 ```
 
 Or once for all field groups created afterwards:
 
 ```php
-FieldGroup::setDefaultKeyStrategy(KeyStrategy::PATH);
+FieldGroup::setDefaultKeyStrategy(KeyStrategy::LEGACY);
 ```
 
 ### Path Keys
@@ -32,7 +32,7 @@ FieldGroup::setDefaultKeyStrategy(KeyStrategy::PATH);
 Every field and flexible content layout is keyed by the names of the field group and its parents:
 
 ```php
-$fieldGroup = (new FieldGroup('Page'))->setKeyStrategy(KeyStrategy::PATH);
+$fieldGroup = new FieldGroup('Page');
 
 $fieldGroup->addField(
     Group::make('CTA')->addSubField(Text::make('Title')),          // field_page_cta_title
@@ -46,12 +46,27 @@ A custom key replaces the field's own segment, not the whole key: `Text::make('T
 
 Path keys must be unique. `build()` throws a `LogicException` listing the duplicates, for example when `CTA > Title` and a field named `CTA Title` both resolve to `field_page_cta_title`.
 
-## Migrating an Existing Site
+## Upgrading from 3.x
 
-Switching a field group that already has saved values to `KeyStrategy::PATH` requires rewriting the stored key references. Values themselves are never touched.
+4.0 generates different keys for every field, so a site with saved values needs one of the following.
+
+### Keep the 3.x keys
+
+Opt out before any field group is created. Nothing else changes:
+
+```php
+use JorenRothman\ACFBuilder\FieldGroup;
+use JorenRothman\ACFBuilder\KeyStrategy;
+
+FieldGroup::setDefaultKeyStrategy(KeyStrategy::LEGACY);
+```
+
+### Migrate to path keys
+
+Rewrite the stored key references. Values themselves are never touched.
 
 1. Back up the database.
-2. Set `KeyStrategy::PATH` on the field groups to migrate and deploy.
+2. Deploy 4.0 with path keys.
 3. Run the WP-CLI command, first as a dry run:
 
 ```bash

@@ -75,7 +75,7 @@ final class FieldGroupTest extends TestCase
         $result = $group->build();
 
         $this->assertCount(1, $result['fields']);
-        $this->assertEquals('field_my_group_field_title', $result['fields'][0]['key']);
+        $this->assertEquals('field_my_group_title', $result['fields'][0]['key']);
         $this->assertEquals('my_group_title', $result['fields'][0]['name']);
     }
 
@@ -113,8 +113,8 @@ final class FieldGroupTest extends TestCase
         $result      = $group->build();
         $repeaterOut = $result['fields'][0];
 
-        $this->assertEquals('field_my_group_field_items', $repeaterOut['key']);
-        $this->assertEquals('field_field_my_group_field_items_field_label', $repeaterOut['sub_fields'][0]['key']);
+        $this->assertEquals('field_my_group_items', $repeaterOut['key']);
+        $this->assertEquals('field_my_group_items_label', $repeaterOut['sub_fields'][0]['key']);
     }
 
     public function testBuildWithConditionalLogic()
@@ -134,7 +134,7 @@ final class FieldGroupTest extends TestCase
 
         $emailOut = $result['fields'][1];
         $this->assertEquals([
-            [['field' => 'field_my_group_field_show_email', 'operator' => '==', 'value' => '1']],
+            [['field' => 'field_my_group_show_email', 'operator' => '==', 'value' => '1']],
         ], $emailOut['conditional_logic']);
     }
 

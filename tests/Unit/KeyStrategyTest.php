@@ -15,7 +15,7 @@ final class KeyStrategyTest extends TestCase
 {
     protected function tearDown(): void
     {
-        FieldGroup::setDefaultKeyStrategy(KeyStrategy::LEGACY);
+        KeyStrategy::setDefault(KeyStrategy::PATH);
     }
 
     private function pathGroup(string $title): FieldGroup
@@ -23,11 +23,50 @@ final class KeyStrategyTest extends TestCase
         return (new FieldGroup($title))->setKeyStrategy(KeyStrategy::PATH);
     }
 
-    public function testLegacyIsDefault()
+    public function testPathIsDefault()
     {
         $result = (new FieldGroup('Hero'))->addField(new Text('Title'))->build();
 
+        $this->assertEquals('field_hero_title', $result['fields'][0]['key']);
+    }
+
+    public function testLegacyOptOut()
+    {
+        $result = (new FieldGroup('Hero'))
+            ->setKeyStrategy(KeyStrategy::LEGACY)
+            ->addField(new Text('Title'))
+            ->build();
+
         $this->assertEquals('field_hero_field_title', $result['fields'][0]['key']);
+    }
+
+    public function testLegacyBuildMatches3xOutput()
+    {
+        $toggle = TrueFalse::make('Toggle');
+        $title = Text::make('Title');
+        $sibling = Text::make('Sibling')
+            ->setConditionalLogic((new FieldConditionalLogic)->and($title, '!=', ''));
+
+        $fieldGroup = (new FieldGroup('Page Settings'))
+            ->setKeyStrategy(KeyStrategy::LEGACY)
+            ->addField(
+                $toggle,
+                Group::make('CTA', null, 'my-cta')->addSubField(
+                    Text::make('Label'),
+                    Repeater::make('Items')->addSubField($title, $sibling)->setCollapsed($title)
+                ),
+                FlexibleContent::make('Blocks')->addLayout(
+                    FlexibleLayout::make('Hero')->addSubField(
+                        Text::make('Heading'),
+                        Group::make('Inner')->addSubField(Text::make('X'))
+                    )
+                )
+            );
+
+        $this->assertJsonStringEqualsJsonFile(
+            __DIR__ . '/../fixtures/legacy-build.json',
+            json_encode($fieldGroup->build())
+        );
     }
 
     public function testTopLevelFieldKey()
@@ -123,11 +162,11 @@ final class KeyStrategyTest extends TestCase
 
     public function testDefaultKeyStrategy()
     {
-        FieldGroup::setDefaultKeyStrategy(KeyStrategy::PATH);
+        FieldGroup::setDefaultKeyStrategy(KeyStrategy::LEGACY);
 
         $result = (new FieldGroup('Hero'))->addField(new Text('Title'))->build();
 
-        $this->assertEquals('field_hero_title', $result['fields'][0]['key']);
+        $this->assertEquals('field_hero_field_title', $result['fields'][0]['key']);
     }
 
     public function testUnknownStrategyThrows()
