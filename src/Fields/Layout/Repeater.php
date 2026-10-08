@@ -19,9 +19,9 @@ class Repeater extends Field
 
     public array $sub_fields = [];
 
-    public function addSubField(Field $field): self
+    public function addSubField(Field ...$fields): self
     {
-        $this->sub_fields[] = $field;
+        array_push($this->sub_fields, ...$fields);
 
         return $this;
     }

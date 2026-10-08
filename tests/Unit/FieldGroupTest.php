@@ -76,6 +76,30 @@ final class FieldGroupTest extends TestCase
         $this->assertEquals('my_group_title', $result['fields'][0]['name']);
     }
 
+    public function testAddMultipleFields()
+    {
+        $group = new FieldGroup('My Group');
+        $group->addField(new Text('Title'), new Text('Subtitle'));
+
+        $result = $group->build();
+
+        $this->assertCount(2, $result['fields']);
+        $this->assertEquals('my_group_title', $result['fields'][0]['name']);
+        $this->assertEquals('my_group_subtitle', $result['fields'][1]['name']);
+    }
+
+    public function testAddMultipleSubFields()
+    {
+        $group = new FieldGroup('My Group');
+        $repeater = new Repeater('Items');
+        $repeater->addSubField(new Text('Label'), new Text('Value'));
+        $group->addField($repeater);
+
+        $result = $group->build();
+
+        $this->assertCount(2, $result['fields'][0]['sub_fields']);
+    }
+
     public function testBuildWithRepeater()
     {
         $group    = new FieldGroup('My Group');

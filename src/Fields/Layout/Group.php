@@ -16,9 +16,9 @@ class Group extends Field
         $this->type = 'group';
     }
 
-    public function addSubField(Field $field): self
+    public function addSubField(Field ...$fields): self
     {
-        $this->sub_fields[] = $field;
+        array_push($this->sub_fields, ...$fields);
 
         return $this;
     }

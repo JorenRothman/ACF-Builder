@@ -62,6 +62,29 @@ $fieldGroup
 
 ---
 
+## Adding Fields
+
+`addField()` accepts one or more fields:
+
+```php
+use JorenRothman\ACFBuilder\Fields\Basic\Text;
+use JorenRothman\ACFBuilder\Fields\Basic\Email;
+
+$fieldGroup->addField(Text::make('Name'));
+
+$fieldGroup->addField(
+    Text::make('Title'),
+    Text::make('Subtitle'),
+    Email::make('Email'),
+);
+```
+
+Or spread an array of fields:
+
+```php
+$fieldGroup->addField(...$fields);
+```
+
 ## Locations
 
 `FieldGroupLocations` controls where a field group appears in the WordPress admin.

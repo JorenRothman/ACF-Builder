@@ -285,6 +285,15 @@ $repeater = Repeater::make('Repeater Field')
     ->addSubField(Text::make('Sub Text'));
 ```
 
+`addSubField()` accepts one or more fields on `Group`, `Repeater` and `FlexibleLayout`:
+
+```php
+$repeater->addSubField(
+    Text::make('Label'),
+    Text::make('Value'),
+);
+```
+
 ### Flexible Content
 
 ```php

@@ -39,9 +39,9 @@ class FlexibleLayout
         $this->key = 'layout_' . $value;
     }
 
-    public function addSubField(Field $field): self
+    public function addSubField(Field ...$fields): self
     {
-        $this->sub_fields[] = $field;
+        array_push($this->sub_fields, ...$fields);
 
         return $this;
     }

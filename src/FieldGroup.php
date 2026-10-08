@@ -200,16 +200,18 @@ class FieldGroup
     }
 
     /**
-     * Add a field to the field group.
+     * Add one or more fields to the field group.
      *
-     * @param Field $field
+     * @param Field ...$fields
      * @return FieldGroup
      */
-    public function addField(Field $field): self
+    public function addField(Field ...$fields): self
     {
-        $field->onAddToFieldGroup($this);
+        foreach ($fields as $field) {
+            $field->onAddToFieldGroup($this);
 
-        $this->fields[] = $field;
+            $this->fields[] = $field;
+        }
 
         return $this;
     }

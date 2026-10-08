@@ -22,8 +22,7 @@ $isTrueFalseTrue->and($trueFalse, '==', true);
 $textField = Text::make('My Text Field');
 $textField->setConditionalLogic($isTrueFalseTrue);
 
-$fieldGroup->addField($trueFalse);
-$fieldGroup->addField($textField);
+$fieldGroup->addField($trueFalse, $textField);
 ```
 
 ## Chaining with `or()`
